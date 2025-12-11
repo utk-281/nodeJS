@@ -10,7 +10,7 @@
 //   console.log("Promise");
 // });
 
-// console.log("hello world");
+console.log("hello world");
 
 //~ open the terminal with the path of the folder in which the file is present.
 //! to execute any js file using nodeJS , type
