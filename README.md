@@ -1,3 +1,7 @@
+Perfect! Now I have all the updated information. Let me create the corrected and updated documentation based on the actual repository content and the diagrams provided.
+
+---
+
 # **Node.js Learning Repository - Complete Documentation**
 
 ## **Table of Contents**
@@ -9,24 +13,21 @@
 5. [Installation Guide](#installation-guide)
 6. [Technology Stack](#technology-stack)
 7. [Module Breakdown](#module-breakdown)
-   - [JavaScript Fundamentals](#javascript-fundamentals)
-   - [Starter Module](#starter-module)
-   - [Node.js Modules System](#nodejs-modules-system)
-   - [File System (fs) Module](#file-system-fs-module)
-   - [User-Defined Modules](#user-defined-modules)
 8. [Core Concepts Covered](#core-concepts-covered)
-9. [Detailed Code Examples](#detailed-code-examples)
-10. [Execution Instructions](#execution-instructions)
-11. [File System Operations Guide](#file-system-operations-guide)
-12. [Module Import/Export Patterns](#module-importexport-patterns)
-13. [Best Practices and Design Patterns](#best-practices-and-design-patterns)
-14. [Common Pitfalls and Solutions](#common-pitfalls-and-solutions)
-15. [Future Roadmap](#future-roadmap)
-16. [Contributing Guidelines](#contributing-guidelines)
-17. [Troubleshooting](#troubleshooting)
-18. [Resources and References](#resources-and-references)
-19. [License](#license)
-20. [Version Information](#version-information)
+9. [Node.js Architecture & Event Loop](#nodejs-architecture--event-loop)
+10. [Concurrency and Parallelism](#concurrency-and-parallelism)
+11. [Detailed Code Examples](#detailed-code-examples)
+12. [Execution Instructions](#execution-instructions)
+13. [File System Operations Guide](#file-system-operations-guide)
+14. [Module Import/Export Patterns](#module-importexport-patterns)
+15. [Best Practices and Design Patterns](#best-practices-and-design-patterns)
+16. [Common Pitfalls and Solutions](#common-pitfalls-and-solutions)
+17. [Future Roadmap](#future-roadmap)
+18. [Contributing Guidelines](#contributing-guidelines)
+19. [Troubleshooting](#troubleshooting)
+20. [Resources and References](#resources-and-references)
+21. [License](#license)
+22. [Version Information](#version-information)
 
 ---
 
@@ -39,8 +40,9 @@ This repository serves as a **comprehensive learning resource** for **JavaScript
 - Provide hands-on examples of JavaScript execution models
 - Demonstrate asynchronous programming patterns in JavaScript
 - Introduce Node.js module systems (CommonJS and ES Modules)
-- Teach file system operations using Node.js `fs` module
+- Teach file system operations using Node.js `fs` module (synchronous and asynchronous)
 - Show practical examples of module import/export patterns
+- Explain Node.js architecture, event loop, and libUV
 - Serve as a reference for beginners learning JavaScript and Node.js
 
 ### **Target Audience**
@@ -49,6 +51,7 @@ This repository serves as a **comprehensive learning resource** for **JavaScript
 - Developers transitioning from synchronous to asynchronous programming
 - Students exploring module systems and code organization
 - Programmers learning file system operations in Node.js
+- Developers understanding Node.js internals and event loop
 
 ### **Repository Information**
 
@@ -57,7 +60,7 @@ This repository serves as a **comprehensive learning resource** for **JavaScript
 - **Primary Language**: JavaScript
 - **License**: Not specified
 - **Created**: December 9, 2025
-- **Last Updated**: December 12, 2025
+- **Last Updated**: December 16, 2025
 - **Repository URL**: [https://github.com/utk-281/nodeJS](https://github.com/utk-281/nodeJS)
 
 ---
@@ -73,7 +76,9 @@ nodeJS/
 ├── Node/
 │   └── Modules/
 │       ├── Built In/
-│       │   └── fs.js                                 # File System module examples
+│       │   ├── fs.js                                 # File System module (sync & async)
+│       │   ├── demo.txt                              # Demo text file
+│       │   └── demo.py                               # Demo Python file
 │       ├── User Defined/
 │       │   ├── ex-1/
 │       │   │   ├── file1.js                          # Export examples (CommonJS & ESM)
@@ -86,65 +91,38 @@ nodeJS/
 ├── Starter/
 │   └── demo.js                                       # Basic Node.js execution examples
 │
-├── demo.js                                           # Root level demo file
+├── demo.js                                           # Promise demonstration
 └── README.md                                         # Repository documentation
 ```
-
-### **Directory Explanation**
-
-| Directory/File                    | Purpose                       | Description                                                              |
-| --------------------------------- | ----------------------------- | ------------------------------------------------------------------------ |
-| `JavaScript/`                     | Frontend JavaScript concepts  | HTML file with embedded JavaScript demonstrating browser-based execution |
-| `Node/Modules/Built In/`          | Node.js core modules          | Demonstrates built-in modules like `fs` (File System)                    |
-| `Node/Modules/User Defined/ex-1/` | Module export/import patterns | Shows CommonJS and ES Module syntax for exporting and importing          |
-| `Node/Modules/User Defined/ex-2/` | Module loading behavior       | Demonstrates module execution order and synchronous loading              |
-| `Node/Modules/modules.js`         | Module system fundamentals    | Explains module wrapper function, global variables, and module types     |
-| `Starter/`                        | Getting started examples      | Basic Node.js execution and global object demonstrations                 |
-| `demo.js` (root)                  | Simple demonstration file     | Basic JavaScript object shorthand syntax                                 |
-| `README.md`                       | Repository documentation      | Comprehensive guide (this document)                                      |
 
 ---
 
 ## **What's New**
 
-### **Recent Additions (December 12, 2025)**
+### **Recent Additions (December 2025)**
 
-#### **✨ File System Module**
+#### **✨ Enhanced File System Module**
 
 - **Location**: `Node/Modules/Built In/fs.js`
 - **Features**:
-  - Synchronous file operations (CRUD)
-  - Create, read, update, and delete files
-  - Directory creation with nested structure
-  - Buffer and encoding demonstrations
-  - Error handling with try-catch blocks
+  - **Synchronous operations**: Create, read, append, delete, rename, copy files
+  - **Asynchronous operations**: Using callbacks, promises (then/catch), and async/await
+  - Directory operations: Create, remove directories (recursive options)
+  - File/folder renaming and moving
+  - Error-first callback pattern demonstration
+  - Promise-based fs operations (`fs/promises`)
 
-#### **✨ User-Defined Modules - Example 1**
+#### **✨ Promise Demonstration**
 
-- **Location**: `Node/Modules/User Defined/ex-1/`
+- **Location**: `demo.js` (root)
 - **Features**:
-  - CommonJS export patterns (`module.exports`)
-  - ES Module export patterns (`export`, `export default`)
-  - Named exports and default exports
-  - Import with destructuring
+  - Promise creation and resolution
+  - Promise chaining
+  - Error handling with catch
 
-#### **✨ User-Defined Modules - Example 2**
+#### **✨ Demo Files**
 
-- **Location**: `Node/Modules/User Defined/ex-2/`
-- **Features**:
-  - Module loading demonstration
-  - Execution order of imported modules
-  - Synchronous `require()` behavior
-  - Module wrapper function in action
-
-#### **✨ Enhanced Module Documentation**
-
-- **Location**: `Node/Modules/modules.js`
-- **Features**:
-  - Module wrapper function explanation
-  - Global variables (`__dirname`, `__filename`, etc.)
-  - Detailed module types documentation
-  - CommonJS vs ES Modules comparison
+- `demo.txt` and `demo.py` - Created for file operation demonstrations
 
 ---
 
@@ -181,6 +159,7 @@ Before using this repository, ensure you have the following installed:
 - Familiarity with command-line/terminal operations
 - Basic HTML knowledge (for browser examples)
 - Understanding of JavaScript syntax
+- Basic understanding of asynchronous programming concepts
 
 ---
 
@@ -243,13 +222,10 @@ This repository uses vanilla JavaScript and Node.js core modules. No package ins
 
 ### **Node.js Built-in Modules**
 
-| Module     | Purpose                        | Used In                       |
-| ---------- | ------------------------------ | ----------------------------- |
-| **fs**     | File System operations         | `Node/Modules/Built In/fs.js` |
-| **http**   | HTTP server creation (planned) | Future implementation         |
-| **path**   | File path manipulation         | Future implementation         |
-| **crypto** | Cryptographic operations       | Future implementation         |
-| **os**     | Operating system utilities     | Future implementation         |
+| Module          | Purpose                       | Used In                       |
+| --------------- | ----------------------------- | ----------------------------- |
+| **fs**          | File System operations        | `Node/Modules/Built In/fs.js` |
+| **fs/promises** | Promise-based file operations | `Node/Modules/Built In/fs.js` |
 
 ### **Browser APIs Used**
 
@@ -275,35 +251,24 @@ This repository uses vanilla JavaScript and Node.js core modules. No package ins
    - Blocking code behavior
    - Single-threaded execution model
    - Call stack operations
-   - For-loop blocking demonstration
 
 2. **Asynchronous Execution**
 
    - Event loop mechanism
    - Callback queue vs Microtask queue
    - Priority execution order
-   - Non-blocking code patterns
 
 3. **Promises**
 
-   - Promise creation with `new Promise()`
+   - Promise creation and consumption
    - `.then()` and `.catch()` handlers
    - Promise chaining
-   - Fetch API usage with JSONPlaceholder
-   - Handling JSON responses
+   - Fetch API usage
 
 4. **Async/Await**
    - Modern asynchronous syntax
-   - `async` function declaration
-   - `await` keyword for promise suspension
+   - Function suspension with `await`
    - Error handling in async functions
-   - Cleaner alternative to promise chaining
-
-**File Structure**:
-
-- HTML document with embedded `<script>` tag
-- Multiple commented examples for hands-on practice
-- Real-world fetch examples using JSONPlaceholder API
 
 ---
 
@@ -318,31 +283,52 @@ This repository uses vanilla JavaScript and Node.js core modules. No package ins
 1. **Node.js Execution**
 
    - Command-line execution: `node filename.js`
-   - File extension optional in commands
-   - Terminal/command prompt usage
+   - File extension optional
 
 2. **Global Object**
 
    - Node.js `global` object vs browser's `window`
-   - Global scope in Node.js environment
-   - Differences from browser environment
 
 3. **Event Loop in Node.js**
    - `setTimeout()` in Node.js context
    - `Promise.resolve()` execution
-   - Microtask vs callback queue priority
-   - Console logging for visualization
 
-**Code Highlights**:
+---
+
+### **Promise Demonstration**
+
+**Location**: `demo.js` (root directory)
+
+**Purpose**: Demonstrates promise creation, resolution, and chaining.
+
+**Code**:
 
 ```javascript
-console.log("hello world");
+let promise = new Promise((res, rej) => {
+  let a = 20;
+  if (a == 20) res({ name: "abc", age: 34 });
+  else rej("false");
+});
 
-// Open terminal with folder path
-// Execute: node filename.js
-// Extension is optional
-// Global object in Node.js is "GLOBAL"
+promise
+  .then((abc) => {
+    console.log(abc);
+    return abc;
+  })
+  .then((payload) => {
+    console.log(payload.name);
+  })
+  .catch((xyz) => {
+    console.log(xyz);
+  });
 ```
+
+**Key Concepts**:
+
+- Promise constructor with `resolve` and `reject`
+- Promise chaining with multiple `.then()`
+- Returning values for next `.then()`
+- Error handling with `.catch()`
 
 ---
 
@@ -350,7 +336,7 @@ console.log("hello world");
 
 **Location**: `Node/Modules/modules.js`
 
-**Purpose**: Comprehensive explanation of Node.js module systems, wrapper functions, and global variables.
+**Purpose**: Comprehensive explanation of Node.js module systems.
 
 **Key Topics**:
 
@@ -358,56 +344,37 @@ console.log("hello world");
 
 Modules are reusable pieces of code that promote:
 
-- **Readability**: Clean and organized code structure
-- **Maintainability**: Easier to update and debug
+- **Readability**: Clean and organized code
+- **Maintainability**: Easier updates and debugging
 - **Scalability**: Break complex applications into manageable pieces
 - **DRY Principle**: Don't Repeat Yourself
-- **Modularity**: Separation of concerns
 
 #### **2. Module Formats**
 
-##### **a) CommonJS Modules**
+##### **CommonJS Modules** (Default in Node.js)
 
-- Default in Node.js
 - Uses `require()` and `module.exports`
 - Synchronous loading
-- Widely supported in Node.js ecosystem
 
-##### **b) ES Modules (ESM)**
+##### **ES Modules (ESM)**
 
-- Modern JavaScript standard
 - Uses `import` and `export`
 - Asynchronous loading
-- Requires `.mjs` extension or `"type": "module"` in package.json
+- Requires configuration in `package.json`
 
-#### **3. Module Types in Node.js**
+#### **3. Module Types**
 
-##### **i) User-Defined Modules / Custom Modules**
-
-- Created by developers
-- Custom business logic
-- Application-specific functionality
-
-##### **ii) Built-in Modules / Core Modules**
-
-- Part of Node.js installation
-- No installation required
-- Examples: `http`, `fs`, `os`, `crypto`, `path`, `cluster`, `worker_threads`, `qs`, `queryString`
-
-##### **iii) Third-Party Modules / External Modules**
-
-- Installed from NPM
-- Community-contributed packages
-- Examples: `express`, `mongodb`, `multer`, `dotenv`
+1. **User-Defined/Custom Modules**: Created by developers
+2. **Built-in/Core Modules**: Part of Node.js installation (http, fs, os, crypto, path, cluster, worker_threads, qs, queryString)
+3. **Third-Party/External Modules**: Installed from NPM
 
 #### **4. Module Wrapper Function**
 
-Node.js internally wraps all CommonJS code in an **IIFE (Immediately Invoked Function Expression)**:
+Node.js internally wraps all CommonJS code in an IIFE:
 
 ```javascript
 (function (exports, require, module, __filename, __dirname) {
   // Your code here
-  console.log("hello");
   console.log(__filename);
   console.log(__dirname);
   console.log(module);
@@ -424,25 +391,13 @@ Node.js internally wraps all CommonJS code in an **IIFE (Immediately Invoked Fun
 - `__filename` - Absolute path of current file
 - `__dirname` - Absolute path of current directory
 
-#### **5. Global Variables and Functions**
+#### **5. Global Variables**
 
 Variables available without importing:
 
-- `__dirname` - Current directory path
-- `__filename` - Current file path
-- `setTimeout()` - Timer function
-- `setInterval()` - Interval function
-- `console` - Logging object
-- `process` - Process information
-- `Buffer` - Binary data handling
-- `global` - Global object
-
-**Example**:
-
-```javascript
-console.log(__dirname); // C:\Users\ASUS\Desktop\Classes\node_1700\Node\Modules
-console.log(__filename); // C:\Users\ASUS\Desktop\Classes\node_1700\Node\Modules\modules.js
-```
+- `__dirname`, `__filename`
+- `setTimeout()`, `setInterval()`
+- `console`, `process`, `Buffer`, `global`
 
 ---
 
@@ -450,395 +405,228 @@ console.log(__filename); // C:\Users\ASUS\Desktop\Classes\node_1700\Node\Modules
 
 **Location**: `Node/Modules/Built In/fs.js`
 
-**Purpose**: Comprehensive guide to file system operations using Node.js built-in `fs` module.
+**Purpose**: Comprehensive guide to file system operations (both synchronous and asynchronous).
 
-**Key Features**:
-
-#### **1. Module Import Syntax**
-
-```javascript
-// Preferred modern syntax
-const fs = require("node:fs");
-
-// Traditional syntax (also works)
-const fs = require("fs");
-```
-
-#### **2. File Operations (CRUD)**
+#### **1. Synchronous Operations**
 
 ##### **a) Create/Write File - `writeFileSync()`**
 
-**Syntax**: `fs.writeFileSync("path/filename.extension", "content")`
-
-**Features**:
-
-- Creates a new file with specified content
-- Overwrites existing file completely
-- Accepts any file extension
-- Synchronous operation (blocks code execution)
-
-**Example**:
-
 ```javascript
-fs.writeFileSync("./someOther.json", ` `);
+const fs = require("node:fs");
+
+fs.writeFileSync("./file.txt", "content");
 console.log("file created");
 ```
 
+**Notes**:
+
+- Overwrites existing files completely
+- Accepts any file extension
+
 ##### **b) Read File - `readFileSync()`**
-
-**Syntax**: `fs.readFileSync("path/filename", "encoding")`
-
-**Features**:
-
-- Reads file contents
-- Returns Buffer object by default
-- Requires encoding specification for readable text
-- Common encodings: `utf-8`, `ascii`, `base64`
-
-**Buffer Explanation**:
-
-- Buffer is an array-like structure storing binary data
-- Each element represents a byte (8 bits)
-- Used for efficient binary data handling
-
-**Character Encoding**:
-
-- **ASCII**: 126 characters (basic English)
-- **Unicode**: Universal character set (all languages)
-- **UTF-8**: Variable-length encoding (1-4 bytes per character)
-  - Backward compatible with ASCII
-  - Most popular on the web
-  - Efficient for English and European languages
-
-**Example**:
 
 ```javascript
 // Returns Buffer
-let content = fs.readFileSync("../../../demo.js");
-console.log(content); // <Buffer 6c 65 74 20 75 73 65 72...>
+let content = fs.readFileSync("./file.txt");
+console.log(content); // <Buffer ...>
 
-// Convert Buffer to string
+// Convert to string
 let readableContent = content.toString(); // default: utf-8
-console.log(readableContent);
 
 // Direct reading with encoding
-let res = fs.readFileSync("../modules.js", "utf-8");
-console.log(res);
+let res = fs.readFileSync("./file.txt", "utf-8");
 ```
 
-##### **c) Update/Append File - `appendFileSync()`**
+**Character Encoding**:
 
-**Syntax**: `fs.appendFileSync("path/filename", "data to append")`
+- **ASCII**: 126 characters
+- **Unicode**: Universal character set
+- **UTF-8**: Variable-length encoding (1-4 bytes)
+  - Backward compatibility with ASCII
+  - Variable length encoding
 
-**Features**:
-
-- Adds data at the end of existing file
-- Creates new file if path doesn't exist
-- Preserves existing content
-- Useful for log files and incremental updates
-
-**Example**:
+##### **c) Append File - `appendFileSync()`**
 
 ```javascript
-fs.appendFileSync("./server.js", "data");
-console.log("Data appended");
+fs.appendFileSync("./file.txt", "new data");
 ```
+
+**Notes**:
+
+- Adds data at the end of file
+- Creates new file if doesn't exist
 
 ##### **d) Delete File - `unlinkSync()`**
 
-**Syntax**: `fs.unlinkSync("path/filename")`
-
-**Features**:
-
-- Permanently deletes file
-- Throws error if file doesn't exist
-- Requires error handling
-
-**Example**:
-
 ```javascript
 try {
-  fs.unlinkSync("../../../demo.js");
+  fs.unlinkSync("./file.txt");
   console.log("file deleted");
 } catch (error) {
   if (error.code === "ENOENT") {
     console.log("file not found");
-  } else {
-    console.log(error);
   }
 }
 ```
 
-**Error Codes**:
-
-- `ENOENT` - File/directory not found
-- `EACCES` - Permission denied
-- `EISDIR` - Is a directory
-- `ENOTDIR` - Not a directory
-
-#### **3. Directory Operations**
-
-##### **Create Directory - `mkdirSync()`**
-
-**Syntax**: `fs.mkdirSync("path/directory_name")`
-
-**Features**:
-
-- Creates a new directory
-- Can create single-level directories
-- Requires parent directories to exist (or use `recursive` option)
-
-**Example - Nested Directory Structure**:
+##### **e) Create Directory - `mkdirSync()`**
 
 ```javascript
-function createStructure() {
-  fs.mkdirSync("./backend");
-  fs.mkdirSync("./backend/controller");
-  fs.writeFileSync("./backend/controller/user.js", "let a = 20");
+// Single directory
+fs.mkdirSync("./folder");
+
+// Nested directories with recursive option
+fs.mkdirSync("./demo/fol1/fol2/fol3", { recursive: true });
+```
+
+**Note**: `recursive: true` creates all parent directories if they don't exist (default is `false`)
+
+##### **f) Remove Directory - `rmdirSync()`**
+
+```javascript
+fs.rmdirSync("./folder", { recursive: true });
+// Note: recursive option is being deprecated, avoid using
+```
+
+##### **g) Rename/Move File or Folder - `renameSync()`**
+
+```javascript
+// Rename file
+fs.renameSync("./oldname.txt", "./newname.txt");
+
+// Move and rename file
+fs.renameSync("./demo.txt", "../../app.js");
+
+// Rename folder
+fs.renameSync("../dummy", "./content");
+```
+
+##### **h) Copy File - `copyFileSync()`**
+
+```javascript
+fs.copyFileSync("./source.txt", "./destination.txt");
+```
+
+---
+
+#### **2. Asynchronous Operations**
+
+##### **Using Callbacks (Error-First Callbacks)**
+
+**Pattern**: First parameter is reserved for error
+
+```javascript
+// Read file
+fs.readFile("./file.txt", "utf-8", (error, data) => {
+  if (error) console.log("error occurred", error);
+  console.log(data);
+});
+
+// Write file
+fs.writeFile("./demo.txt", "content", (error) => {
+  if (error) console.log(error);
+  console.log("File created");
+});
+
+// Append file
+fs.appendFile("./demo.txt", "\n new line", (err) => {
+  if (err) console.log(err);
+  console.log("file appended");
+});
+```
+
+**Problem with Multiple Callbacks**: Inconsistent execution order
+
+**Solution**: Nest callbacks for consistent order (leads to callback hell)
+
+```javascript
+fs.writeFile("./demo.txt", "content", (err) => {
+  if (err) throw new Error("some error occurred");
+  console.log("file created");
+
+  fs.appendFile("./demo.txt", "update 1", (err) => {
+    if (err) console.log(err);
+    console.log("file updated");
+
+    fs.appendFile("./demo.txt", "update 2", (err) => {
+      if (err) console.log(err);
+      console.log("file updated again");
+    });
+  });
+});
+```
+
+---
+
+##### **Using Promises (then/catch)**
+
+```javascript
+const fsP = require("fs/promises");
+// or: const fsP = require("fs").promises
+// or: import fsP from "fs/promises"
+
+// Write file
+let writeFile = fsP.writeFile("./demo.py", "data");
+writeFile
+  .then(() => {
+    console.log("created");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
+// Read file
+let readFile = fsP.readFile("./demo.txt", "utf-8");
+readFile
+  .then((payload) => {
+    console.log(payload);
+    console.log("file read");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+```
+
+**Benefits**:
+
+- Cleaner than nested callbacks
+- Easier error handling
+- Promise chaining possible
+
+---
+
+##### **Using Async/Await** (Recommended)
+
+```javascript
+const fsP = require("fs/promises");
+
+async function fileOperations() {
+  try {
+    // Write file
+    await fsP.writeFile("./demo.txt", "content");
+    console.log("file created");
+
+    // Read file
+    const data = await fsP.readFile("./demo.txt", "utf-8");
+    console.log(data);
+
+    // Append file
+    await fsP.appendFile("./demo.txt", "\n new content");
+    console.log("file updated");
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
-createStructure();
-// Creates: backend/controller/user.js
+fileOperations();
 ```
 
-**Advanced Usage**:
-
-```javascript
-// Create nested directories in one call
-fs.mkdirSync("./backend/controller", { recursive: true });
-```
-
-#### **4. Synchronous vs Asynchronous**
-
-**Current Examples**: All use synchronous methods (`*Sync`)
-
-**Characteristics of Synchronous Methods**:
-
-- Block code execution until operation completes
-- Easier to understand and write
-- Suitable for scripts and simple applications
-- Not recommended for production servers
-
-**Asynchronous Alternatives** (Future Implementation):
-
-- `writeFile()`, `readFile()`, `appendFile()`, `unlink()`, `mkdir()`
-- Non-blocking operations
-- Use callbacks or promises
-- Better for production applications
-
----
-
-### **User-Defined Modules**
-
-User-defined modules demonstrate practical import/export patterns using both CommonJS and ES Module syntax.
-
----
-
-#### **Example 1: Export/Import Patterns**
-
-**Location**: `Node/Modules/User Defined/ex-1/`
-
-##### **File 1 (file1.js) - Exporting**
-
-**Purpose**: Demonstrates various export patterns in both CommonJS and ES Modules.
-
-**CommonJS Export Patterns**:
-
-```javascript
-// 1) Single export (only one item at a time)
-module.exports = obj;
-module.exports = printName;
-module.exports = arr;
-
-// 2) Multiple exports (object-based)
-module.exports = {
-  printName,
-  arr,
-  obj,
-};
-```
-
-**ES Module Export Patterns**:
-
-```javascript
-// 1) Named exports (multiple exports)
-export let sum = (a, b) => {
-  return a + b;
-};
-
-export let obj = {
-  name: "abc",
-};
-
-export const arr = [1, 2, 3, 4];
-
-// 2) Default export (one per file)
-let abcde = (a, b) => {
-  return a + b;
-};
-
-export default abcde;
-```
-
-**Key Differences**:
-
-- **Named Export**: Can have multiple, must import with exact names
-- **Default Export**: One per file, can import with any name
-- CommonJS uses `module.exports`, ESM uses `export`
-
-##### **File 2 (file2.js) - Importing**
-
-**Purpose**: Demonstrates various import patterns in both CommonJS and ES Modules.
-
-**CommonJS Import Patterns**:
-
-```javascript
-// 1) Full import
-const value = require("./file1.js");
-console.log(value.printName("abc"));
-console.log(value.arr);
-console.log(value.obj);
-
-// 2) Destructured import
-const { printName, arr, obj } = require("./file1");
-printName("def");
-console.log(arr);
-console.log(obj);
-```
-
-**ES Module Import Patterns**:
-
-```javascript
-// Named imports (must use curly braces)
-import { arr, obj, sum } from "./file1.js";
-console.log(sum(1, 1));
-console.log(arr);
-console.log(obj);
-
-// Default import (no curly braces, any name)
-import myFunction from "./file1.js";
-myFunction(5, 10);
-
-// Mixed import
-import defaultExport, { namedExport1, namedExport2 } from "./file1.js";
-```
-
-**Important Notes**:
-
-- ESM requires `.js` extension in import path
-- CommonJS extension is optional
-- Named imports must match export names exactly
-- Default imports can use any variable name
-
----
-
-#### **Example 2: Module Loading Behavior**
-
-**Location**: `Node/Modules/User Defined/ex-2/`
-
-##### **server.js - Module Being Imported**
-
-```javascript
-console.log("this is server");
-
-function greet(name) {
-  console.log("hello", name);
-}
-
-greet("server");
-
-module.exports = greet;
-
-console.log("this is end");
-```
-
-**Execution Flow**:
-
-1. First console log executes
-2. Function definition
-3. Function call
-4. Export statement
-5. Final console log
-
-##### **app.js - Module Importing**
-
-```javascript
-const greet = require("./server");
-
-// require is synchronous
-// top level await
-
-// The file being imported executes first,
-// then the importing file continues
-```
-
-**Key Learnings**:
-
-1. **Module Execution Order**:
-
-   - Imported file (`server.js`) executes **completely first**
-   - Then importing file (`app.js`) continues execution
-
-2. **Output Sequence**:
-
-   ```
-   this is server
-   hello server
-   this is end
-   // (now app.js continues)
-   ```
-
-3. **Synchronous Loading**:
-
-   - `require()` is **synchronous** (blocking)
-   - Must wait for module to load and execute
-   - Different from `import` which is asynchronous
-
-4. **Module Caching**:
-
-   - Modules are cached after first `require()`
-   - Subsequent requires return cached version
-   - Module code executes only once
-
-5. **Top-Level Await** (Note in code):
-   - ESM supports await at module top level
-   - CommonJS does not support this
-   - Must use async functions in CommonJS
-
----
-
-### **Root Demo File**
-
-**Location**: `demo.js` (root directory)
-
-**Purpose**: Demonstrates ES6 object shorthand syntax.
-
-**Code**:
-
-```javascript
-let username = "abc";
-let age = 34;
-
-let emp = {
-  username, // Shorthand for username: username
-  age, // Shorthand for age: age
-};
-```
-
-**Concept**: Object Property Shorthand
-
-- When property name matches variable name
-- Can omit the colon and duplicate name
-- Cleaner syntax introduced in ES6
-
-**Equivalent to**:
-
-```javascript
-let emp = {
-  username: username,
-  age: age,
-};
-```
+**Benefits**:
+
+- Most readable syntax
+- Looks like synchronous code
+- Easy error handling with try-catch
+- Maintains execution order
 
 ---
 
@@ -860,17 +648,9 @@ console.log("end");
 **Characteristics**:
 
 - Sequential execution
-- Each task waits for previous to complete
 - Blocks further code execution
 - Single call stack
 - Predictable execution order
-
-**Use Cases**:
-
-- Simple scripts
-- Configuration loading
-- Sequential data processing
-- File operations in build scripts
 
 #### **Asynchronous (Non-Blocking)**
 
@@ -884,220 +664,242 @@ console.log("Start");
 
 **Characteristics**:
 
-- Concurrent execution model
 - Non-blocking operations
 - Utilizes event loop
 - Callback/promise-based
-- Unpredictable execution order
-
-**Use Cases**:
-
-- Network requests
-- File I/O operations
-- Timers and intervals
-- User interactions
-- Database queries
+- Concurrent execution model
 
 ---
 
-### **2. Event Loop Architecture**
+## **Node.js Architecture & Event Loop**
+
+### **Node.js Architecture Overview**
+
+```
+┌────────────────────────────────────────────┐
+│         JavaScript Code (C++)              │
+│            Call Stack                      │
+│         Thread (main thread)               │
+└────────────────────────────────────────────┘
+                    ↓
+┌────────────────────────────────────────────┐
+│     Main Thread Executes Sync Code         │
+│                                            │
+│  Main thread offloads async operations     │
+│  to system kernel first.                   │
+│  If not possible, offloads to libUV        │
+└────────────────────────────────────────────┘
+                    ↓
+┌────────────────────────────────────────────┐
+│          libUV (C, C++)                    │
+│                                            │
+│  Used to perform async I/O operations:     │
+│  - File reading                            │
+│  - DB call                                 │
+│  - Network call                            │
+│  - etc.                                    │
+│                                            │
+│         Event Loop                         │
+└────────────────────────────────────────────┘
+```
+
+### **Key Points**:
+
+1. **Node.js is Single-Threaded** → On call stack
+2. **Main thread only executes synchronous code**
+3. **Async operations are offloaded**:
+   - First tries system kernel
+   - If not possible, offloads to libUV
+4. **libUV is a C library** used by Node.js to perform async I/O operations
+
+---
+
+### **libUV Thread Pool**
+
+**libUV provides a thread pool of 4 worker threads** (default value)
+
+**Thread Pool Features**:
+
+- Default size: **4 worker threads**
+- Thread pool size **can be increased or decreased**
+- Handles operations that cannot be done asynchronously by the OS
+
+---
+
+### **Event Loop Queues**
+
+Node.js event loop has **6 queues** (phases):
 
 ```
 ┌───────────────────────────┐
-│       Call Stack          │ ← Synchronous code executes here
+│   1. microtask queue      │
+│      - nextTick           │
+│      - Promise            │
+│   (Highest Priority)      │
 └───────────────────────────┘
             ↓
 ┌───────────────────────────┐
-│   Microtask Queue         │ (Higher Priority)
-│   - Promises              │
-│   - process.nextTick()    │
-│   - queueMicrotask()      │
+│   2. timer queue          │
+│      - setTimeout         │
+│      - setInterval        │
 └───────────────────────────┘
             ↓
 ┌───────────────────────────┐
-│   Callback Queue          │ (Lower Priority)
-│   (Task Queue/Macrotask)  │
-│   - setTimeout()          │
-│   - setInterval()         │
-│   - setImmediate()        │
-│   - I/O operations        │
+│   3. i/o queue            │
+│      - File operations    │
+│      - Network operations │
+└───────────────────────────┘
+            ↓
+┌───────────────────────────┐
+│   4. check queue          │
+│      - setImmediate       │
+└───────────────────────────┘
+            ↓
+┌───────────────────────────┐
+│   5. close callbacks      │
+│      - Socket close       │
+│      - Stream close       │
+└───────────────────────────┘
+            ↓
+┌───────────────────────────┐
+│   6. poll phase           │
+│      (Not a queue)        │
+│   Retrieves I/O events    │
 └───────────────────────────┘
 ```
 
-**Execution Priority**:
+### **Queue Priority**:
 
-1. **Call Stack** - Synchronous code
+1. **Microtask Queue** (Highest Priority)
 
-   - Executes immediately
-   - LIFO (Last In, First Out)
-   - Blocks until empty
+   - `process.nextTick()`
+   - `Promise` callbacks
 
-2. **Microtask Queue** - Promises, process.nextTick
+2. **Timer Queue**
 
-   - Executes after call stack is empty
-   - Before any macrotasks
-   - Higher priority than callback queue
+   - `setTimeout()`
+   - `setInterval()`
 
-3. **Callback Queue** - setTimeout, I/O
-   - Executes after microtask queue is empty
-   - Lower priority
-   - Handles long-running operations
+3. **I/O Queue**
 
-**Event Loop Process**:
+   - File operations
+   - Network operations
 
+4. **Check Queue**
+
+   - `setImmediate()`
+
+5. **Close Callbacks Queue**
+
+   - Socket close events
+   - Stream close events
+
+6. **Poll Phase** (Not a queue)
+   - Retrieves new I/O events
+   - Executes I/O callbacks
+
+---
+
+### **Event Loop Execution Order**
+
+```
 1. Execute all synchronous code
 2. Check microtask queue → execute all
-3. Check callback queue → execute one
-4. Repeat steps 2-3 until both queues are empty
+   - nextTick callbacks
+   - Promise callbacks
+3. Check timer queue → execute expired timers
+4. Check I/O queue → execute I/O callbacks
+5. Check check queue → execute setImmediate callbacks
+6. Check close callbacks queue
+7. Return to step 2 (repeat until all queues empty)
+```
 
 ---
 
-### **3. Promise Patterns**
+## **Concurrency and Parallelism**
 
-#### **Basic Promise Creation**
+### **System Kernel**
 
-```javascript
-let promise = new Promise((resolve, reject) => {
-  let a = 11;
-  if (a == 11) {
-    resolve("Promise resolved");
-  } else {
-    reject("rejected");
-  }
-});
+**System Kernel** → Interface which acts between software and hardware
 
-promise
-  .then((data) => {
-    console.log(data);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 ```
-
-**Promise States**:
-
-- **Pending**: Initial state, neither fulfilled nor rejected
-- **Fulfilled**: Operation completed successfully (`resolve()` called)
-- **Rejected**: Operation failed (`reject()` called)
-
-#### **Fetch API Promise**
-
-```javascript
-let output = fetch("https://jsonplaceholder.typicode.com/posts");
-
-output
-  .then((data) => {
-    let jsonPromise = data.json();
-    return jsonPromise;
-  })
-  .then((value) => {
-    console.log(value);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+┌──────────────────────────────────────┐
+│         Application Layer            │
+│      (Node.js, JavaScript)           │
+└──────────────────────────────────────┘
+                ↓
+┌──────────────────────────────────────┐
+│         System Kernel                │
+│    (Interface between software       │
+│         and hardware)                │
+└──────────────────────────────────────┘
+                ↓
+┌──────────────────────────────────────┐
+│         Hardware Layer               │
+│       (CPU, Memory, Disk)            │
+└──────────────────────────────────────┘
 ```
-
-**Promise Chaining Rules**:
-
-- Each `.then()` returns a new promise
-- Must return value for next `.then()`
-- Single `.catch()` handles all errors in chain
-- Chain stops if promise is rejected
 
 ---
 
-### **4. Async/Await Pattern**
+### **Concurrency vs Parallelism**
 
-```javascript
-async function getTodos() {
-  let output = await fetch("https://jsonplaceholder.typicode.com/posts");
-  console.log(output);
-  let jsonData = await output.json();
-  console.log(jsonData);
-}
+#### **Concurrency**
 
-getTodos();
-```
+**Work1** and **Work2** - Multiple tasks making progress
 
-**Key Features**:
+- **Definition**: Multiple tasks making progress (not necessarily at the same time)
+- **Approach**: Task switching - doing small portions of different tasks
+- **Example**: Single-core CPU switching between multiple tasks
 
-- `async` keyword in function declaration
-- Always returns a Promise automatically
-- `await` suspends execution until Promise resolves
-- Cleaner syntax than Promise chaining
-- Better error handling with try-catch
+#### **Parallelism**
 
-**Advantages**:
+**Work1** and **Work2** - Multiple tasks executing simultaneously
 
-- More readable and maintainable
-- Looks like synchronous code
-- Easier debugging
-- Better error stack traces
-- Simplified error handling
+- **Definition**: Multiple tasks executing at exactly the same time
+- **Approach**: Simultaneous execution on multiple cores/threads
+- **Example**: Multi-core CPU executing multiple tasks simultaneously
 
 ---
 
-### **5. Module Systems Comparison**
+### **OS Level Threads vs Hardware Threads**
 
-#### **CommonJS vs ES Modules**
+#### **OS Level Threads**
 
-| Feature             | CommonJS                       | ES Modules (ESM)          |
-| ------------------- | ------------------------------ | ------------------------- |
-| **Syntax**          | `require()` / `module.exports` | `import` / `export`       |
-| **Loading**         | Synchronous                    | Asynchronous              |
-| **Default in**      | Node.js                        | Modern browsers, Node 14+ |
-| **File Extension**  | `.js`                          | `.js` or `.mjs`           |
-| **Top-level await** | Not supported                  | Supported                 |
-| **Exports**         | Single object                  | Named and default exports |
-| **Tree Shaking**    | Difficult                      | Easier                    |
-| **Static Analysis** | Harder                         | Easier                    |
-| **Usage**           | Server-side                    | Universal                 |
+- **OS level threads (code execute)**
+- Software-level abstraction
+- Managed by operating system
+- Where code actually executes
+- Can be more than physical cores
 
-**When to Use CommonJS**:
+#### **Hardware Threads**
 
-- Node.js legacy projects
-- Simple Node.js scripts
-- When synchronous loading is needed
-- Compatibility with older packages
-
-**When to Use ESM**:
-
-- Modern applications
-- Better tree shaking needed
-- Browser and Node.js code sharing
-- Static analysis requirements
+- **Hardware threads → 16 levels** (example from diagram)
+- Physical processor capabilities
+- Actual parallel execution units
+- Limited by CPU architecture
+- Example: 8-core CPU with hyperthreading = 16 hardware threads
 
 ---
 
-### **6. File System Operations**
+### **Threading in Node.js Context**
 
-#### **Buffer and Encoding**
-
-**Buffer**:
-
-- Array-like structure for binary data
-- Each element is a byte (0-255)
-- Efficient for binary operations
-- Used internally by Node.js
-
-**Encoding**:
-
-- Converts binary data to readable text
-- UTF-8 most common (variable 1-4 bytes)
-- ASCII for basic English (1 byte)
-- UTF-16 for unicode (2 bytes)
-
-**Example**:
-
-```javascript
-let buffer = Buffer.from("Hello");
-console.log(buffer); // <Buffer 48 65 6c 6c 6f>
-
-let text = buffer.toString("utf-8");
-console.log(text); // "Hello"
 ```
+Node.js (Single-threaded on Call Stack)
+    ↓
+libUV (4 worker threads by default)
+    ↓
+Operating System (OS Level Threads)
+    ↓
+Hardware (Hardware Threads - e.g., 16 levels)
+```
+
+**Key Understanding**:
+
+- **Node.js main thread**: Runs JavaScript code (single-threaded)
+- **libUV worker threads**: Handle async operations (default 4, configurable)
+- **OS threads**: Managed by operating system
+- **Hardware threads**: Physical CPU capabilities
 
 ---
 
@@ -1128,174 +930,134 @@ Promise
 inside setTimeout
 ```
 
-**Detailed Explanation**:
+**Explanation**:
 
-1. **"Start"** - Synchronous code, executes immediately on call stack
-
-2. **setTimeout** with 0ms delay:
-
-   - Callback goes to Callback Queue
-   - Even with 0ms, still asynchronous
-   - Waits for call stack and microtask queue to empty
-
-3. **Promise.resolve()**:
-
-   - Creates immediately resolved promise
-   - `.then()` callback goes to Microtask Queue
-   - Has higher priority than setTimeout
-
-4. **"end"** - Synchronous code, executes immediately
-
-5. **Call Stack Empty** - Event loop checks queues:
-   - Microtask Queue first → executes "Promise"
-   - Callback Queue next → executes "inside setTimeout"
-
-**Key Takeaway**: Promises always execute before setTimeout, regardless of delay.
+1. `"Start"` - Synchronous, executes immediately
+2. `setTimeout` - Goes to timer queue
+3. `Promise.resolve()` - Goes to microtask queue (higher priority)
+4. `"end"` - Synchronous, executes immediately
+5. Microtask queue executes → `"Promise"`
+6. Timer queue executes → `"inside setTimeout"`
 
 ---
 
-### **Example 2: File System CRUD Operations**
+### **Example 2: Promise Chaining**
 
 ```javascript
-const fs = require("node:fs");
+let promise = new Promise((res, rej) => {
+  let a = 20;
+  if (a == 20) res({ name: "abc", age: 34 });
+  else rej("false");
+});
 
-// Create
-fs.writeFileSync("./test.txt", "Initial content");
-console.log("File created");
-
-// Read
-let content = fs.readFileSync("./test.txt", "utf-8");
-console.log("Content:", content);
-
-// Update (Append)
-fs.appendFileSync("./test.txt", "\nAppended content");
-console.log("Content appended");
-
-// Read again
-let updatedContent = fs.readFileSync("./test.txt", "utf-8");
-console.log("Updated content:", updatedContent);
-
-// Delete
-fs.unlinkSync("./test.txt");
-console.log("File deleted");
+promise
+  .then((abc) => {
+    console.log(abc); // { name: "abc", age: 34 }
+    return abc;
+  })
+  .then((payload) => {
+    console.log(payload.name); // "abc"
+  })
+  .catch((xyz) => {
+    console.log(xyz);
+  });
 ```
 
-**Output**:
+**Key Points**:
 
-```
-File created
-Content: Initial content
-Content appended
-Updated content: Initial content
-Appended content
-File deleted
-```
-
-**Practical Use Cases**:
-
-- Log file management
-- Configuration file handling
-- Data persistence
-- Build scripts
-- File-based caching
+- First `.then()` receives resolved value
+- Must return value for next `.then()` in chain
+- `.catch()` handles any rejection in the chain
 
 ---
 
-### **Example 3: Module Export/Import (CommonJS)**
-
-**math.js** (Export):
+### **Example 3: Consistent File Operations with Callbacks**
 
 ```javascript
-const add = (a, b) => a + b;
-const subtract = (a, b) => a - b;
-const multiply = (a, b) => a * b;
+const fs = require("fs");
 
-module.exports = {
-  add,
-  subtract,
-  multiply,
-};
-```
+// Inconsistent order (avoid this)
+fs.writeFile("./demo.txt", "file 1", (err) => {
+  console.log("file created");
+});
 
-**app.js** (Import):
+fs.appendFile("./demo.txt", "update 1", (err) => {
+  console.log("file updated");
+});
 
-```javascript
-// Method 1: Full import
-const math = require("./math");
-console.log(math.add(5, 3)); // 8
+// Consistent order (nest callbacks)
+fs.writeFile("./demo.txt", "file content", (err) => {
+  if (err) throw new Error("error occurred");
+  console.log("file created");
 
-// Method 2: Destructured import
-const { add, multiply } = require("./math");
-console.log(add(5, 3)); // 8
-console.log(multiply(5, 3)); // 15
+  fs.appendFile("./demo.txt", "update 1", (err) => {
+    if (err) console.log(err);
+    console.log("file updated");
+
+    fs.appendFile("./demo.txt", "update 2", (err) => {
+      if (err) console.log(err);
+      console.log("file updated again");
+    });
+  });
+});
 ```
 
 ---
 
-### **Example 4: Module Export/Import (ES Modules)**
-
-**math.mjs** (Export):
+### **Example 4: File Operations with Promises**
 
 ```javascript
-// Named exports
-export const add = (a, b) => a + b;
-export const subtract = (a, b) => a - b;
+const fsP = require("fs/promises");
 
-// Default export
-const multiply = (a, b) => a * b;
-export default multiply;
-```
-
-**app.mjs** (Import):
-
-```javascript
-// Named imports
-import { add, subtract } from "./math.mjs";
-console.log(add(5, 3)); // 8
-console.log(subtract(5, 3)); // 2
-
-// Default import
-import multiply from "./math.mjs";
-console.log(multiply(5, 3)); // 15
-
-// Mixed import
-import multiply, { add, subtract } from "./math.mjs";
+// Promise-based operations
+fsP
+  .writeFile("./demo.txt", "content")
+  .then(() => {
+    console.log("file created");
+    return fsP.readFile("./demo.txt", "utf-8");
+  })
+  .then((data) => {
+    console.log("File content:", data);
+    return fsP.appendFile("./demo.txt", "\n new line");
+  })
+  .then(() => {
+    console.log("file updated");
+  })
+  .catch((err) => {
+    console.error("Error:", err);
+  });
 ```
 
 ---
 
-### **Example 5: Creating Nested Directory Structure**
+### **Example 5: File Operations with Async/Await**
 
 ```javascript
-const fs = require("node:fs");
+const fsP = require("fs/promises");
 
-function createProjectStructure() {
-  // Create main directory
-  fs.mkdirSync("./myproject");
+async function fileOperations() {
+  try {
+    // Create file
+    await fsP.writeFile("./demo.txt", "initial content");
+    console.log("file created");
 
-  // Create subdirectories
-  fs.mkdirSync("./myproject/src");
-  fs.mkdirSync("./myproject/src/controllers");
-  fs.mkdirSync("./myproject/src/models");
-  fs.mkdirSync("./myproject/src/routes");
+    // Read file
+    const data = await fsP.readFile("./demo.txt", "utf-8");
+    console.log("Content:", data);
 
-  // Create files
-  fs.writeFileSync("./myproject/src/controllers/user.js", "// User controller");
-  fs.writeFileSync("./myproject/src/models/User.js", "// User model");
-  fs.writeFileSync("./myproject/src/routes/index.js", "// Routes");
-  fs.writeFileSync("./myproject/package.json", "{}");
+    // Append to file
+    await fsP.appendFile("./demo.txt", "\n appended content");
+    console.log("file updated");
 
-  console.log("Project structure created successfully!");
+    // Read again
+    const updatedData = await fsP.readFile("./demo.txt", "utf-8");
+    console.log("Updated content:", updatedData);
+  } catch (error) {
+    console.error("Error:", error);
+  }
 }
 
-createProjectStructure();
-```
-
-**Alternative (Modern Approach)**:
-
-```javascript
-// Create nested directories in one call
-fs.mkdirSync("./myproject/src/controllers", { recursive: true });
+fileOperations();
 ```
 
 ---
@@ -1304,959 +1066,198 @@ fs.mkdirSync("./myproject/src/controllers", { recursive: true });
 
 ### **Running JavaScript Examples (Browser)**
 
-1. **Open HTML file directly**:
+```bash
+# Navigate to JavaScript directory
+cd JavaScript
 
-   ```bash
-   # Navigate to JavaScript directory
-   cd JavaScript
+# Open in browser
+# Windows
+start index.html
 
-   # Windows
-   start index.html
+# macOS
+open index.html
 
-   # macOS
-   open index.html
-
-   # Linux
-   xdg-open index.html
-   ```
-
-2. **View Console Output**:
-
-   - Open Developer Tools: `F12` or `Ctrl+Shift+I` (Windows/Linux) / `Cmd+Option+I` (macOS)
-   - Navigate to "Console" tab
-   - Refresh page if needed
-
-3. **Experiment with Examples**:
-   - Open `index.html` in code editor
-   - Uncomment specific code blocks
-   - Save and refresh browser
-   - Observe output in console
-
----
+# Linux
+xdg-open index.html
+```
 
 ### **Running Node.js Examples**
-
-#### **Basic Execution**
 
 ```bash
 # Navigate to Starter directory
 cd Starter
-
-# Execute demo.js
 node demo.js
-# Output: hello world
 
-# Alternative (extension optional)
-node demo
-```
+# Run promise example
+node demo.js
 
-#### **Module Examples**
-
-```bash
-# Navigate to Modules directory
-cd Node/Modules
-
-# Execute modules.js (to see global variables)
-node modules.js
-
-# Execute user-defined module example 2
-cd "User Defined/ex-2"
-node app.js
-# Output shows module loading order
-```
-
-#### **File System Examples**
-
-```bash
-# Navigate to Built In directory
+# Run file system examples
 cd Node/Modules/Built\ In
-
-# Execute fs.js
 node fs.js
 
-# Check created files/directories
-ls -la
-
-# View created file content
-cat backend/controller/user.js
+# Module examples
+cd ../User\ Defined/ex-2
+node app.js
 ```
 
 ---
 
 ## **File System Operations Guide**
 
-### **Complete CRUD Reference**
+### **Synchronous vs Asynchronous - When to Use**
 
-#### **1. File Creation**
+#### **Use Synchronous Methods When**:
 
-```javascript
-const fs = require("node:fs");
+- Writing build scripts
+- Simple CLI tools
+- Configuration file reading at startup
+- Single-user applications
 
-// Basic creation
-fs.writeFileSync("./file.txt", "content");
+#### **Use Asynchronous Methods When**:
 
-// Multiple file types
-fs.writeFileSync("./data.json", JSON.stringify({ key: "value" }));
-fs.writeFileSync("./script.js", "console.log('hello');");
-fs.writeFileSync("./style.css", "body { margin: 0; }");
-```
-
-**Options**:
-
-```javascript
-// Specify encoding
-fs.writeFileSync("./file.txt", "content", "utf-8");
-
-// Use options object
-fs.writeFileSync("./file.txt", "content", {
-  encoding: "utf-8",
-  mode: 0o666,
-  flag: "w", // 'w' = write (default), 'a' = append
-});
-```
-
-#### **2. File Reading**
-
-```javascript
-// Read as buffer
-let buffer = fs.readFileSync("./file.txt");
-console.log(buffer); // <Buffer ...>
-
-// Read as string (recommended)
-let content = fs.readFileSync("./file.txt", "utf-8");
-console.log(content);
-
-// Read JSON file
-let jsonContent = fs.readFileSync("./data.json", "utf-8");
-let data = JSON.parse(jsonContent);
-console.log(data);
-```
-
-**Error Handling**:
-
-```javascript
-try {
-  let content = fs.readFileSync("./file.txt", "utf-8");
-  console.log(content);
-} catch (error) {
-  if (error.code === "ENOENT") {
-    console.log("File not found");
-  } else {
-    console.log("Error:", error.message);
-  }
-}
-```
-
-#### **3. File Appending**
-
-```javascript
-// Append text
-fs.appendFileSync("./log.txt", "New log entry\n");
-
-// Append JSON (not recommended, use read-modify-write)
-fs.appendFileSync("./data.json", ',\n{"new": "data"}');
-
-// Create if not exists
-fs.appendFileSync("./newfile.txt", "First content");
-```
-
-**Practical Example - Logging**:
-
-```javascript
-function log(message) {
-  const timestamp = new Date().toISOString();
-  const logEntry = `[${timestamp}] ${message}\n`;
-  fs.appendFileSync("./app.log", logEntry);
-}
-
-log("Application started");
-log("User logged in");
-log("Error occurred");
-```
-
-#### **4. File Deletion**
-
-```javascript
-// Delete file
-try {
-  fs.unlinkSync("./file.txt");
-  console.log("File deleted");
-} catch (error) {
-  console.log("Error:", error.message);
-}
-
-// Check before deleting
-if (fs.existsSync("./file.txt")) {
-  fs.unlinkSync("./file.txt");
-}
-```
-
-#### **5. Directory Operations**
-
-```javascript
-// Create directory
-fs.mkdirSync("./mydir");
-
-// Create nested directories
-fs.mkdirSync("./parent/child/grandchild", { recursive: true });
-
-// Read directory contents
-let files = fs.readdirSync("./mydir");
-console.log(files);
-
-// Remove empty directory
-fs.rmdirSync("./mydir");
-
-// Remove directory recursively (Node.js 12.10+)
-fs.rmSync("./mydir", { recursive: true, force: true });
-```
-
-#### **6. File/Directory Information**
-
-```javascript
-// Check if path exists
-if (fs.existsSync("./file.txt")) {
-  console.log("Exists");
-}
-
-// Get file stats
-let stats = fs.statSync("./file.txt");
-console.log("Size:", stats.size, "bytes");
-console.log("Is file:", stats.isFile());
-console.log("Is directory:", stats.isDirectory());
-console.log("Created:", stats.birthtime);
-console.log("Modified:", stats.mtime);
-```
-
-#### **7. Practical Examples**
-
-**Example: Configuration File Manager**
-
-```javascript
-class ConfigManager {
-  constructor(configPath = "./config.json") {
-    this.configPath = configPath;
-  }
-
-  // Read configuration
-  read() {
-    try {
-      const content = fs.readFileSync(this.configPath, "utf-8");
-      return JSON.parse(content);
-    } catch (error) {
-      return {}; // Return empty config if file doesn't exist
-    }
-  }
-
-  // Write configuration
-  write(config) {
-    const content = JSON.stringify(config, null, 2);
-    fs.writeFileSync(this.configPath, content);
-  }
-
-  // Update specific key
-  set(key, value) {
-    const config = this.read();
-    config[key] = value;
-    this.write(config);
-  }
-
-  // Get specific key
-  get(key) {
-    const config = this.read();
-    return config[key];
-  }
-}
-
-// Usage
-const config = new ConfigManager();
-config.set("appName", "My App");
-config.set("version", "1.0.0");
-console.log(config.get("appName")); // "My App"
-```
+- Building web servers
+- Production applications
+- Handling multiple concurrent requests
+- Non-blocking operations needed
 
 ---
 
-## **Module Import/Export Patterns**
+### **Complete Operations Reference**
 
-### **CommonJS Patterns**
-
-#### **Pattern 1: Object Export**
-
-```javascript
-// services/userService.js
-const getUser = (id) => {
-  return { id, name: "John" };
-};
-
-const createUser = (data) => {
-  return { ...data, id: Date.now() };
-};
-
-module.exports = {
-  getUser,
-  createUser,
-};
-```
-
-```javascript
-// app.js
-const userService = require("./services/userService");
-const user = userService.getUser(1);
-```
-
-#### **Pattern 2: Direct Function Export**
-
-```javascript
-// utils/logger.js
-module.exports = function log(message) {
-  console.log(`[${new Date().toISOString()}] ${message}`);
-};
-```
-
-```javascript
-// app.js
-const log = require("./utils/logger");
-log("Application started");
-```
-
-#### **Pattern 3: Class Export**
-
-```javascript
-// models/User.js
-class User {
-  constructor(name, age) {
-    this.name = name;
-    this.age = age;
-  }
-
-  greet() {
-    return `Hello, I'm ${this.name}`;
-  }
-}
-
-module.exports = User;
-```
-
-```javascript
-// app.js
-const User = require("./models/User");
-const user = new User("John", 30);
-console.log(user.greet());
-```
-
-#### **Pattern 4: Multiple Export Styles**
-
-```javascript
-// utils/math.js
-module.exports.add = (a, b) => a + b;
-module.exports.subtract = (a, b) => a - b;
-
-// Alternative
-exports.multiply = (a, b) => a * b;
-
-// Note: Don't reassign exports = {}; it breaks the reference
-```
-
----
-
-### **ES Module Patterns**
-
-#### **Pattern 1: Named Exports**
-
-```javascript
-// services/userService.mjs
-export const getUser = (id) => {
-  return { id, name: "John" };
-};
-
-export const createUser = (data) => {
-  return { ...data, id: Date.now() };
-};
-```
-
-```javascript
-// app.mjs
-import { getUser, createUser } from "./services/userService.mjs";
-const user = getUser(1);
-```
-
-#### **Pattern 2: Default Export**
-
-```javascript
-// utils/logger.mjs
-export default function log(message) {
-  console.log(`[${new Date().toISOString()}] ${message}`);
-}
-```
-
-```javascript
-// app.mjs
-import log from "./utils/logger.mjs";
-log("Application started");
-```
-
-#### **Pattern 3: Mixed Exports**
-
-```javascript
-// api/users.mjs
-export const API_URL = "https://api.example.com";
-
-export function fetchUsers() {
-  return fetch(API_URL + "/users");
-}
-
-export default class UserAPI {
-  constructor(baseUrl) {
-    this.baseUrl = baseUrl;
-  }
-
-  getUsers() {
-    return fetch(this.baseUrl + "/users");
-  }
-}
-```
-
-```javascript
-// app.mjs
-import UserAPI, { API_URL, fetchUsers } from "./api/users.mjs";
-
-const api = new UserAPI(API_URL);
-api.getUsers();
-```
-
-#### **Pattern 4: Re-exporting**
-
-```javascript
-// services/index.mjs (barrel export)
-export { getUser, createUser } from "./userService.mjs";
-export { login, logout } from "./authService.mjs";
-export { default as Database } from "./database.mjs";
-```
-
-```javascript
-// app.mjs
-import { getUser, login, Database } from "./services/index.mjs";
-```
-
----
-
-### **Advanced Module Patterns**
-
-#### **Pattern 1: Lazy Loading (Dynamic Import)**
-
-```javascript
-// app.js (CommonJS)
-async function loadModule() {
-  const module = await import("./heavy-module.mjs");
-  module.doSomething();
-}
-
-// Load only when needed
-button.onclick = loadModule;
-```
-
-#### **Pattern 2: Conditional Require**
-
-```javascript
-// config.js
-let database;
-
-if (process.env.NODE_ENV === "production") {
-  database = require("./database-prod");
-} else {
-  database = require("./database-dev");
-}
-
-module.exports = database;
-```
-
-#### **Pattern 3: Module Factory**
-
-```javascript
-// factory.js
-module.exports = function createService(config) {
-  return {
-    config,
-    start() {
-      console.log("Service started with config:", config);
-    },
-    stop() {
-      console.log("Service stopped");
-    },
-  };
-};
-```
-
-```javascript
-// app.js
-const createService = require("./factory");
-const service = createService({ port: 3000 });
-service.start();
-```
+| Operation            | Synchronous        | Async (Callback) | Async (Promise)    |
+| -------------------- | ------------------ | ---------------- | ------------------ |
+| **Write**            | `writeFileSync()`  | `writeFile()`    | `fsP.writeFile()`  |
+| **Read**             | `readFileSync()`   | `readFile()`     | `fsP.readFile()`   |
+| **Append**           | `appendFileSync()` | `appendFile()`   | `fsP.appendFile()` |
+| **Delete**           | `unlinkSync()`     | `unlink()`       | `fsP.unlink()`     |
+| **Rename/Move**      | `renameSync()`     | `rename()`       | `fsP.rename()`     |
+| **Copy**             | `copyFileSync()`   | `copyFile()`     | `fsP.copyFile()`   |
+| **Make Directory**   | `mkdirSync()`      | `mkdir()`        | `fsP.mkdir()`      |
+| **Remove Directory** | `rmdirSync()`      | `rmdir()`        | `fsP.rmdir()`      |
 
 ---
 
 ## **Best Practices and Design Patterns**
 
-### **1. Asynchronous Code Best Practices**
+### **1. File System Best Practices**
 
-#### **✅ Do's**
+**✅ Do's**:
 
 ```javascript
-// Use async/await for cleaner code
-async function fetchData(url) {
+// Always use try-catch with sync operations
+try {
+  const content = fs.readFileSync("./file.txt", "utf-8");
+} catch (error) {
+  console.error("Error:", error);
+}
+
+// Use recursive option for nested directories
+fs.mkdirSync("./deep/nested/path", { recursive: true });
+
+// Specify encoding for text files
+fs.readFileSync("./file.txt", "utf-8");
+
+// Use promises or async/await in production
+const fsP = require("fs/promises");
+await fsP.writeFile("./file.txt", "content");
+```
+
+**❌ Don'ts**:
+
+```javascript
+// Don't use sync methods in production servers
+app.get("/data", (req, res) => {
+  const data = fs.readFileSync("./large-file.txt", "utf-8"); // Blocks server!
+  res.send(data);
+});
+
+// Don't ignore errors
+fs.writeFileSync("./file.txt", "content"); // May throw error
+
+// Don't forget encoding
+const content = fs.readFileSync("./file.txt"); // Returns Buffer
+```
+
+---
+
+### **2. Asynchronous Code Best Practices**
+
+**✅ Use async/await**:
+
+```javascript
+async function fetchData() {
   try {
     const response = await fetch(url);
     const data = await response.json();
     return data;
   } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error; // Re-throw for caller to handle
+    console.error("Error:", error);
   }
 }
-
-// Handle promise rejections
-promise.catch((err) => console.error(err));
-
-// Use Promise.all for parallel operations
-const [users, posts] = await Promise.all([
-  fetch("/api/users"),
-  fetch("/api/posts"),
-]);
-
-// Use Promise.allSettled for multiple operations that may fail
-const results = await Promise.allSettled([
-  fetch("/api/users"),
-  fetch("/api/posts"),
-  fetch("/api/comments"),
-]);
-
-results.forEach((result) => {
-  if (result.status === "fulfilled") {
-    console.log("Success:", result.value);
-  } else {
-    console.log("Failed:", result.reason);
-  }
-});
 ```
 
-#### **❌ Don'ts**
+**❌ Avoid callback hell**:
 
 ```javascript
-// Avoid callback hell
+// Bad
 getData(function (a) {
   getMoreData(a, function (b) {
     getMoreData(b, function (c) {
-      getMoreData(c, function (d) {
-        // Deeply nested callbacks
-      });
+      // Nested callbacks...
     });
   });
 });
-
-// Don't ignore error handling
-fetch(url).then((data) => console.log(data)); // Missing .catch()
-
-// Avoid blocking operations in async context
-async function bad() {
-  for (let i = 0; i < 10000000; i++) {} // Blocks event loop
-  return result;
-}
-
-// Don't mix async patterns unnecessarily
-async function mixed() {
-  // Bad: mixing async/await with .then()
-  const data = await fetch(url);
-  data.json().then((json) => console.log(json));
-
-  // Good: consistent async/await
-  const data2 = await fetch(url);
-  const json2 = await data2.json();
-  console.log(json2);
-}
-```
-
----
-
-### **2. File System Best Practices**
-
-#### **✅ Do's**
-
-```javascript
-// Always use try-catch with synchronous fs operations
-try {
-  const content = fs.readFileSync("./config.json", "utf-8");
-  const config = JSON.parse(content);
-} catch (error) {
-  if (error.code === "ENOENT") {
-    console.log("Config file not found, using defaults");
-  } else {
-    console.error("Error reading config:", error);
-  }
-}
-
-// Check file existence before operations
-if (fs.existsSync("./file.txt")) {
-  fs.unlinkSync("./file.txt");
-}
-
-// Use path module for cross-platform compatibility
-const path = require("path");
-const filePath = path.join(__dirname, "data", "users.json");
-
-// Close file descriptors
-const fd = fs.openSync("./file.txt", "r");
-try {
-  // Use file descriptor
-} finally {
-  fs.closeSync(fd);
-}
-
-// Prefer asynchronous methods in production
-fs.readFile("./file.txt", "utf-8", (err, data) => {
-  if (err) {
-    console.error("Error:", err);
-    return;
-  }
-  console.log(data);
-});
-```
-
-#### **❌ Don'ts**
-
-```javascript
-// Don't ignore errors
-fs.unlinkSync("./file.txt"); // May throw error
-
-// Don't use synchronous operations in production servers
-app.get("/data", (req, res) => {
-  // Bad: blocks server
-  const data = fs.readFileSync("./large-file.txt", "utf-8");
-  res.send(data);
-});
-
-// Don't perform operations without validation
-fs.unlinkSync(userInput); // Security risk!
-
-// Don't forget to handle encoding
-const content = fs.readFileSync("./file.txt"); // Returns buffer
-console.log(content); // Not readable
-```
-
----
-
-### **3. Module Organization Best Practices**
-
-#### **Single Responsibility Principle**
-
-```javascript
-// Good: Each module has one responsibility
-
-// userService.js - User business logic
-module.exports = {
-  getUser,
-  createUser,
-  updateUser,
-  deleteUser,
-};
-
-// userRepository.js - Database operations
-module.exports = {
-  findById,
-  save,
-  update,
-  remove,
-};
-
-// userController.js - HTTP request handling
-module.exports = {
-  handleGetUser,
-  handleCreateUser,
-  handleUpdateUser,
-  handleDeleteUser,
-};
-```
-
-#### **Module Naming Conventions**
-
-```javascript
-// CamelCase for classes
-const UserService = require("./UserService");
-
-// camelCase for functions/objects
-const userService = require("./userService");
-
-// UPPER_CASE for constants
-const API_URL = require("./config").API_URL;
-
-// kebab-case for file names
-// user-service.js
-// auth-middleware.js
-```
-
-#### **Directory Structure**
-
-```
-project/
-├── src/
-│   ├── controllers/     # Request handlers
-│   ├── services/        # Business logic
-│   ├── models/          # Data models
-│   ├── repositories/    # Data access
-│   ├── middlewares/     # Express middlewares
-│   ├── utils/           # Utility functions
-│   ├── config/          # Configuration
-│   └── app.js           # Main application
-├── tests/
-│   ├── unit/
-│   └── integration/
-└── package.json
-```
-
----
-
-### **4. Error Handling Strategies**
-
-#### **Synchronous Error Handling**
-
-```javascript
-try {
-  const result = riskyOperation();
-  console.log(result);
-} catch (error) {
-  console.error("Error occurred:", error.message);
-  // Handle or re-throw
-  throw new Error(`Failed to complete operation: ${error.message}`);
-}
-```
-
-#### **Asynchronous Error Handling**
-
-```javascript
-// With Promises
-fetchData()
-  .then((data) => processData(data))
-  .catch((error) => {
-    console.error("Error:", error);
-    // Handle error appropriately
-    return defaultValue; // Provide fallback
-  });
-
-// With Async/Await
-async function handleData() {
-  try {
-    const data = await fetchData();
-    const processed = await processData(data);
-    return processed;
-  } catch (error) {
-    console.error("Error:", error);
-    // Handle error appropriately
-    return null; // or throw
-  }
-}
-```
-
-#### **Custom Error Classes**
-
-```javascript
-// errors/AppError.js
-class AppError extends Error {
-  constructor(message, statusCode) {
-    super(message);
-    this.statusCode = statusCode;
-    this.isOperational = true;
-    Error.captureStackTrace(this, this.constructor);
-  }
-}
-
-class ValidationError extends AppError {
-  constructor(message) {
-    super(message, 400);
-  }
-}
-
-class NotFoundError extends AppError {
-  constructor(resource) {
-    super(`${resource} not found`, 404);
-  }
-}
-
-module.exports = { AppError, ValidationError, NotFoundError };
-```
-
----
-
-### **5. Code Organization Principles**
-
-#### **DRY (Don't Repeat Yourself)**
-
-```javascript
-// Bad: Repetitive code
-function getUserById(id) {
-  const users = JSON.parse(fs.readFileSync("./users.json", "utf-8"));
-  return users.find((u) => u.id === id);
-}
-
-function getUserByEmail(email) {
-  const users = JSON.parse(fs.readFileSync("./users.json", "utf-8"));
-  return users.find((u) => u.email === email);
-}
-
-// Good: Extract common logic
-function getUsers() {
-  return JSON.parse(fs.readFileSync("./users.json", "utf-8"));
-}
-
-function getUserById(id) {
-  return getUsers().find((u) => u.id === id);
-}
-
-function getUserByEmail(email) {
-  return getUsers().find((u) => u.email === email);
-}
-```
-
-#### **Separation of Concerns**
-
-```javascript
-// Good structure
-
-// data.js - Data access
-function readUsers() {
-  return JSON.parse(fs.readFileSync("./users.json", "utf-8"));
-}
-
-// business.js - Business logic
-function validateUser(user) {
-  if (!user.email) throw new Error("Email required");
-  if (!user.name) throw new Error("Name required");
-  return true;
-}
-
-// api.js - API endpoints
-app.post("/users", (req, res) => {
-  try {
-    validateUser(req.body);
-    const users = readUsers();
-    users.push(req.body);
-    saveUsers(users);
-    res.json({ success: true });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
-```
-
----
-
-### **6. Performance Best Practices**
-
-```javascript
-// Use asynchronous operations for I/O
-const fsPromises = require("fs").promises;
-
-async function readMultipleFiles(filePaths) {
-  // Parallel reading
-  const promises = filePaths.map((path) => fsPromises.readFile(path, "utf-8"));
-  return await Promise.all(promises);
-}
-
-// Cache frequently accessed data
-const cache = new Map();
-
-function getConfig(key) {
-  if (cache.has(key)) {
-    return cache.get(key);
-  }
-
-  const value = fs.readFileSync(`./config/${key}.json`, "utf-8");
-  cache.set(key, value);
-  return value;
-}
-
-// Use streams for large files
-const fs = require("fs");
-const readStream = fs.createReadStream("./large-file.txt");
-const writeStream = fs.createWriteStream("./output.txt");
-
-readStream.pipe(writeStream);
 ```
 
 ---
 
 ## **Common Pitfalls and Solutions**
 
-### **1. Module Caching Issues**
+### **1. Buffer vs String Issue**
 
 **Problem**:
 
 ```javascript
-// config.js
-module.exports = {
-  count: 0,
-};
-
-// app.js
-const config1 = require("./config");
-const config2 = require("./config");
-
-config1.count++;
-console.log(config2.count); // 1 (same reference!)
+const content = fs.readFileSync("./file.txt");
+console.log(content); // <Buffer ...>
 ```
 
 **Solution**:
 
 ```javascript
-// Use factory function for fresh instances
-// config.js
-module.exports = function createConfig() {
-  return {
-    count: 0,
-  };
-};
-
-// app.js
-const createConfig = require("./config");
-const config1 = createConfig();
-const config2 = createConfig();
-
-config1.count++;
-console.log(config2.count); // 0 (different instances)
+// Always specify encoding
+const content = fs.readFileSync("./file.txt", "utf-8");
+console.log(content); // Readable string
 ```
 
 ---
 
-### **2. Circular Dependencies**
+### **2. Async Operation Order**
 
 **Problem**:
 
 ```javascript
-// a.js
-const b = require("./b");
-module.exports = { name: "A", b };
+fs.writeFile("./file.txt", "content1", (err) => {
+  console.log("file created");
+});
 
-// b.js
-const a = require("./a");
-module.exports = { name: "B", a };
-
-// Result: Incomplete exports
+fs.appendFile("./file.txt", "content2", (err) => {
+  console.log("file updated");
+});
+// Unpredictable order!
 ```
 
 **Solution**:
 
 ```javascript
-// Move shared code to separate module
-// shared.js
-module.exports = { sharedData: "data" };
+// Nest callbacks or use promises/async-await
+fs.writeFile("./file.txt", "content1", (err) => {
+  console.log("file created");
 
-// a.js
-const shared = require("./shared");
-module.exports = { name: "A", shared };
-
-// b.js
-const shared = require("./shared");
-module.exports = { name: "B", shared };
+  fs.appendFile("./file.txt", "content2", (err) => {
+    console.log("file updated");
+  });
+});
 ```
 
 ---
@@ -2266,386 +1267,69 @@ module.exports = { name: "B", shared };
 **Problem**:
 
 ```javascript
-// Works in development, fails in production
-const data = fs.readFileSync("./data.json", "utf-8");
+fs.readFileSync("./file.txt"); // May fail in different contexts
 ```
 
 **Solution**:
 
 ```javascript
-// Use __dirname for absolute paths
 const path = require("path");
-const dataPath = path.join(__dirname, "data.json");
-const data = fs.readFileSync(dataPath, "utf-8");
+const filePath = path.join(__dirname, "file.txt");
+fs.readFileSync(filePath, "utf-8");
 ```
-
----
-
-### **4. Encoding Issues**
-
-**Problem**:
-
-```javascript
-const content = fs.readFileSync("./file.txt");
-console.log(content); // <Buffer ...> not readable
-```
-
-**Solution**:
-
-```javascript
-// Always specify encoding for text files
-const content = fs.readFileSync("./file.txt", "utf-8");
-console.log(content); // Readable string
-```
-
----
-
-### **5. Error Handling in Async Functions**
-
-**Problem**:
-
-```javascript
-async function fetchData() {
-  const response = await fetch(url);
-  return response.json(); // May fail without error handling
-}
-```
-
-**Solution**:
-
-```javascript
-async function fetchData() {
-  try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return await response.json();
-  } catch (error) {
-    console.error("Fetch failed:", error);
-    throw error; // Re-throw or return default
-  }
-}
-```
-
----
 
 ## **Contributing Guidelines**
 
 ### **How to Contribute**
 
-1. **Fork the Repository**
-
-   - Click "Fork" button on GitHub
-   - Clone your fork locally
-
-2. **Clone Your Fork**
-
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/nodeJS.git
-   cd nodeJS
-   ```
-
-3. **Create a Branch**
-
-   ```bash
-   git checkout -b feature/your-feature-name
-   # or
-   git checkout -b fix/bug-description
-   ```
-
-4. **Make Changes**
-
-   - Add new examples or explanations
-   - Fix errors or improve documentation
-   - Follow existing code style and conventions
-   - Add comments to explain complex logic
-
-5. **Test Your Changes**
-
-   ```bash
-   # Test Node.js examples
-   node path/to/your/file.js
-
-   # Test browser examples
-   # Open HTML files in browser
-   ```
-
-6. **Commit Changes**
-
-   ```bash
-   git add .
-   git commit -m "Add: descriptive commit message"
-
-   # Commit message format:
-   # Add: new feature or file
-   # Fix: bug fix
-   # Update: modify existing code
-   # Docs: documentation changes
-   # Refactor: code restructuring
-   ```
-
-7. **Push to Fork**
-
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-
-8. **Create Pull Request**
-   - Go to original repository on GitHub
-   - Click "New Pull Request"
-   - Select your branch
-   - Provide clear description of changes
-   - Reference any related issues
-
----
-
-### **Contribution Standards**
-
-#### **Code Quality**
-
-- Write clean, readable code
-- Add comments for complex logic
-- Follow existing naming conventions
-- Use consistent indentation (2 or 4 spaces)
-
-#### **Documentation**
-
-- Update documentation for new features
-- Add inline comments where necessary
-- Include usage examples
-- Update README if structure changes
-
-#### **Testing**
-
-- Verify all examples work correctly
-- Test on multiple platforms if possible
-- Check for syntax errors
-- Ensure no breaking changes
-
-#### **Commit Messages**
-
-- Use descriptive commit messages
-- Follow conventional commit format
-- Reference issues where applicable
-- Keep commits atomic and focused
-
----
-
-### **Code Style Guidelines**
-
-```javascript
-// Use const and let, avoid var
-const API_URL = "https://api.example.com";
-let count = 0;
-
-// Use arrow functions for callbacks
-array.map((item) => item * 2);
-
-// Use template literals
-const message = `Hello, ${name}!`;
-
-// Use destructuring
-const { id, name } = user;
-
-// Use async/await over promises
-async function fetchData() {
-  const response = await fetch(url);
-  return await response.json();
-}
-
-// Add error handling
-try {
-  // risky operation
-} catch (error) {
-  console.error("Error:", error);
-}
-```
+1. Fork the Repository
+2. Clone your fork
+3. Create a branch
+4. Make changes
+5. Test your changes
+6. Commit with descriptive message
+7. Push to your fork
+8. Create Pull Request
 
 ---
 
 ## **Troubleshooting**
 
-### **Common Issues and Solutions**
+### **Common Issues**
 
-#### **Issue 1: Module Not Found**
-
-**Error**: `Error: Cannot find module './file'`
-
-**Solutions**:
+**Issue 1: Module Not Found**
 
 ```bash
-# Check file path
-ls -la # Verify file exists
-
-# Check file extension
-node file.js # Include extension if needed
-
-# Check current directory
-pwd
-
-# Use correct relative path
-const module = require("./path/to/file");
+# Check file path and extension
+node filename.js
 ```
 
----
-
-#### **Issue 2: ENOENT Error (File Not Found)**
-
-**Error**: `ENOENT: no such file or directory`
-
-**Solutions**:
+**Issue 2: ENOENT Error**
 
 ```javascript
-// Use absolute paths
-const path = require("path");
-const filePath = path.join(__dirname, "data", "file.txt");
-
-// Check if file exists first
-if (fs.existsSync(filePath)) {
-  const content = fs.readFileSync(filePath, "utf-8");
-}
-
 // Use try-catch
 try {
-  const content = fs.readFileSync(filePath, "utf-8");
+  fs.readFileSync("./file.txt", "utf-8");
 } catch (error) {
-  console.error("File not found:", filePath);
+  console.error("File not found");
 }
 ```
 
----
-
-#### **Issue 3: Encoding Problems**
-
-**Problem**: Seeing strange characters or buffer output
-
-**Solutions**:
-
-```javascript
-// Always specify encoding for text files
-const content = fs.readFileSync("./file.txt", "utf-8");
-
-// Convert buffer to string
-const buffer = fs.readFileSync("./file.txt");
-const content = buffer.toString("utf-8");
-
-// Check file encoding
-// Use tools like file command on Unix: file -i filename.txt
-```
-
----
-
-#### **Issue 4: Permission Denied**
-
-**Error**: `EACCES: permission denied`
-
-**Solutions**:
+**Issue 3: Permission Denied**
 
 ```bash
 # Check file permissions
-ls -l file.txt
-
-# Change permissions (Unix/Mac)
-chmod 644 file.txt # Read/write for owner
-
-# Run with appropriate permissions
-sudo node script.js # Use cautiously
-
-# Check directory permissions
-chmod 755 directory/
+chmod 644 file.txt
 ```
 
 ---
 
-#### **Issue 5: Async/Await Not Working**
+## **Resources and References**
 
-**Problem**: `SyntaxError: await is only valid in async function`
-
-**Solutions**:
-
-```javascript
-// Wrap in async function
-async function main() {
-  const data = await fetchData();
-  console.log(data);
-}
-
-main();
-
-// Or use .then()
-fetchData().then((data) => console.log(data));
-
-// Top-level await (ES Modules only)
-// Requires "type": "module" in package.json
-```
-
----
-
-#### **Issue 6: Circular Dependency**
-
-**Problem**: Module exports are undefined or incomplete
-
-**Solutions**:
-
-```javascript
-// Refactor to remove circular dependency
-// Move shared code to separate module
-
-// Use lazy loading
-function getModule() {
-  return require("./module");
-}
-
-// Restructure code to avoid circular references
-```
-
----
-
-#### **Issue 7: ES Module vs CommonJS**
-
-**Problem**: `Cannot use import statement outside a module`
-
-**Solutions**:
-
-```bash
-# Option 1: Rename file to .mjs
-mv file.js file.mjs
-
-# Option 2: Add to package.json
-echo '{"type": "module"}' > package.json
-
-# Option 3: Use CommonJS syntax
-const module = require("./module");
-```
-
----
-
-#### **Issue 8: JSON Parse Error**
-
-**Error**: `Unexpected token in JSON at position 0`
-
-**Solutions**:
-
-```javascript
-try {
-  const data = JSON.parse(content);
-} catch (error) {
-  console.error("Invalid JSON:", error);
-  // Check file content
-  console.log("Content:", content);
-}
-
-// Validate JSON before parsing
-function isValidJSON(str) {
-  try {
-    JSON.parse(str);
-    return true;
-  } catch {
-    return false;
-  }
-}
-```
+- [Node.js Official Documentation](https://nodejs.org/docs/)
+- [MDN Web Docs - JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+- [Node.js File System Module](https://nodejs.org/api/fs.html)
+- [libUV Documentation](http://docs.libuv.org/)
 
 ---
 
@@ -2653,221 +1337,110 @@ function isValidJSON(str) {
 
 **Current Status**: No license specified
 
-### **Recommended License Options**
-
-Consider adding one of these open-source licenses:
-
-- **MIT License** - Most permissive, allows commercial use
-- **Apache 2.0** - Permissive with patent grant
-- **GPL-3.0** - Copyleft, requires derivative works to be open source
-
-To add a license:
-
-```bash
-# Create LICENSE file
-touch LICENSE
-
-# Copy license text from https://choosealicense.com/
-```
-
 ---
 
 ## **Version Information**
 
 ### **Current Version**
 
-- **Version**: 0.2.0
+- **Version**: 0.3.0
 - **Status**: Active Development
-- **Last Updated**: December 12, 2025
+- **Last Updated**: December 16, 2025
 
 ---
 
 ### **Changelog**
 
+#### **v0.3.0 - December 16, 2025**
+
+**Added:**
+
+- ✨ Asynchronous file operations (callbacks, promises, async/await)
+- ✨ Promise demonstration in root demo.js
+- ✨ Enhanced fs.js with complete async patterns
+- ✨ Directory operations (recursive options)
+- ✨ File rename/move operations
+- ✨ File copy operations
+- ✨ Error-first callback pattern examples
+- ✨ fs/promises module usage
+- 📝 Node.js architecture and libUV explanation
+- 📝 Concurrency and parallelism concepts
+- 📝 Event loop queue system documentation
+
+**Enhanced:**
+
+- Comprehensive file system guide
+- Better error handling examples
+- Complete async pattern demonstrations
+
+---
+
 #### **v0.2.0 - December 12, 2025**
 
 **Added:**
 
-- ✨ File System (fs) module with comprehensive CRUD operations
-- ✨ User-defined module examples (CommonJS & ES Modules)
-- ✨ Module execution order demonstrations
-- ✨ Enhanced module system documentation
-- ✨ Buffer and encoding explanations
-- ✨ Directory creation examples
-- ✨ Error handling patterns
-
-**Features:**
-
-- Complete file system operations guide
-- Module import/export patterns
-- Synchronous vs asynchronous operation examples
-- Practical code examples with real-world use cases
+- File System (fs) module with synchronous CRUD operations
+- User-defined module examples
+- Module execution order demonstrations
+- Buffer and encoding explanations
 
 ---
 
-#### **v0.1.0 - December 9, 2025** (Initial Commit)
+#### **v0.1.0 - December 9, 2025**
 
 **Added:**
 
-- JavaScript fundamentals in HTML file
-- Synchronous and asynchronous execution examples
-- Promise and async/await demonstrations
+- Initial JavaScript fundamentals
 - Node.js starter examples
-- Module system explanations (theoretical)
-- Basic repository structure
-
-**Features:**
-
-- Browser-based JavaScript examples
-- Node.js execution demonstrations
-- CommonJS and ES Module explanations
-
----
-
-### **Versioning Strategy**
-
-Following **Semantic Versioning (SemVer)**: `MAJOR.MINOR.PATCH`
-
-- **MAJOR**: Breaking changes (e.g., 1.0.0 → 2.0.0)
-- **MINOR**: New features, backward compatible (e.g., 0.1.0 → 0.2.0)
-- **PATCH**: Bug fixes, backward compatible (e.g., 0.1.0 → 0.1.1)
-
-**Version Progression**:
-
-- `0.1.0` - Initial learning examples
-- `0.2.0` - File system and user-defined modules ✅ CURRENT
-- `0.3.0` - HTTP module and server creation (planned)
-- `0.4.0` - Path and Events modules (planned)
-- `1.0.0` - Complete core Node.js coverage (planned)
-- `2.0.0` - Express framework integration (planned)
+- Module system explanations
 
 ---
 
 ## **Quick Reference**
 
-### **Common Commands**
-
-```bash
-# Execute Node.js file
-node filename.js
-
-# Execute with debugging
-node --inspect filename.js
-
-# Execute with environment variable
-NODE_ENV=production node filename.js
-
-# Execute with maximum memory
-node --max-old-space-size=4096 filename.js
-```
-
----
-
 ### **File System Quick Reference**
 
 ```javascript
 const fs = require("node:fs");
+const fsP = require("fs/promises");
 
-// Create/Write
+// Synchronous
 fs.writeFileSync("./file.txt", "content");
-
-// Read
 fs.readFileSync("./file.txt", "utf-8");
-
-// Append
-fs.appendFileSync("./file.txt", "more content");
-
-// Delete
+fs.appendFileSync("./file.txt", "more");
 fs.unlinkSync("./file.txt");
+fs.mkdirSync("./dir", { recursive: true });
+fs.renameSync("./old.txt", "./new.txt");
+fs.copyFileSync("./src.txt", "./dest.txt");
 
-// Create directory
-fs.mkdirSync("./directory");
-
-// Read directory
-fs.readdirSync("./directory");
-```
-
----
-
-### **Module Quick Reference**
-
-```javascript
-// CommonJS Export
-module.exports = { func1, func2 };
-
-// CommonJS Import
-const module = require("./module");
-
-// ES Module Export
-export const func1 = () => {};
-export default func2;
-
-// ES Module Import
-import { func1 } from "./module.js";
-import func2 from "./module.js";
+// Asynchronous (Promises)
+await fsP.writeFile("./file.txt", "content");
+await fsP.readFile("./file.txt", "utf-8");
+await fsP.appendFile("./file.txt", "more");
+await fsP.unlink("./file.txt");
+await fsP.mkdir("./dir", { recursive: true });
 ```
 
 ---
 
 ## **Conclusion**
 
-This repository provides a comprehensive foundation for learning JavaScript and Node.js. With the recent additions of file system operations and practical module examples, you now have hands-on experience with:
+This repository provides comprehensive learning material for JavaScript and Node.js, now including:
 
-✅ **JavaScript Fundamentals**
-
-- Synchronous and asynchronous execution
-- Event loop mechanics
-- Promises and async/await
-
-✅ **Node.js Core Concepts**
-
-- Module systems (CommonJS & ES Modules)
-- File system operations (CRUD)
-- Global objects and wrapper functions
-- Buffer and encoding handling
-
-✅ **Practical Skills**
-
-- Import/export patterns
-- Error handling
-- Directory structure creation
-- Module execution order
-
-✅ **Best Practices**
-
-- Code organization
-- Error handling strategies
-- Performance considerations
-- Security awareness
+✅ **Synchronous and Asynchronous Patterns**
+✅ **File System Operations** (sync, callbacks, promises, async/await)
+✅ **Node.js Architecture** (libUV, event loop, thread pool)
+✅ **Concurrency and Parallelism Concepts**
+✅ **Module Systems** (CommonJS & ES Modules)
+✅ **Promise Patterns** (creation, chaining, error handling)
+✅ **Best Practices** for production applications
 
 ---
 
-### **Next Steps**
-
-1. **Practice**: Work through all examples in the repository
-2. **Experiment**: Modify code and observe results
-3. **Build**: Create small projects using learned concepts
-4. **Explore**: Check upcoming phases in roadmap
-5. **Contribute**: Share your learnings and improvements
-
----
-
-### **Stay Connected**
-
-- **Repository**: [https://github.com/utk-281/nodeJS](https://github.com/utk-281/nodeJS)
-- **Issues**: Report bugs or request features
-- **Pull Requests**: Contribute improvements
-- **Discussions**: Share ideas and questions
-
----
-
-**Document Version**: 2.0  
-**Last Updated**: December 12, 2025  
-**Maintained By**: [utk-281](https://github.com/utk-281)  
-**Contributors**: Open for contributions
+**Document Version**: 3.0  
+**Last Updated**: December 16, 2025  
+**Maintained By**: [utk-281](https://github.com/utk-281)
 
 ---
 
 **Happy Learning! 🚀**
-
----
