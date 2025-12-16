@@ -158,10 +158,94 @@ function createStructure() {
 //? method name --> writeFile()
 //? method name --> writeFile("path", "data", callback)
 
-console.log(1);
-fs.writeFile("./demo.txt", "this is txt file", (error, data) => {
-  if (error) console.log(error);
-  console.log("File created");
-});
-console.log(2);
-console.log(3);
+// console.log(1);
+// fs.writeFile("./demo.txt", "this is txt file", (error, data) => {
+//   if (error) console.log(error);
+//   console.log("File created");
+// });
+// console.log(2);
+// console.log(3);
+
+//! 3) appending/updating a file
+//? method name --> appendFile()
+//? syntax --> appendFile("path", "data", callback)
+
+// console.log(1);
+
+// fs.appendFile("./demo.txt", "\n this is new line", (err) => {
+//   if (err) console.log(err);
+//   console.log("file appended");
+// });
+
+// console.log(2);
+// console.log(3);
+
+//~ if the file is not present then a new file will be created
+
+//~ here problem is that, we don't know which callback will get executed first, so the order of execution remains inconsistent.
+//! in order to maintain a consistent op, we must write every async operation in the callbacks provided
+// fs.writeFile("./demo.txt", "this is new file", (err) => {
+//   if (err) console.log(err);
+//   console.log("file created");
+// });
+
+// fs.appendFile("./demo.txt", "this is second updated data", (err) => {
+//   if (err) console.log(err);
+//   console.log("file updated");
+// });
+
+// fs.appendFile("./demo.txt", "this is updated data", (err) => {
+//   if (err) console.log(err);
+//   console.log("file updated");
+// });
+
+//! ================================== consistent op ====================================
+
+// fs.writeFile("./demo.txt", "this is new file", (err) => {
+//   if (err) throw new Error("some error occurred");
+//   console.log("file created");
+
+//   fs.appendFile("./demo.txt", "this is updated data", (err) => {
+//     if (err) console.log(err);
+//     console.log("file updated");
+
+//     fs.appendFile("./demo.txt", "this is second updated data", (err) => {
+//       if (err) console.log(err);
+//       console.log("file updated");
+//     });
+//   });
+// });
+//~ here first, file will get created, then only update1 will get executed and after that update2
+
+//TODO: deleting a file, creating a folder. removing. renaming, copy
+
+//! ===================== asynchronous execution using fs  ( callbacks, using then/catch, async-await)===========================
+
+// import fsP from "fs/promises";
+const fsP = require("fs/promises");
+// const fsP = require("fs").promises
+
+//! 1) creating a file -->
+// method name --> writeFile()
+
+// let writeFile = fsP.writeFile("./demo.py", "data");
+// writeFile
+//   .then(() => {
+//     console.log("created");
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+//! 2) reading a file -->
+// method name --> readFile()
+
+let readFile = fsP.readFile("./demo.txt", "utf-8");
+readFile
+  .then((payload) => {
+    console.log(payload);
+    console.log("file read");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
