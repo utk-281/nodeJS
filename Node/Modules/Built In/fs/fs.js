@@ -35,10 +35,10 @@ const fs = require("node:fs"); // name of the module
 // console.log("start");
 // console.log("middle");
 
-// let content = fs.readFileSync("../../../demo.js");
-// console.log(content);
-// /* // <Buffer 6c 65 74 20 75 73 65 72 6e 61
-// 3d 20 ... 60 more bytes> */ // --> buffer is like an array which stores data in binary form
+let content = fs.readFileSync("../../../demo.js");
+console.log(content);
+/* // <Buffer 6c 65 74 20 75 73 65 72 6e 61
+3d 20 ... 60 more bytes> */ // --> buffer is like an array which stores data in binary form
 
 // let readableContent = content.toString(); // default encoding value of toString() is utf-8 (unicode transformation format)
 // console.log(readableContent);
@@ -222,7 +222,7 @@ function createStructure() {
 //! ===================== asynchronous execution using fs  ( callbacks, using then/catch, async-await)===========================
 
 // import fsP from "fs/promises";
-const fsP = require("fs/promises");
+const fsP = require("node:fs/promises");
 // const fsP = require("fs").promises
 
 //! 1) creating a file -->
@@ -240,12 +240,49 @@ const fsP = require("fs/promises");
 //! 2) reading a file -->
 // method name --> readFile()
 
-let readFile = fsP.readFile("./demo.txt", "utf-8");
-readFile
-  .then((payload) => {
-    console.log(payload);
-    console.log("file read");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// let readFile = fsP.readFile("./demo.txt", "utf-8");
+// readFile
+//   .then((payload) => {
+//     console.log(payload);
+//     console.log("file read");
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+//! 3) append a file -->
+// method name --> appendFile()
+
+let result = fsP.appendFile("./app.txt", "this is new data");
+
+// result
+//   .then(() => {
+//     console.log("file appended");
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+
+//TODO: deleting a file, creating, removing and renaming folder
+//~ folder structure (callbacks and then/catch)
+
+//! ===================== asynchronous execution using fs  ( callbacks, then/catch, using async-await)===========================
+//? async is used in function declaration and await is used inside function body.
+//? async function always returns a Promise.
+
+//! 1) read a file
+//? method name --> readFile("path", "encoding")
+
+console.log("1");
+console.log("2");
+async function readFiles(params) {
+  let read = await fsP.readFile("../modules.js", "utf-8");
+
+  console.log(read);
+}
+
+console.log(3);
+readFiles();
+//TODO: rest
+
+//? BUFFER AND STREAMS
