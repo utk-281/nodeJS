@@ -283,6 +283,4 @@ async function readFiles(params) {
 
 console.log(3);
 readFiles();
-//TODO: rest
-
-//? BUFFER AND STREAMS
+//TODO: rest (op CRUD)
