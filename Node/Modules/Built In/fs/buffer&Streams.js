@@ -82,7 +82,8 @@ readFile.pipe(writeFile);
 
 //! example of transform stream
 
-readFile.on("data", (chunk) => {
+readFile.on("data", 
+  (chunk) => {
   console.log("reading chunk");
 
   let upperCaseChunk = chunk.toUpperCase();
