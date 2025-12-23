@@ -17,7 +17,7 @@
 
 //~ 2) built-in modules/ core modules: which is already present, or is a part of the nodeJS installation, examples --> http, fs, os, crypto, path, cluster, worker_threads, qs, queryString, etc..
 
-//~ 3) third-party modules/ external modules: which is used from third party lib.
+//~ 3) third-party modules/ external modules: these modules are installed from NPM(node package manager, which is default package manager for nodeJs) examples --> mongodb, expressJS
 
 //> in commonJS file --> we have a function wrapper --> Module function wrapper: nodejs internally wraps all the code inside an iife with following parameters exports, require, module, __filename, __dirname
 

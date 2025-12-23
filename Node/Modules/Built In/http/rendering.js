@@ -18,3 +18,13 @@ http
     if (err) console.log(err);
     console.log("server running");
   });
+
+//! the old SSR ==> template engines
+//? --> about page (html, css, js) --> the rendered page will displayed on the UI
+
+//! CSR --> react
+//? about --> server (index.html (empty, only div tag), script tag --> bundle)
+//! seo, initial slow loading
+
+//! ssr using nextJS -->
+//? about --> about component --> about.html, the bundle related to about page

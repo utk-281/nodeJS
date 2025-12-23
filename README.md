@@ -1,14 +1,16 @@
+---
+
 # **Node.js & Express Learning Repository - Complete Documentation**
 
-**Comprehensive guide to JavaScript, Node.js fundamentals, file system operations, buffers, streams, and Express.js framework**
+**Comprehensive guide to JavaScript, Node.js fundamentals, HTTP servers, file system operations, buffers, streams, routing, and Express.js framework**
 
 ---
 
 ## **Repository Description**
 
-📚 **Comprehensive Node.js Learning Repository** - Master JavaScript fundamentals, async programming, Node.js core modules (fs, Buffer, Streams), module systems (CommonJS & ESM), event loop architecture, and file operations with hands-on examples. From beginner to advanced concepts with detailed code samples, best practices, and real-world patterns. Perfect for developers learning backend JavaScript development.
+**Comprehensive Node.js Learning Repository** - Master JavaScript fundamentals, async programming, Node.js core modules (fs, Buffer, Streams, HTTP), HTTP server creation, routing, rendering, module systems (CommonJS & ESM), event loop architecture, and file operations with hands-on examples. From beginner to advanced concepts with detailed code samples, best practices, and real-world patterns. Perfect for developers learning backend JavaScript development.
 
-**Topics**: `nodejs` `javascript` `async-await` `promises` `file-system` `buffers` `streams` `event-loop` `modules` `backend` `learning` `tutorial` `examples`
+**Topics**: `nodejs` `javascript` `http` `server` `routing` `async-await` `promises` `file-system` `buffers` `streams` `event-loop` `modules` `backend` `learning` `tutorial` `examples`
 
 ---
 
@@ -21,46 +23,47 @@
 5. [Installation Guide](#installation-guide)
 6. [Technology Stack](#technology-stack)
 7. [Module Breakdown](#module-breakdown)
+   - [HTTP Module](#http-module)
+   - [Buffer & Streams](#buffer--streams-module)
+   - [File System Module](#file-system-fs-module)
+   - [User-Defined Modules](#user-defined-modules)
 8. [Core Concepts Covered](#core-concepts-covered)
 9. [Node.js Architecture & Event Loop](#nodejs-architecture--event-loop)
-10. [Concurrency and Parallelism](#concurrency-and-parallelism)
-11. [Buffer & Streams](#buffer--streams)
-12. [Detailed Code Examples](#detailed-code-examples)
-13. [Execution Instructions](#execution-instructions)
-14. [File System Operations Guide](#file-system-operations-guide)
-15. [Module Import/Export Patterns](#module-importexport-patterns)
-16. [Best Practices and Design Patterns](#best-practices-and-design-patterns)
-17. [Common Pitfalls and Solutions](#common-pitfalls-and-solutions)
-18. [Contributing Guidelines](#contributing-guidelines)
-19. [Troubleshooting](#troubleshooting)
-20. [Resources and References](#resources-and-references)
-21. [Version Information](#version-information)
+10. [HTTP Server Development](#http-server-development)
+11. [Detailed Code Examples](#detailed-code-examples)
+12. [Execution Instructions](#execution-instructions)
+13. [Best Practices and Design Patterns](#best-practices-and-design-patterns)
+14. [Common Pitfalls and Solutions](#common-pitfalls-and-solutions)
+15. [Contributing Guidelines](#contributing-guidelines)
+16. [Troubleshooting](#troubleshooting)
+17. [Resources and References](#resources-and-references)
+18. [Version Information](#version-information)
 
 ---
 
 ## **Project Overview**
 
-This repository serves as a **comprehensive learning resource** for **JavaScript**, **Node.js fundamentals**, and **Express.js framework**. It demonstrates core programming concepts including synchronous and asynchronous execution, promises, async/await patterns, Node.js module systems, file system operations, buffers, and streams.
+This repository serves as a **comprehensive learning resource** for **JavaScript**, **Node.js fundamentals**, **HTTP server development**, and **Express.js framework**. It demonstrates core programming concepts including synchronous and asynchronous execution, promises, async/await patterns, Node.js module systems, HTTP server creation, routing, rendering, file system operations, buffers, and streams.
 
 ### **Purpose**
 
 - Provide hands-on examples of JavaScript execution models
-- Demonstrate asynchronous programming patterns in JavaScript
+- Demonstrate HTTP server creation and request handling
+- Teach routing and endpoint management
+- Show different content-type rendering (HTML, CSS, JSON, plain text)
 - Introduce Node.js module systems (CommonJS and ES Modules)
-- Teach file system operations using Node.js `fs` module (synchronous and asynchronous)
+- Teach file system operations using Node.js `fs` module
 - Explain Buffer and Streams for efficient data handling
 - Show practical examples of module import/export patterns
-- Explain Node.js architecture, event loop, and libUV
 - Serve as a reference for beginners learning JavaScript and Node.js
 
 ### **Target Audience**
 
 - Beginners learning JavaScript and Node.js
-- Developers transitioning from synchronous to asynchronous programming
-- Students exploring module systems and code organization
-- Programmers learning file system operations in Node.js
-- Developers understanding Node.js internals and event loop
-- Backend developers learning efficient data handling with buffers and streams
+- Developers building HTTP servers
+- Students exploring web server fundamentals
+- Programmers learning routing and request handling
+- Backend developers learning efficient data handling
 
 ### **Repository Information**
 
@@ -68,7 +71,7 @@ This repository serves as a **comprehensive learning resource** for **JavaScript
 - **Owner**: utk-281
 - **Primary Language**: JavaScript
 - **Created**: December 9, 2025
-- **Last Updated**: December 17, 2025
+- **Last Updated**: December 22, 2025
 - **Repository URL**: [https://github.com/utk-281/nodeJS](https://github.com/utk-281/nodeJS)
 
 ---
@@ -79,59 +82,92 @@ This repository serves as a **comprehensive learning resource** for **JavaScript
 nodeJS/
 │
 ├── JavaScript/
-│   └── index.html                                    # JavaScript fundamentals and async programming
+│   └── index.html                                    # JavaScript fundamentals
 │
 ├── Node/
 │   └── Modules/
 │       ├── Built In/
-│       │   └── fs/
-│       │       ├── fs.js                             # File System operations (sync & async)
-│       │       └── buffer&Streams.js                 # Buffer and Streams concepts
-│       ├── User Defined/
-│       │   ├── ex-1/
-│       │   │   ├── file1.js                          # Export examples (CommonJS & ESM)
-│       │   │   └── file2.js                          # Import examples (CommonJS & ESM)
-│       │   └── ex-2/
-│       │       ├── app.js                            # Module loading demonstration
-│       │       └── server.js                         # Module execution order
-│       └── modules.js                                # Module concepts and wrapper function
+│       │   ├── fs/
+│       │   │   ├── fs.js                             # File System operations
+│       │   │   └── buffer&Streams.js                 # Buffer and Streams
+│       │   └── http/
+│       │       ├── starter.js                        # HTTP server basics
+│       │       ├── server.js                         # Content-type rendering
+│       │       ├── routing.js                        # Routing implementation
+│       │       ├── rendering.js                      # File rendering with streams
+│       │       └── pages/
+│       │           ├── index.html                    # Sample HTML page
+│       │           └── style.css                     # Sample CSS file
+│       └── User Defined/
+│           ├── ex-1/
+│           │   ├── file1.js                          # Export examples
+│           │   └── file2.js                          # Import examples
+│           └── ex-2/
+│               ├── app.js                            # Module loading
+│               └── server.js                         # Module execution order
 │
 ├── Starter/
-│   └── demo.js                                       # Basic Node.js execution examples
+│   └── demo.js                                       # Basic Node.js examples
 │
 ├── demo.js                                           # Promise demonstration
-└── README.md                                         # Repository documentation
+└── README.md                                         # Documentation
 ```
 
 ---
 
 ## **What's New**
 
-### **Recent Additions (December 2025)**
+### **Latest Additions (December 22, 2025)**
 
-#### **✨ Buffer & Streams Module**
+#### **✨ HTTP Module - Complete Server Development**
 
-- **Location**: `Node/Modules/Built In/fs/buffer&Streams.js`
-- **Features**:
-  - Buffer creation with `Buffer.from()`
-  - Buffer methods: `write()`, `toString()`, `toJSON()`
-  - Buffer allocation with `Buffer.alloc()`
-  - Understanding Buffer data structure
-  - JSON representation of buffers
+**Location**: `Node/Modules/Built In/http/`
 
-#### **✨ Reorganized File System Module**
+**New Files**:
 
-- **Location**: `Node/Modules/Built In/fs/`
-- **Changes**:
-  - Moved fs.js into dedicated `fs` folder
-  - Better organization for fs-related modules
-  - Prepared structure for future stream implementations
+1. **`starter.js`** - HTTP Server Basics
 
-#### **✨ Enhanced Async/Await Examples**
+   - Creating HTTP server with `http.createServer()`
+   - Request-Response cycle
+   - `res.write()` and `res.end()` methods
+   - Setting status codes with `res.writeHead()`
+   - Understanding request and response streams
+   - Server startup and shutdown
 
-- Complete async/await patterns for file operations
-- Real-world usage examples
-- Error handling with try-catch
+2. **`server.js`** - Content-Type Rendering
+
+   - Sending plain text responses
+   - Rendering HTML content
+   - Serving CSS files
+   - Sending JSON responses
+   - Setting response headers
+   - Different `content-type` values
+
+3. **`routing.js`** - Routing Implementation
+
+   - Handling multiple endpoints (`/`, `/login`)
+   - Request URL parsing (`req.url`)
+   - Conditional routing logic
+   - JSON response formatting
+   - 404 error handling
+
+4. **`rendering.js`** - File Rendering with Streams
+
+   - Using `fs.createReadStream()`
+   - Piping streams to response (`data.pipe(res)`)
+   - Serving HTML and CSS files
+   - Dynamic content routing
+   - Efficient file serving
+
+5. **`pages/index.html`** - Sample HTML Page
+
+   - Basic HTML structure
+   - External CSS linking
+   - Demonstrates HTML rendering
+
+6. **`pages/style.css`** - Sample CSS File
+   - Basic styling
+   - Demonstrates CSS serving
 
 ---
 
@@ -139,31 +175,31 @@ nodeJS/
 
 ### **Required Software**
 
-1. **Node.js** (v14.0.0 or higher recommended)
+1. **Node.js** (v14.0.0 or higher)
 
-   - Download from: [https://nodejs.org/](https://nodejs.org/)
-   - Verify installation: `node --version`
+   - Download: [https://nodejs.org/](https://nodejs.org/)
+   - Verify: `node --version`
 
 2. **npm** (Node Package Manager)
 
-   - Comes bundled with Node.js
-   - Verify installation: `npm --version`
+   - Bundled with Node.js
+   - Verify: `npm --version`
 
-3. **Web Browser** (for JavaScript examples)
+3. **Web Browser**
 
-   - Chrome, Firefox, Safari, or Edge (latest version)
+   - Chrome, Firefox, Safari, or Edge
 
-4. **Code Editor** (recommended)
-   - Visual Studio Code
+4. **Code Editor**
+   - Visual Studio Code (recommended)
    - Sublime Text
    - WebStorm
 
 ### **Knowledge Prerequisites**
 
 - Basic programming concepts
-- Command-line/terminal operations
+- Command-line operations
 - JavaScript syntax fundamentals
-- Basic understanding of asynchronous programming
+- Basic HTTP concepts (requests, responses, status codes)
 
 ---
 
@@ -178,18 +214,16 @@ git clone https://github.com/utk-281/nodeJS.git
 # Using SSH
 git clone git@github.com:utk-281/nodeJS.git
 
-# Navigate to the project directory
+# Navigate to project
 cd nodeJS
 ```
 
-### **Step 2: Verify Node.js Installation**
+### **Step 2: Verify Node.js**
 
 ```bash
-# Check Node.js version
 node --version
 # Expected: v14.x.x or higher
 
-# Check npm version
 npm --version
 # Expected: 6.x.x or higher
 ```
@@ -200,8 +234,8 @@ npm --version
 # List all files
 ls -la
 
-# Navigate to fs module
-cd Node/Modules/Built\ In/fs
+# Navigate to HTTP module
+cd Node/Modules/Built\ In/http
 ls
 
 # Return to root
@@ -214,17 +248,19 @@ cd ../../../../
 
 ### **Core Technologies**
 
-| Technology            | Version          | Purpose                                 |
-| --------------------- | ---------------- | --------------------------------------- |
-| **JavaScript (ES6+)** | ECMAScript 2015+ | Core programming language               |
-| **Node.js**           | v14+ recommended | Server-side JavaScript runtime          |
-| **HTML5**             | Latest           | Document structure for browser examples |
+| Technology            | Version          | Purpose                        |
+| --------------------- | ---------------- | ------------------------------ |
+| **JavaScript (ES6+)** | ECMAScript 2015+ | Core programming language      |
+| **Node.js**           | v14+ recommended | Server-side JavaScript runtime |
+| **HTML5**             | Latest           | Document structure             |
+| **CSS3**              | Latest           | Styling                        |
 
 ### **Node.js Built-in Modules**
 
 | Module          | Purpose                       | Used In                                      |
 | --------------- | ----------------------------- | -------------------------------------------- |
-| **fs**          | File System operations        | `Node/Modules/Built In/fs/fs.js`             |
+| **http**        | HTTP server creation          | `Node/Modules/Built In/http/`                |
+| **fs**          | File System operations        | `Node/Modules/Built In/fs/`                  |
 | **fs/promises** | Promise-based file operations | `Node/Modules/Built In/fs/fs.js`             |
 | **Buffer**      | Binary data handling          | `Node/Modules/Built In/fs/buffer&Streams.js` |
 
@@ -232,200 +268,466 @@ cd ../../../../
 
 ## **Module Breakdown**
 
+### **HTTP Module**
+
+**Location**: `Node/Modules/Built In/http/`
+
+**Purpose**: Comprehensive guide to creating HTTP servers, handling requests, routing, and rendering different content types.
+
+---
+
+#### **1. HTTP Server Basics (`starter.js`)**
+
+##### **Creating an HTTP Server**
+
+**Steps to Create Server**:
+
+1. Import `http` module → Destructure `createServer()`
+2. Call `createServer()` with callback function
+3. Callback receives `req` (request) and `res` (response) parameters
+4. Assign port number with `listen(portNumber, callback)`
+
+**Basic Server Example**:
+
+```javascript
+const { createServer } = require("node:http");
+
+let server = createServer((req, res) => {
+  console.log("req accepted");
+  res.end("hi from server");
+  // res.end() ends the cycle and sends data to UI
+});
+
+server.listen(9000, (err) => {
+  if (err) console.log(err);
+  console.log("server running");
+});
+```
+
+**Server Access**:
+
+- Open browser → `localhost:9000` or `127.0.0.1:9000`
+
+**Server Control**:
+
+- Stop server: Press `Ctrl + C` in terminal
+- After modifications: Restart server to see changes
+- Auto-restart: Use `node --watch filename`
+
+---
+
+##### **Response Methods**
+
+###### **1. `res.write()` - Send Data in Chunks**
+
+```javascript
+let server = createServer((req, res) => {
+  res.write("this is from write method");
+  res.write("this is from write method 2 ");
+  res.write("this is from write method 3");
+  res.end();
+
+  // res.write("response after end"); // ERROR! Cannot write after end()
+});
+```
+
+**Explanation**:
+
+- `res.write()` sends data in multiple chunks
+- Must call `res.end()` to finish response
+- Cannot write after calling `end()`
+
+###### **2. `res.end()` - End Response with Optional Data**
+
+```javascript
+res.end("hi from server");
+```
+
+**Explanation**:
+
+- Ends request-response cycle
+- Optionally sends final data
+- Must be called to complete response
+
+###### **3. `res.writeHead()` - Set Status Code and Headers**
+
+```javascript
+res.writeHead(202, { "content-type": "text/plain" });
+res.end("hi");
+```
+
+**Explanation**:
+
+- First parameter: **Status code** (200, 404, 500, etc.)
+- Second parameter: **Headers object**
+  - `"content-type"`: Specifies data format
+  - `"text/plain"`: Plain text
+  - `"text/html"`: HTML content
+  - `"application/json"`: JSON data
+  - `"text/css"`: CSS styling
+
+---
+
+##### **Request Properties**
+
+```javascript
+let server = createServer((req, res) => {
+  console.log(req.url); // '/' (endpoint)
+  console.log(req.method); // GET, POST, PUT, DELETE
+});
+```
+
+**Key Points**:
+
+- `req` and `res` are **stream objects**
+- `req.url`: Requested endpoint (e.g., `/`, `/login`, `/about`)
+- `req.method`: HTTP method (GET, POST, PUT, DELETE)
+
+---
+
+#### **2. Content-Type Rendering (`server.js`)**
+
+##### **Sending Plain Text**
+
+```javascript
+const http = require("http");
+
+http
+  .createServer((req, res) => {
+    res.writeHead(200, { "content-type": "text/plain" });
+    res.write(`string message --> plain/text`);
+    res.end();
+  })
+  .listen(9000, (err) => {
+    if (err) console.log(err);
+    console.log("server running");
+  });
+```
+
+**Output**: Plain text in browser
+
+---
+
+##### **Sending HTML Content**
+
+```javascript
+const fs = require("fs");
+
+http
+  .createServer((req, res) => {
+    res.setHeader("key", "myValue");
+    res.writeHead(200, { "content-type": "text/html" });
+
+    let htmlContents = fs.readFileSync("./pages/index.html", "utf-8");
+    res.end(htmlContents);
+  })
+  .listen(9000);
+```
+
+**Explanation**:
+
+- `res.setHeader()`: Sets custom headers
+- Reads HTML file synchronously
+- Sends HTML to browser
+
+---
+
+##### **Sending CSS Content**
+
+```javascript
+http
+  .createServer((req, res) => {
+    res.writeHead(200, { "content-type": "text/css" });
+
+    fs.readFile("./pages/style.css", "utf-8", (err, data) => {
+      if (err) console.log(err);
+      res.end(data);
+    });
+  })
+  .listen(9000);
+```
+
+**Explanation**:
+
+- Reads CSS file asynchronously
+- Sends CSS to browser
+
+---
+
+##### **Sending JSON Response**
+
+```javascript
+http
+  .createServer((req, res) => {
+    res.writeHead(200, { "content-type": "application/json" });
+
+    let resp = {
+      success: true,
+      message: "User registered Successfully",
+      statusCode: 201,
+      data: "",
+    };
+
+    res.end(JSON.stringify(resp));
+  })
+  .listen(9000);
+```
+
+**Explanation**:
+
+- Creates JavaScript object
+- Converts to JSON string with `JSON.stringify()`
+- Sends as JSON response
+
+**Output**:
+
+```json
+{
+  "success": true,
+  "message": "User registered Successfully",
+  "statusCode": 201,
+  "data": ""
+}
+```
+
+---
+
+#### **3. Routing (`routing.js`)**
+
+##### **Understanding Routing**
+
+**What is Routing?**
+
+- Handling user's multiple requests
+- Directing requests to appropriate responses
+- Based on URL endpoints
+
+**URL Structure**:
+
+```
+https://nodejs.org/en/download
+│                    │  └─────── Endpoint
+│                    └────────── Base URL
+└───────────────────────────── Base URL (domain)
+```
+
+**Examples**:
+
+- `https://nodejs.org/en/` → Base/Home URL
+- Default endpoint → `/` (root)
+- `https://nodejs.org/en/download` → `/download` endpoint
+- `https://nodejs.org/en/about` → `/about` endpoint
+
+---
+
+##### **Implementing Routing**
+
+```javascript
+const http = require("http");
+const fs = require("fs");
+
+http
+  .createServer((req, res) => {
+    if (req.url === "/") {
+      // Home route
+      let data = fs.createReadStream("./pages/index.html", "utf-8");
+      res.writeHead(200, { "content-type": "text/html" });
+      data.pipe(res);
+    } else if (req.url === "/login") {
+      // Login route
+      res.end(
+        JSON.stringify({
+          success: true,
+          message: "User registered Successfully",
+          statusCode: 201,
+          data: "",
+        })
+      );
+    } else {
+      // 404 - Not found
+      res.end("404 page not found");
+    }
+  })
+  .listen(9000, (err) => {
+    if (err) console.log(err);
+    console.log("server running");
+  });
+```
+
+**Explanation**:
+
+1. **Home Route (`/`)**:
+
+   - Uses `fs.createReadStream()` for efficient file reading
+   - Pipes stream directly to response
+   - Sets content-type to `text/html`
+
+2. **Login Route (`/login`)**:
+
+   - Returns JSON response
+   - Simulates user registration API
+
+3. **404 Handler**:
+   - Catches all undefined routes
+   - Returns error message
+
+---
+
+##### **Stream Piping**
+
+```javascript
+let data = fs.createReadStream("./pages/index.html", "utf-8");
+data.pipe(res);
+```
+
+**What is `.pipe()`?**
+
+- Connects readable stream to writable stream
+- Automatically handles data flow
+- More efficient than reading entire file into memory
+
+**Benefits**:
+
+- Memory efficient (chunks, not entire file)
+- Faster for large files
+- Automatic backpressure handling
+
+---
+
+#### **4. Rendering Files (`rendering.js`)**
+
+##### **Serving Multiple Content Types**
+
+```javascript
+const http = require("http");
+const fs = require("fs");
+
+http
+  .createServer((req, res) => {
+    if (req.url === "/") {
+      // Serve HTML
+      res.writeHead(200, { "content-type": "text/html" });
+      fs.createReadStream("./pages/index.html", "utf-8").pipe(res);
+    } else if (req.url === "/css") {
+      // Serve CSS
+      res.writeHead(200, { "content-type": "text/css" });
+      fs.createReadStream("./pages/style.css", "utf-8").pipe(res);
+    } else {
+      // 404 handler
+      res.end("404 page not found");
+    }
+  })
+  .listen(9000, (err) => {
+    if (err) console.log(err);
+    console.log("server running");
+  });
+```
+
+**Explanation**:
+
+1. **HTML Route (`/`)**:
+
+   - Serves `index.html`
+   - HTML can reference other routes for CSS/JS
+
+2. **CSS Route (`/css`)**:
+
+   - Serves `style.css`
+   - Referenced in HTML: `<link rel="stylesheet" href="http://localhost:9000/css" />`
+
+3. **Stream Chaining**:
+   - `fs.createReadStream()` creates readable stream
+   - `.pipe(res)` pipes to response stream
+   - All in one line for clean code
+
+---
+
+##### **Sample HTML (`pages/index.html`)**
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="http://localhost:9000/css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>This is a heading</h1>
+    <h4>hello</h4>
+  </body>
+</html>
+```
+
+**Key Points**:
+
+- External CSS linked to `/css` route
+- Demonstrates server-side rendering
+
+---
+
+##### **Sample CSS (`pages/style.css`)**
+
+```css
+* {
+  background-color: blue;
+  text-align: center;
+}
+```
+
+**Key Points**:
+
+- Simple styling for demonstration
+- Served dynamically by server
+
+---
+
 ### **Buffer & Streams Module**
 
 **Location**: `Node/Modules/Built In/fs/buffer&Streams.js`
 
-**Purpose**: Demonstrates Buffer object for handling binary data in Node.js.
+**Purpose**: Understanding binary data handling with Buffers.
 
 #### **Buffer Basics**
 
 **What is Buffer?**
 
-- Buffer is a **global object** in Node.js (no need to import)
-- Used to store binary data (raw bytes)
-- Similar to an array, but for binary data
+- Global object in Node.js (no import needed)
+- Stores binary data (raw bytes)
+- Similar to arrays, but for binary
 - Fixed size once allocated
-- Each element represents a byte (0-255)
 
-**Why Buffers?**
-
-- JavaScript originally designed for browsers (text-based)
-- Buffers enable handling of binary data (images, videos, network streams)
-- More efficient than strings for binary operations
-- Direct access to memory
-
----
-
-#### **Creating Buffers**
-
-##### **1. Buffer.from() - Create from String**
+**Creating Buffers**:
 
 ```javascript
+// From string
 let buffer1 = Buffer.from("NodeJS");
-console.log(buffer1);
-// Output: <Buffer 4e 6f 64 65 4a 53>
-```
+console.log(buffer1); // <Buffer 4e 6f 64 65 4a 53>
 
-**Explanation**:
-
-- Creates buffer from string "NodeJS"
-- Each character converted to hexadecimal byte
-- `4e` = 'N', `6f` = 'o', `64` = 'd', `65` = 'e', `4a` = 'J', `53` = 'S'
-
-##### **2. Buffer.alloc() - Allocate Fixed Size**
-
-```javascript
+// Allocate size
 let buffSize = Buffer.alloc(34);
-console.log(buffSize);
-// Output: <Buffer 00 00 00 00 00 00... (34 bytes of zeros)>
+console.log(buffSize); // <Buffer 00 00 00... (34 zeros)>
 ```
 
-**Explanation**:
-
-- Allocates buffer of 34 bytes
-- Initialized with zeros (safe allocation)
-- Size is fixed and cannot be changed
-
----
-
-#### **Buffer Methods**
-
-##### **1. write() - Modify Buffer Content**
+**Buffer Methods**:
 
 ```javascript
-let buffer1 = Buffer.from("NodeJS");
+// Write
 buffer1.write("something");
-console.log(buffer1);
-// Output: <Buffer 73 6f 6d 65 74 68>
-console.log(buffer1.toString());
-// Output: "someth"
-```
 
-**Explanation**:
+// Convert to string
+buffer1.toString(); // "someth" (truncated to buffer size)
 
-- `write()` overwrites buffer content starting from index 0
-- Only writes what fits in buffer size
-- Original buffer size: 6 bytes (NodeJS)
-- "something" is 9 characters, but only first 6 fit
-- Result: "someth" (6 characters)
-
-##### **2. toString() - Convert to String**
-
-```javascript
-let buffer1 = Buffer.from("NodeJS");
-let str = buffer1.toString();
-console.log(str);
-// Output: "NodeJS"
-```
-
-**Explanation**:
-
-- Converts buffer binary data to readable string
-- Default encoding: UTF-8
-- Can specify encoding: `toString('hex')`, `toString('base64')`
-
-##### **3. toJSON() - Convert to JSON**
-
-```javascript
-let buffer1 = Buffer.from("NodeJS");
-console.log(buffer1.toJSON());
-```
-
-**Output**:
-
-```javascript
-{
-  type: 'Buffer',
-  data: [78, 111, 100, 101, 74, 83]
-}
-```
-
-**Explanation**:
-
-- `type`: Identifies as Buffer object
-- `data`: Array of decimal byte values
-  - 78 = 'N' (ASCII/Unicode decimal)
-  - 111 = 'o'
-  - 100 = 'd'
-  - 101 = 'e'
-  - 74 = 'J'
-  - 83 = 'S'
-
----
-
-#### **Buffer Data Representation**
-
-**Hexadecimal → Decimal → Character**
-
-| Hex  | Decimal | Character |
-| ---- | ------- | --------- |
-| `4e` | 78      | 'N'       |
-| `6f` | 111     | 'o'       |
-| `64` | 100     | 'd'       |
-| `65` | 101     | 'e'       |
-| `4a` | 74      | 'J'       |
-| `53` | 83      | 'S'       |
-
-**Complete Example**:
-
-```javascript
-let buffer1 = Buffer.from("NodeJS");
-
-// View buffer (hexadecimal)
-console.log(buffer1);
-// <Buffer 4e 6f 64 65 4a 53>
-
-// View as JSON (decimal array)
-console.log(buffer1.toJSON());
+// Convert to JSON
+buffer1.toJSON();
 /* Output:
 {
   type: 'Buffer',
   data: [78, 111, 100, 101, 74, 83]
 }
 */
-
-// View as string
-console.log(buffer1.toString());
-// Output: "NodeJS"
-
-// Modify buffer
-buffer1.write("something");
-console.log(buffer1.toString());
-// Output: "someth"
-
-// Allocate new buffer
-let buffSize = Buffer.alloc(34);
-console.log(buffSize.length); // 34
 ```
-
----
-
-#### **Buffer Use Cases**
-
-1. **File Reading/Writing**
-
-   - Reading binary files (images, videos, PDFs)
-   - Writing binary data to files
-
-2. **Network Communication**
-
-   - TCP/UDP data transfer
-   - HTTP request/response bodies
-
-3. **Cryptography**
-
-   - Hashing algorithms
-   - Encryption/decryption
-
-4. **Data Transformation**
-
-   - Encoding conversions
-   - Base64 encoding/decoding
-
-5. **Streams**
-   - Working with data chunks
-   - Efficient large file processing
 
 ---
 
@@ -433,823 +735,30 @@ console.log(buffSize.length); // 34
 
 **Location**: `Node/Modules/Built In/fs/fs.js`
 
-**Purpose**: Comprehensive guide to file system operations (synchronous and asynchronous).
+**Purpose**: Comprehensive file operations (synchronous and asynchronous).
 
 #### **Synchronous Operations**
 
-All synchronous methods block code execution until operation completes.
-
-##### **1. Create/Write File - `writeFileSync()`**
-
 ```javascript
 const fs = require("node:fs");
 
+// Write file
 fs.writeFileSync("./file.txt", "content");
-console.log("file created");
-```
 
-##### **2. Read File - `readFileSync()`**
+// Read file
+let content = fs.readFileSync("./file.txt", "utf-8");
 
-```javascript
-// Returns Buffer by default
-let content = fs.readFileSync("./file.txt");
-console.log(content); // <Buffer ...>
-
-// Convert to string
-let readableContent = content.toString(); // default: utf-8
-
-// Direct reading with encoding
-let res = fs.readFileSync("./file.txt", "utf-8");
-console.log(res); // "content"
-```
-
-**Character Encoding**:
-
-- **ASCII**: 126 characters
-- **Unicode**: Universal character set
-- **UTF-8**: Variable-length encoding (1-4 bytes per character)
-  - Backward compatible with ASCII
-  - Most popular encoding
-
-##### **3. Append File - `appendFileSync()`**
-
-```javascript
+// Append file
 fs.appendFileSync("./file.txt", "\nnew data");
+
+// Delete file
+fs.unlinkSync("./file.txt");
+
+// Create directory
+fs.mkdirSync("./folder", { recursive: true });
 ```
 
-**Note**: Creates file if doesn't exist
-
-##### **4. Delete File - `unlinkSync()`**
-
-```javascript
-try {
-  fs.unlinkSync("./file.txt");
-  console.log("file deleted");
-} catch (error) {
-  if (error.code === "ENOENT") {
-    console.log("file not found");
-  }
-}
-```
-
-##### **5. Create Directory - `mkdirSync()`**
-
-```javascript
-// Single directory
-fs.mkdirSync("./folder");
-
-// Nested directories with recursive
-fs.mkdirSync("./demo/fol1/fol2/fol3", { recursive: true });
-```
-
-**Note**: `recursive: true` creates all parent directories
-
-##### **6. Remove Directory - `rmdirSync()`**
-
-```javascript
-fs.rmdirSync("./folder", { recursive: true });
-// Warning: recursive option being deprecated
-```
-
-##### **7. Rename/Move - `renameSync()`**
-
-```javascript
-// Rename file
-fs.renameSync("./oldname.txt", "./newname.txt");
-
-// Move and rename
-fs.renameSync("./demo.txt", "../../app.js");
-
-// Rename folder
-fs.renameSync("../dummy", "./content");
-```
-
-##### **8. Copy File - `copyFileSync()`**
-
-```javascript
-fs.copyFileSync("./source.txt", "./destination.txt");
-```
-
----
-
-#### **Asynchronous Operations with Callbacks**
-
-**Error-First Callback Pattern**: First parameter reserved for error
-
-```javascript
-// Read file
-fs.readFile("./file.txt", "utf-8", (error, data) => {
-  if (error) console.log("error occurred", error);
-  console.log(data);
-});
-
-// Write file
-fs.writeFile("./demo.txt", "content", (error) => {
-  if (error) console.log(error);
-  console.log("File created");
-});
-
-// Append file
-fs.appendFile("./demo.txt", "\n new line", (err) => {
-  if (err) console.log(err);
-  console.log("file appended");
-});
-```
-
-**Problem**: Inconsistent execution order when multiple async operations
-
-**Solution**: Nest callbacks (leads to callback hell)
-
-```javascript
-fs.writeFile("./demo.txt", "content", (err) => {
-  if (err) throw new Error("error occurred");
-  console.log("file created");
-
-  fs.appendFile("./demo.txt", "update 1", (err) => {
-    if (err) console.log(err);
-    console.log("file updated");
-
-    fs.appendFile("./demo.txt", "update 2", (err) => {
-      if (err) console.log(err);
-      console.log("file updated again");
-    });
-  });
-});
-```
-
----
-
-#### **Asynchronous Operations with Promises**
-
-```javascript
-const fsP = require("node:fs/promises");
-// or: const fsP = require("fs").promises
-// or: import fsP from "fs/promises"
-
-// Write file
-let writeFile = fsP.writeFile("./demo.py", "data");
-writeFile
-  .then(() => {
-    console.log("created");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-// Read file
-let readFile = fsP.readFile("./demo.txt", "utf-8");
-readFile
-  .then((payload) => {
-    console.log(payload);
-    console.log("file read");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
-// Append file
-let result = fsP.appendFile("./app.txt", "new data");
-result
-  .then(() => {
-    console.log("file appended");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-```
-
----
-
-#### **Asynchronous Operations with Async/Await**
-
-**Async Function Properties**:
-
-- `async` keyword used in function declaration
-- `await` keyword used inside function body
-- Async function **always returns a Promise**
-- `await` suspends execution until Promise resolves
-
-```javascript
-const fsP = require("node:fs/promises");
-
-console.log("1");
-console.log("2");
-
-async function readFiles() {
-  let read = await fsP.readFile("../modules.js", "utf-8");
-  console.log(read);
-}
-
-console.log("3");
-readFiles();
-```
-
-**Execution Order**:
-
-```
-1
-2
-3
-(file content from readFiles())
-```
-
-**Complete Example**:
-
-```javascript
-async function fileOperations() {
-  try {
-    // Write file
-    await fsP.writeFile("./demo.txt", "initial content");
-    console.log("file created");
-
-    // Read file
-    const data = await fsP.readFile("./demo.txt", "utf-8");
-    console.log("Content:", data);
-
-    // Append file
-    await fsP.appendFile("./demo.txt", "\n appended");
-    console.log("file updated");
-
-    // Read again
-    const updatedData = await fsP.readFile("./demo.txt", "utf-8");
-    console.log("Updated content:", updatedData);
-  } catch (error) {
-    console.error("Error:", error);
-  }
-}
-
-fileOperations();
-```
-
----
-
-## **Core Concepts Covered**
-
-### **1. Synchronous vs Asynchronous Execution**
-
-#### **Synchronous (Blocking)**
-
-```javascript
-console.log("start");
-for (let i = 0; i < 10000; i++) {
-  console.log(i);
-}
-console.log("middle");
-console.log("end");
-```
-
-**Characteristics**:
-
-- Sequential execution
-- Blocks further code
-- Predictable order
-
-#### **Asynchronous (Non-Blocking)**
-
-```javascript
-setTimeout(() => {
-  console.log("inside setTimeout");
-}, 1000);
-
-console.log("Start");
-```
-
-**Characteristics**:
-
-- Non-blocking
-- Uses event loop
-- Concurrent execution
-
----
-
-## **Node.js Architecture & Event Loop**
-
-### **Node.js Architecture**
-
-```
-┌────────────────────────────────────────────┐
-│      JavaScript Code (C++)                 │
-│         Call Stack                         │
-│      Thread (main thread)                  │
-└────────────────────────────────────────────┘
-                    ↓
-┌────────────────────────────────────────────┐
-│   Main Thread Executes Sync Code           │
-│                                            │
-│   Offloads async operations:               │
-│   1. First to system kernel                │
-│   2. If not possible → libUV               │
-└────────────────────────────────────────────┘
-                    ↓
-┌────────────────────────────────────────────┐
-│          libUV (C, C++)                    │
-│                                            │
-│   Async I/O operations:                    │
-│   - File reading                           │
-│   - DB call                                │
-│   - Network call                           │
-│                                            │
-│         Event Loop                         │
-└────────────────────────────────────────────┘
-```
-
-**Key Points**:
-
-1. **Node.js is single-threaded** on call stack
-2. **Main thread** only executes synchronous code
-3. **libUV** provides thread pool (default 4 workers)
-4. Thread pool size **can be adjusted**
-
----
-
-### **Event Loop Queues**
-
-```
-┌───────────────────────────┐
-│   1. Microtask Queue      │
-│      - nextTick           │
-│      - Promise            │
-│   (Highest Priority)      │
-└───────────────────────────┘
-            ↓
-┌───────────────────────────┐
-│   2. Timer Queue          │
-│      - setTimeout         │
-│      - setInterval        │
-└───────────────────────────┘
-            ↓
-┌───────────────────────────┐
-│   3. I/O Queue            │
-│      - File operations    │
-│      - Network ops        │
-└───────────────────────────┘
-            ↓
-┌───────────────────────────┐
-│   4. Check Queue          │
-│      - setImmediate       │
-└───────────────────────────┘
-            ↓
-┌───────────────────────────┐
-│   5. Close Callbacks      │
-│      - Socket close       │
-│      - Stream close       │
-└───────────────────────────┘
-            ↓
-┌───────────────────────────┐
-│   6. Poll Phase           │
-│      (Not a queue)        │
-│   Retrieves I/O events    │
-└───────────────────────────┘
-```
-
----
-
-## **Concurrency and Parallelism**
-
-### **System Kernel**
-
-**System Kernel** → Interface between software and hardware
-
-```
-Application Layer (Node.js)
-        ↓
-System Kernel (OS interface)
-        ↓
-Hardware Layer (CPU, Memory)
-```
-
-### **Concurrency vs Parallelism**
-
-#### **Concurrency**
-
-- Multiple tasks making progress
-- Task switching on single core
-- Not necessarily simultaneous
-
-#### **Parallelism**
-
-- Multiple tasks executing simultaneously
-- Multiple cores/threads
-- True simultaneous execution
-
-### **Threading Levels**
-
-#### **OS Level Threads**
-
-- Software abstraction
-- Managed by OS
-- Code execution layer
-
-#### **Hardware Threads**
-
-- Physical processor capabilities
-- Example: 16 hardware threads
-- Actual parallel units
-
----
-
-## **Buffer & Streams**
-
-### **Buffer Deep Dive**
-
-#### **Memory Representation**
-
-```javascript
-let buffer = Buffer.from("NodeJS");
-
-// Hexadecimal view
-console.log(buffer);
-// <Buffer 4e 6f 64 65 4a 53>
-
-// Decimal array view
-console.log(buffer.toJSON());
-/* {
-  type: 'Buffer',
-  data: [78, 111, 100, 101, 74, 83]
-} */
-
-// String view
-console.log(buffer.toString());
-// "NodeJS"
-```
-
-#### **Buffer Size and Allocation**
-
-```javascript
-// Allocate specific size
-let buffer = Buffer.alloc(10);
-console.log(buffer.length); // 10
-console.log(buffer); // <Buffer 00 00 00 00 00 00 00 00 00 00>
-
-// Unsafe allocation (faster, but uninitialized)
-let unsafeBuffer = Buffer.allocUnsafe(10);
-// May contain old memory data
-```
-
-#### **Buffer Write Operations**
-
-```javascript
-let buffer = Buffer.alloc(10);
-
-// Write at specific offset
-buffer.write("Hello", 0);
-console.log(buffer.toString()); // "Hello"
-
-// Write with offset
-buffer.write("World", 5);
-console.log(buffer.toString()); // "HelloWorld"
-
-// Overwrite
-buffer.write("Hi", 0);
-console.log(buffer.toString()); // "Hi   World"
-```
-
----
-
-## **Detailed Code Examples**
-
-### **Example 1: Buffer Manipulation**
-
-```javascript
-// Create buffer from string
-let buffer1 = Buffer.from("NodeJS");
-console.log("Original:", buffer1.toString()); // "NodeJS"
-console.log("Hex:", buffer1); // <Buffer 4e 6f 64 65 4a 53>
-console.log("JSON:", buffer1.toJSON());
-/* Output:
-{
-  type: 'Buffer',
-  data: [78, 111, 100, 101, 74, 83]
-}
-*/
-
-// Modify buffer
-buffer1.write("something");
-console.log("Modified:", buffer1.toString()); // "someth"
-console.log("Hex:", buffer1); // <Buffer 73 6f 6d 65 74 68>
-
-// Allocate buffer
-let buffSize = Buffer.alloc(34);
-console.log("Size:", buffSize.length); // 34
-console.log("Content:", buffSize); // <Buffer 00 00 ... (34 zeros)>
-```
-
-### **Example 2: File Reading with Buffer**
-
-```javascript
-const fs = require("node:fs");
-
-// Read file as buffer
-let content = fs.readFileSync("./demo.js");
-console.log("Buffer:", content);
-// <Buffer 6c 65 74 20 75 73 65 72...>
-
-// Convert to string
-let readableContent = content.toString();
-console.log("String:", readableContent);
-
-// Direct read with encoding
-let res = fs.readFileSync("./demo.js", "utf-8");
-console.log("Direct:", res);
-```
-
-### **Example 3: Async/Await File Operations**
-
-```javascript
-const fsP = require("node:fs/promises");
-
-async function fileOps() {
-  try {
-    console.log("1: Start");
-
-    // Write file
-    await fsP.writeFile("./test.txt", "Hello World");
-    console.log("2: File created");
-
-    // Read file
-    const data = await fsP.readFile("./test.txt", "utf-8");
-    console.log("3: Content:", data);
-
-    // Append file
-    await fsP.appendFile("./test.txt", "\nNew line");
-    console.log("4: File updated");
-
-    // Read updated file
-    const updated = await fsP.readFile("./test.txt", "utf-8");
-    console.log("5: Updated:", updated);
-  } catch (error) {
-    console.error("Error:", error);
-  }
-}
-
-fileOps();
-console.log("6: End");
-
-// Output order: 1, 6, 2, 3, 4, 5
-```
-
----
-
-## **Execution Instructions**
-
-### **Running JavaScript Examples (Browser)**
-
-```bash
-cd JavaScript
-# Windows: start index.html
-# macOS: open index.html
-# Linux: xdg-open index.html
-```
-
-### **Running Node.js Examples**
-
-```bash
-# Starter examples
-cd Starter
-node demo.js
-
-# Buffer examples
-cd Node/Modules/Built\ In/fs
-node buffer&Streams.js
-
-# File system examples
-node fs.js
-
-# Module examples
-cd ../User\ Defined/ex-2
-node app.js
-```
-
----
-
-## **File System Operations Guide**
-
-### **Operation Comparison**
-
-| Operation       | Sync               | Async (Callback) | Async (Promise)    |
-| --------------- | ------------------ | ---------------- | ------------------ |
-| **Write**       | `writeFileSync()`  | `writeFile()`    | `fsP.writeFile()`  |
-| **Read**        | `readFileSync()`   | `readFile()`     | `fsP.readFile()`   |
-| **Append**      | `appendFileSync()` | `appendFile()`   | `fsP.appendFile()` |
-| **Delete**      | `unlinkSync()`     | `unlink()`       | `fsP.unlink()`     |
-| **Rename/Move** | `renameSync()`     | `rename()`       | `fsP.rename()`     |
-| **Copy**        | `copyFileSync()`   | `copyFile()`     | `fsP.copyFile()`   |
-| **Make Dir**    | `mkdirSync()`      | `mkdir()`        | `fsP.mkdir()`      |
-| **Remove Dir**  | `rmdirSync()`      | `rmdir()`        | `fsP.rmdir()`      |
-
----
-
-## **Best Practices and Design Patterns**
-
-### **1. Buffer Best Practices**
-
-**✅ Do's**:
-
-```javascript
-// Use Buffer for binary data
-let buffer = Buffer.from("data");
-
-// Convert to string when needed
-let str = buffer.toString("utf-8");
-
-// Allocate with alloc() for safety
-let safe = Buffer.alloc(10);
-```
-
-**❌ Don'ts**:
-
-```javascript
-// Don't use allocUnsafe() unless necessary
-let unsafe = Buffer.allocUnsafe(10); // Contains old data
-
-// Don't modify buffer beyond its size
-buffer.write("very long string"); // Truncated silently
-```
-
-### **2. Async/Await Best Practices**
-
-**✅ Do's**:
-
-```javascript
-async function fileOps() {
-  try {
-    const data = await fsP.readFile("./file.txt", "utf-8");
-    return data;
-  } catch (error) {
-    console.error("Error:", error);
-  }
-}
-```
-
-**❌ Don'ts**:
-
-```javascript
-// Don't forget try-catch
-async function bad() {
-  const data = await fsP.readFile("./file.txt"); // May throw
-}
-
-// Don't block with sync in async
-async function mixed() {
-  const data = fs.readFileSync("./file.txt"); // Blocks!
-}
-```
-
----
-
-## **Common Pitfalls and Solutions**
-
-### **1. Buffer Write Truncation**
-
-**Problem**:
-
-```javascript
-let buffer = Buffer.from("NodeJS"); // 6 bytes
-buffer.write("something"); // 9 characters
-console.log(buffer.toString()); // "someth" (truncated)
-```
-
-**Solution**:
-
-```javascript
-// Allocate enough space
-let buffer = Buffer.alloc(9);
-buffer.write("something");
-console.log(buffer.toString()); // "something"
-```
-
-### **2. Async Operation Order**
-
-**Problem**:
-
-```javascript
-fs.writeFile("./file.txt", "content1", (err) => {
-  console.log("file created");
-});
-
-fs.appendFile("./file.txt", "content2", (err) => {
-  console.log("file updated");
-});
-// Unpredictable order!
-```
-
-**Solution**:
-
-```javascript
-// Use async/await
-async function ops() {
-  await fsP.writeFile("./file.txt", "content1");
-  await fsP.appendFile("./file.txt", "content2");
-}
-```
-
----
-
-## **Contributing Guidelines**
-
-1. Fork the Repository
-2. Clone your fork
-3. Create a feature branch
-4. Make changes with clear commits
-5. Test your changes
-6. Submit Pull Request
-
----
-
-## **Troubleshooting**
-
-### **Common Issues**
-
-**Issue 1: Buffer Not Readable**
-
-```javascript
-// Problem
-let buffer = fs.readFileSync("./file.txt");
-console.log(buffer); // <Buffer ...>
-
-// Solution
-let content = buffer.toString("utf-8");
-console.log(content); // Readable text
-```
-
-**Issue 2: Async Not Waiting**
-
-```javascript
-// Problem
-async function test() {
-  fsP.readFile("./file.txt"); // Forgot await!
-}
-
-// Solution
-async function test() {
-  await fsP.readFile("./file.txt");
-}
-```
-
----
-
-## **Resources and References**
-
-- [Node.js Official Documentation](https://nodejs.org/docs/)
-- [Node.js Buffer Documentation](https://nodejs.org/api/buffer.html)
-- [Node.js fs Module](https://nodejs.org/api/fs.html)
-- [MDN JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-- [libUV Documentation](http://docs.libuv.org/)
-
----
-
-## **Version Information**
-
-### **Current Version**
-
-- **Version**: 0.4.0
-- **Status**: Active Development
-- **Last Updated**: December 17, 2025
-
-### **Changelog**
-
-#### **v0.4.0 - December 17, 2025**
-
-**Added:**
-
-- ✨ Buffer & Streams module (`buffer&Streams.js`)
-- ✨ Buffer creation, manipulation, and conversion methods
-- ✨ Complete Buffer examples with explanations
-- ✨ Reorganized fs module into dedicated folder
-- ✨ Enhanced async/await file operation examples
-- 📝 Buffer data representation (hex, decimal, string)
-- 📝 Buffer use cases documentation
-- 📝 Memory representation explanations
-
-**Enhanced:**
-
-- Better code organization
-- More detailed Buffer explanations
-- Complete async/await patterns
-
----
-
-## **Quick Reference**
-
-### **Buffer Quick Reference**
-
-```javascript
-// Create buffer
-let buffer = Buffer.from("text");
-let allocated = Buffer.alloc(10);
-
-// Methods
-buffer.toString(); // Convert to string
-buffer.toJSON(); // Convert to JSON
-buffer.write("new"); // Write to buffer
-buffer.length; // Get size
-
-// File operations with buffers
-let content = fs.readFileSync("./file.txt"); // Returns buffer
-let text = fs.readFileSync("./file.txt", "utf-8"); // Returns string
-```
-
-### **Async/Await Quick Reference**
+#### **Asynchronous with Promises**
 
 ```javascript
 const fsP = require("node:fs/promises");
@@ -1267,24 +776,674 @@ async function fileOps() {
 
 ---
 
+### **User-Defined Modules**
+
+**Location**: `Node/Modules/User Defined/`
+
+**Purpose**: Demonstrates module import/export patterns.
+
+#### **Example 1: Export/Import Patterns**
+
+**file1.js (Exporting)**:
+
+```javascript
+// CommonJS
+module.exports = {
+  printName,
+  arr,
+  obj,
+};
+
+// ES Module
+export const sum = (a, b) => a + b;
+export default abcde;
+```
+
+**file2.js (Importing)**:
+
+```javascript
+// CommonJS
+const { printName, arr, obj } = require("./file1");
+
+// ES Module
+import { arr, obj, sum } from "./file1.js";
+```
+
+---
+
+## **Core Concepts Covered**
+
+### **1. HTTP Server Creation**
+
+- Using `http.createServer()`
+- Request-Response cycle
+- Status codes and headers
+- Content-Type handling
+
+### **2. Routing**
+
+- URL parsing (`req.url`)
+- Conditional routing
+- Multiple endpoints
+- 404 handling
+
+### **3. Content Rendering**
+
+- Plain text
+- HTML
+- CSS
+- JSON
+
+### **4. Streams**
+
+- `fs.createReadStream()`
+- Stream piping (`.pipe()`)
+- Efficient file serving
+
+### **5. Buffers**
+
+- Binary data handling
+- Buffer creation and manipulation
+- String/JSON conversion
+
+### **6. Asynchronous Programming**
+
+- Callbacks
+- Promises
+- Async/Await
+
+---
+
+## **Node.js Architecture & Event Loop**
+
+### **Node.js Architecture**
+
+```
+┌─────────────────────────────┐
+│  JavaScript Code (V8 C++)   │
+│       Call Stack            │
+│    Main Thread              │
+└─────────────────────────────┘
+            ↓
+   Main Thread Executes Sync Code
+   Offloads async operations:
+   1. First to system kernel
+   2. If not possible → libUV
+            ↓
+┌─────────────────────────────┐
+│     libUV (C, C++)          │
+│                             │
+│  Async I/O operations:      │
+│  - File reading             │
+│  - DB call                  │
+│  - Network call             │
+│                             │
+│      Event Loop             │
+└─────────────────────────────┘
+```
+
+**Key Points**:
+
+- Node.js is **single-threaded** on call stack
+- **Main thread** executes synchronous code
+- **libUV** provides thread pool (default 4 workers)
+- Thread pool size can be adjusted
+
+---
+
+## **HTTP Server Development**
+
+### **Server Lifecycle**
+
+```
+┌─────────────────────────────┐
+│   1. Create Server          │
+│   http.createServer()       │
+└─────────────────────────────┘
+            ↓
+┌─────────────────────────────┐
+│   2. Define Request Handler │
+│   (req, res) => {}          │
+└─────────────────────────────┘
+            ↓
+┌─────────────────────────────┐
+│   3. Listen on Port         │
+│   server.listen(9000)       │
+└─────────────────────────────┘
+            ↓
+┌─────────────────────────────┐
+│   4. Accept Requests        │
+│   Browser: localhost:9000   │
+└─────────────────────────────┘
+            ↓
+┌─────────────────────────────┐
+│   5. Process Request        │
+│   - Parse URL               │
+│   - Route to handler        │
+│   - Generate response       │
+└─────────────────────────────┘
+            ↓
+┌─────────────────────────────┐
+│   6. Send Response          │
+│   res.end() / .pipe()       │
+└─────────────────────────────┘
+```
+
+---
+
+### **Content-Type Reference**
+
+| Content-Type       | Use Case   | Example         |
+| ------------------ | ---------- | --------------- |
+| `text/plain`       | Plain text | Simple messages |
+| `text/html`        | HTML pages | Web pages       |
+| `text/css`         | CSS files  | Stylesheets     |
+| `application/json` | JSON data  | API responses   |
+| `image/png`        | PNG images | Image files     |
+| `application/pdf`  | PDF files  | Documents       |
+
+---
+
+## **Detailed Code Examples**
+
+### **Example 1: Complete HTTP Server with Routing**
+
+```javascript
+const http = require("http");
+const fs = require("fs");
+
+const server = http.createServer((req, res) => {
+  // Home route
+  if (req.url === "/") {
+    res.writeHead(200, { "content-type": "text/html" });
+    fs.createReadStream("./pages/index.html").pipe(res);
+  }
+
+  // CSS route
+  else if (req.url === "/css") {
+    res.writeHead(200, { "content-type": "text/css" });
+    fs.createReadStream("./pages/style.css").pipe(res);
+  }
+
+  // API route
+  else if (req.url === "/api/users") {
+    res.writeHead(200, { "content-type": "application/json" });
+    res.end(
+      JSON.stringify({
+        success: true,
+        users: [
+          { id: 1, name: "John" },
+          { id: 2, name: "Jane" },
+        ],
+      })
+    );
+  }
+
+  // 404
+  else {
+    res.writeHead(404, { "content-type": "text/plain" });
+    res.end("404 - Page Not Found");
+  }
+});
+
+server.listen(9000, () => {
+  console.log("Server running on http://localhost:9000");
+});
+```
+
+---
+
+### **Example 2: Stream Piping vs Traditional Reading**
+
+```javascript
+// Traditional approach (loads entire file in memory)
+http
+  .createServer((req, res) => {
+    fs.readFile("./large-file.html", "utf-8", (err, data) => {
+      if (err) {
+        res.writeHead(500);
+        res.end("Error reading file");
+        return;
+      }
+      res.writeHead(200, { "content-type": "text/html" });
+      res.end(data);
+    });
+  })
+  .listen(9000);
+
+// Stream approach (memory efficient)
+http
+  .createServer((req, res) => {
+    res.writeHead(200, { "content-type": "text/html" });
+    fs.createReadStream("./large-file.html").pipe(res);
+  })
+  .listen(9000);
+```
+
+**Benefits of Streaming**:
+
+- Lower memory usage
+- Faster initial response
+- Better for large files
+- Automatic error handling
+
+---
+
+## **Execution Instructions**
+
+### **Running HTTP Server Examples**
+
+```bash
+# Navigate to HTTP module
+cd Node/Modules/Built\ In/http
+
+# Run basic server
+node starter.js
+# Open browser: http://localhost:9000
+
+# Run routing example
+node routing.js
+# Test endpoints:
+# - http://localhost:9000/
+# - http://localhost:9000/login
+
+# Run rendering example
+node rendering.js
+# Open browser: http://localhost:9000
+# CSS will be automatically loaded
+
+# Stop server
+# Press Ctrl + C
+```
+
+### **Auto-Restart During Development**
+
+```bash
+# Watch file for changes and auto-restart
+node --watch server.js
+
+# Modify code, save file
+# Server automatically restarts
+```
+
+---
+
+## **Best Practices and Design Patterns**
+
+### **1. HTTP Server Best Practices**
+
+#### **✅ Do's**
+
+```javascript
+// Use async operations
+http.createServer((req, res) => {
+  fs.createReadStream("./file.html").pipe(res);
+});
+
+// Set appropriate status codes
+res.writeHead(200, { "content-type": "text/html" });
+res.writeHead(404, { "content-type": "text/plain" });
+res.writeHead(500, { "content-type": "text/plain" });
+
+// Handle errors
+http.createServer((req, res) => {
+  const stream = fs.createReadStream("./file.html");
+
+  stream.on("error", (err) => {
+    res.writeHead(500);
+    res.end("Internal Server Error");
+  });
+
+  stream.pipe(res);
+});
+```
+
+#### **❌ Don'ts**
+
+```javascript
+// Don't use sync operations in server
+http.createServer((req, res) => {
+  const data = fs.readFileSync("./file.html"); // BLOCKS!
+  res.end(data);
+});
+
+// Don't forget to end response
+http.createServer((req, res) => {
+  res.write("data"); // Response never ends!
+});
+
+// Don't ignore content-type
+http.createServer((req, res) => {
+  res.end("<h1>HTML</h1>"); // Browser may not render HTML
+});
+```
+
+---
+
+### **2. Routing Best Practices**
+
+```javascript
+// Good: Organized routing
+const routes = {
+  "/": (req, res) => {
+    res.writeHead(200, { "content-type": "text/html" });
+    fs.createReadStream("./pages/home.html").pipe(res);
+  },
+  "/api/users": (req, res) => {
+    res.writeHead(200, { "content-type": "application/json" });
+    res.end(JSON.stringify({ users: [] }));
+  },
+  404: (req, res) => {
+    res.writeHead(404);
+    res.end("Not Found");
+  },
+};
+
+http
+  .createServer((req, res) => {
+    const handler = routes[req.url] || routes["404"];
+    handler(req, res);
+  })
+  .listen(9000);
+```
+
+---
+
+## **Common Pitfalls and Solutions**
+
+### **1. Response Already Sent**
+
+**Problem**:
+
+```javascript
+http.createServer((req, res) => {
+  res.end("First response");
+  res.end("Second response"); // ERROR!
+});
+```
+
+**Solution**:
+
+```javascript
+http.createServer((req, res) => {
+  res.end("Only one response");
+});
+```
+
+---
+
+### **2. Missing Content-Type**
+
+**Problem**:
+
+```javascript
+http.createServer((req, res) => {
+  res.end("<h1>HTML</h1>"); // Displays as plain text
+});
+```
+
+**Solution**:
+
+```javascript
+http.createServer((req, res) => {
+  res.writeHead(200, { "content-type": "text/html" });
+  res.end("<h1>HTML</h1>"); // Renders as HTML
+});
+```
+
+---
+
+### **3. Server Not Stopping**
+
+**Problem**: Server keeps running after `Ctrl + C`
+
+**Solution**:
+
+```javascript
+const server = http.createServer((req, res) => {
+  // handler
+});
+
+server.listen(9000);
+
+// Graceful shutdown
+process.on("SIGTERM", () => {
+  server.close(() => {
+    console.log("Server closed");
+  });
+});
+```
+
+---
+
+## **Contributing Guidelines**
+
+1. Fork the Repository
+2. Clone your fork
+3. Create feature branch
+4. Make changes with clear commits
+5. Test HTTP servers locally
+6. Submit Pull Request
+
+---
+
+## **Troubleshooting**
+
+### **Issue 1: Port Already in Use**
+
+**Error**: `EADDRINUSE: address already in use`
+
+**Solutions**:
+
+```bash
+# Find process using port 9000
+lsof -i :9000
+
+# Kill process
+kill -9 <PID>
+
+# Or use different port
+server.listen(9001);
+```
+
+---
+
+### **Issue 2: Cannot Access Server**
+
+**Problem**: Browser shows "Cannot connect"
+
+**Solutions**:
+
+```javascript
+// Check server is running
+server.listen(9000, () => {
+  console.log("Server running on http://localhost:9000");
+});
+
+// Verify correct URL
+// localhost:9000 or 127.0.0.1:9000
+```
+
+---
+
+### **Issue 3: CSS Not Loading**
+
+**Problem**: HTML loads but CSS doesn't apply
+
+**Solutions**:
+
+```html
+<!-- Correct CSS link -->
+<link rel="stylesheet" href="http://localhost:9000/css" />
+
+<!-- Server route for CSS -->
+<script>
+  if (req.url === "/css") {
+    res.writeHead(200, { "content-type": "text/css" });
+    fs.createReadStream("./pages/style.css").pipe(res);
+  }
+</script>
+```
+
+---
+
+## **Resources and References**
+
+### **Official Documentation**
+
+- [Node.js HTTP Module](https://nodejs.org/api/http.html)
+- [Node.js fs Module](https://nodejs.org/api/fs.html)
+- [Node.js Streams](https://nodejs.org/api/stream.html)
+- [MDN HTTP Guide](https://developer.mozilla.org/en-US/docs/Web/HTTP)
+
+### **HTTP Status Codes**
+
+- **2xx Success**: 200 (OK), 201 (Created)
+- **4xx Client Error**: 400 (Bad Request), 404 (Not Found)
+- **5xx Server Error**: 500 (Internal Error), 503 (Service Unavailable)
+
+---
+
+## **Version Information**
+
+### **Current Version**
+
+- **Version**: 0.5.0
+- **Status**: Active Development
+- **Last Updated**: December 22, 2025
+
+### **Changelog**
+
+#### **v0.5.0 - December 22, 2025**
+
+**Added:**
+
+- ✨ Complete HTTP Module (`http/`)
+- HTTP server basics (`starter.js`)
+- Content-type rendering (`server.js`)
+- Routing implementation (`routing.js`)
+- File rendering with streams (`rendering.js`)
+- Sample HTML and CSS pages
+- HTTP server lifecycle documentation
+- Content-type reference table
+- Routing best practices
+- Stream piping examples
+
+**Enhanced:**
+
+- Better project organization
+- Complete HTTP server workflow
+- Real-world routing patterns
+- Stream-based file serving
+
+---
+
+## **Quick Reference**
+
+### **HTTP Server Quick Reference**
+
+```javascript
+const http = require("http");
+
+// Create server
+http
+  .createServer((req, res) => {
+    // Set status and content-type
+    res.writeHead(200, { "content-type": "text/html" });
+
+    // Send response
+    res.end("Hello World");
+  })
+  .listen(9000, () => {
+    console.log("Server running");
+  });
+```
+
+### **Routing Quick Reference**
+
+```javascript
+http
+  .createServer((req, res) => {
+    if (req.url === "/") {
+      // Home
+    } else if (req.url === "/api") {
+      // API
+    } else {
+      // 404
+      res.writeHead(404);
+      res.end("Not Found");
+    }
+  })
+  .listen(9000);
+```
+
+### **Stream Piping Quick Reference**
+
+```javascript
+// Pipe file to response
+fs.createReadStream("./file.html").pipe(res);
+
+// With error handling
+const stream = fs.createReadStream("./file.html");
+stream.on("error", (err) => {
+  res.writeHead(500);
+  res.end("Error");
+});
+stream.pipe(res);
+```
+
+---
+
 ## **Conclusion**
 
 This repository now includes:
 
-✅ **Buffer and Binary Data Handling**
-✅ **Complete File System Operations** (sync, callbacks, promises, async/await)
-✅ **Node.js Architecture** (libUV, event loop, thread pool)
-✅ **Concurrency and Parallelism**
-✅ **Module Systems** (CommonJS & ES Modules)
-✅ **Asynchronous Patterns** (callbacks, promises, async/await)
-✅ **Best Practices** for production code
-✅ **Detailed Code Examples** with explanations
+✅ **HTTP Server Development**
+
+- Server creation and lifecycle
+- Request-Response handling
+- Status codes and headers
+
+✅ **Routing**
+
+- Multiple endpoints
+- URL parsing
+- 404 error handling
+
+✅ **Content Rendering**
+
+- Plain text, HTML, CSS, JSON
+- Stream-based file serving
+- Efficient data transfer
+
+✅ **Buffer and Streams**
+
+- Binary data handling
+- Stream piping
+- Memory efficiency
+
+✅ **File System Operations**
+
+- Synchronous and asynchronous
+- Callbacks, Promises, Async/Await
+
+✅ **Module Systems**
+
+- CommonJS and ES Modules
+- Import/Export patterns
+
+✅ **Best Practices**
+
+- Production-ready patterns
+- Error handling
+- Performance optimization
 
 ---
 
-**Document Version**: 4.0  
-**Last Updated**: December 17, 2025  
-**Maintained By**: [utk-281](https://github.com/utk-281)
+**Document Version**: 5.0  
+**Last Updated**: December 22, 2025  
+**Maintained By**: [utk-281](https://github.com/utk-281)  
+**Contributors**: Open for contributions
 
 **Happy Learning! 🚀**
 
