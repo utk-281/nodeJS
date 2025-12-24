@@ -4,6 +4,7 @@
 // syntax --> import variable_name from "node:module_name"
 
 const fs = require("node:fs"); // name of the module
+const path2 = require("path");
 
 //!  ================================= using fs synchronously ================================
 
@@ -34,6 +35,8 @@ const fs = require("node:fs"); // name of the module
 
 // console.log("start");
 // console.log("middle");
+let filePath = path2.join(__dirname, "..", "..", "..", "..", "demo.js");
+console.log(filePath);
 
 let content = fs.readFileSync("../../../demo.js");
 console.log(content);
@@ -223,6 +226,7 @@ function createStructure() {
 
 // import fsP from "fs/promises";
 const fsP = require("node:fs/promises");
+const path = require("node:path");
 // const fsP = require("fs").promises
 
 //! 1) creating a file -->
