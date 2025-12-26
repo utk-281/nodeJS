@@ -30,7 +30,7 @@ console.log(path.basename);
 
 // console.log(path.join(__dirname, "..", "..", "..", "JavaScript", "index.html")) ;// this will not work, if we are using import/export ESM
 
-console.log(__dirname);
+// console.log(__dirname);
 
-console.log(import.meta.dirname);
-console.log(import.meta.filename);
+// console.log(import.meta.dirname);
+// console.log(import.meta.filename);

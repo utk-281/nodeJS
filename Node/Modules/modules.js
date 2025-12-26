@@ -7,7 +7,7 @@
 
 //& different format of modules used -->
 //~ 1> commonJS: require and exports (nodeJS by default uses commonJS syntax, unless specified in package.json file)
-//~ 2> ES-modules import and export
+//~ 2> ES-modules import and export (module wrapper function is not available here)
 
 //? export or module.exports --> we make the code available for other files
 //? import or require --> we use the code exported from other files

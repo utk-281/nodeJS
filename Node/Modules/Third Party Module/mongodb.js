@@ -70,4 +70,4 @@ async function connectDB() {
   // console.log(resp);
 }
 
-// connectDB();
+connectDB();
