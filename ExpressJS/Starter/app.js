@@ -6,8 +6,8 @@ import express from "express";
 //! 2) invoking or calling top level function
 let app = express();
 
-// app.HTTP_METHOD("/endpoint", (req, res) => {
-// res.send()
+// app.HTTP_METHOD("/endpoint", (req, res) => { cb, handler
+/////// res.send()
 // });
 
 //! ROUTING
@@ -23,7 +23,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/about", (req, res) => {
-  res.send("this is abut page");
+  //! html file
+  res.json("this is abut page");
 });
 
 //! 3) assign a port
