@@ -1,32 +1,21 @@
-import express from "express";
-import empDetails from "./db.js";
+import empDetails from "../db.js";
 
-const app = express();
-
-//TODO:middleware
-app.use(express.urlencoded({ extended: true })); // reading the data, which is coming from html form
-app.use(express.json());
-
-//! a simple route to display hello
-app.get("/", (req, res) => {
+export let displayHello = (req, res) => {
   res.status(200).json({
     success: true,
     message: "hello",
   });
-});
+};
 
-//! route to display all the data saved in database
-app.get("/users", (req, res) => {
+export let displayAllUSers = (req, res, next) => {
   res.status(200).json({
     success: true,
     message: "all users fetched",
     data: empDetails,
   });
-});
+};
 
-//~ every data that is written in frontend or postman, is stored in req.body
-//! route to post a user in database
-app.post("/register", (req, res) => {
+export let registerUser = (req, res) => {
   let newUser = req.body;
   console.log(newUser);
   empDetails.push(newUser);
@@ -36,10 +25,9 @@ app.post("/register", (req, res) => {
     message: "User registration successful",
     data: newUser,
   });
-});
+};
 
-//! route to display a single user details (dynamic routing)
-app.get("/one/:id", (req, res) => {
+export let displaySingleUser = (req, res) => {
   let userId = req.params.id;
 
   console.log(userId);
@@ -59,9 +47,9 @@ app.get("/one/:id", (req, res) => {
     message: "User details fetched successfully",
     data: user,
   });
-});
+};
 
-app.delete("/delete/:id", (req, res) => {
+export const deleteUser = (req, res) => {
   let userId = req.params.id;
 
   let idx = empDetails.findIndex((user) => user.id === parseInt(userId));
@@ -80,9 +68,9 @@ app.delete("/delete/:id", (req, res) => {
       message: "No user found",
     });
   }
-});
+};
 
-app.patch("/update/:id", (req, res) => {
+export const updateUser = (req, res) => {
   let newData = req.body;
   let userId = req.params.id;
 
@@ -96,15 +84,4 @@ app.patch("/update/:id", (req, res) => {
     message: "User updated",
     data: user,
   });
-});
-
-app.listen(9000, (err) => {
-  if (err) console.log(err);
-  console.log("Server running att port 90000");
-});
-
-//! steps to work in postman
-//~ 1) create a new workspace
-//~ 2) give a name and click on create
-
-// MVC => models ,views, controllers
+};
