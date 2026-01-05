@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 
 const app = express();
@@ -7,6 +8,8 @@ app.use((req, res, next) => {
   console.log("middleware 1 called");
   next();
 });
+
+app.use(cors());
 
 app.use((req, res, next) => {
   console.log("middleware 2");
@@ -39,6 +42,7 @@ app.listen(9000, (err) => {
 ///! types of middlewares
 //? 1) built-in middlewares
 //? 2) custom middlewares
-//? 3) global middlewares
+//? 3) global middlewares/ application
 //? 4) router middlewares
 //? 5) error middlewares
+//? 6) third-party middlewares

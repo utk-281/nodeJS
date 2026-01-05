@@ -1,0 +1,51 @@
+//! schema (structure) ==> mongoose (ODM = Object Data Modelling)
+//? it helps to add structure and validation to the MongoDB collections. (middleware, plugin, validations, etc..)
+
+//? ODM: Object Data Modelling --> it maps js objects to the MongoDB documents
+
+//! steps to create collection using mongoose:
+
+//~ 1) import mongoose
+//~ 2) create structure using the instance of Schema class
+//~ 3) create a model/collection using model() method
+//~ 4) export the model/collection
+
+import mongoose from "mongoose";
+
+let userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+    },
+    email: {
+      type: String,
+      unique: true,
+      required: true,
+      lowercase: true,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    age: {
+      type: Number,
+      required: true,
+    },
+    isMarried: {
+      type: Boolean,
+    },
+  },
+  {
+    versionKey: false, //! to remove __v field
+    timestamps: true, // it adds createdAt and updatedAt fields
+  }
+);
+
+let UserModel = mongoose.model("User", userSchema);
+//? model("collectionName", "schema") takes two argument, collection-name and schema, it will convert the schema into mongodb collection
+//~ the collection name will be (lowercase + plural) -> users
+
+export default UserModel;
+
+//! all the validations are happening at database level
