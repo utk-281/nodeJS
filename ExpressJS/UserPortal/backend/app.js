@@ -1,6 +1,7 @@
 import express from "express";
 import connectDB from "./config/database.config.js";
 
+import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 import userRoutes from "./routes/user.route.js";
 
 connectDB();
@@ -15,6 +16,9 @@ app.use(userRoutes);
 app.get("/", (req, res) => {
   res.send("working");
 });
+
+//! error middleware
+app.use(errorHandler);
 
 app.listen(9000, (err) => {
   if (err) console.log("error occurred while starting the server");
