@@ -1,8 +1,11 @@
 import mongoose from "mongoose";
+import { MONGODB_URL } from "./index.js";
 
 const connectDB = async function () {
-  await mongoose.connect("mongodb://localhost:27017/user-portal");
+  await mongoose.connect(MONGODB_URL);
+  // await mongoose.connect(process.env.MONGODB_URL);
   //   await mongoose.connect("mongodb://127.0.0.1:27017/user-portal");
+  //   await mongoose.connect("mongodb://username:password/user-portal");
   console.log("Database connected");
 };
 
