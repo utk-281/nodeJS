@@ -1,11 +1,10 @@
 import UserModel from "../models/user.model.js";
-import { userRegisterSchema } from "../validators/user.validator.js";
+import ErrorResponse from "../utils/ErrorResponse.util.js";
 
 export const register = async (req, res, next) => {
   try {
-    let resp = userRegisterSchema.validate(req.body, { abortEarly: false });
-    console.log(resp);
-    return res.status(200).json(resp);
+    // console.log(resp);
+    // return res.status(200).json(resp);
 
     const { name, age, email, isMarried, password } = req.body;
     let newUser = await UserModel.create({
@@ -30,12 +29,14 @@ export const getUsers = async (req, res, next) => {
     let allUsers = await UserModel.find();
 
     if (allUsers.length === 0) {
-      return res.status(404).json({
-        success: false,
-        message: "No users found",
-      });
-      // throw new Error("No users found!!!!");
+      // return res.status(404).json({
+      //   success: false,
+      //   message: "No users found",
+      // });
+      // throw new Error("No users found!!!!", 404);
       // new ErrorResponse("msg", 404)
+      throw new ErrorResponse("No users found", 404);
+      // {messahe: "No users found", statusCode: 404}
     }
 
     res.status(200).json({
@@ -111,3 +112,35 @@ export const deleteUser = async (req, res, next) => {
     data: deletedUser,
   });
 };
+
+// let error = {
+//   details: [
+//     {
+//       message: '"email" is required',
+//       path: ["email"],
+//       type: "any.required",
+//       context: {
+//         label: "email",
+//         key: "email",
+//       },
+//     },
+//     {
+//       message: '"password" is required',
+//       path: ["password"],
+//       type: "any.required",
+//       context: {
+//         label: "password",
+//         key: "password",
+//       },
+//     },
+//     {
+//       message: '"age" is required',
+//       path: ["age"],
+//       type: "any.required",
+//       context: {
+//         label: "age",
+//         key: "age",
+//       },
+//     },
+//   ],
+// };

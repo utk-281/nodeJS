@@ -12,16 +12,21 @@ import {
   register,
   updateUser,
 } from "../controllers/user.controller.js";
+import { validateBody } from "../middlewares/validate.middleware.js";
+import {
+  updatedUserSchema,
+  userRegisterSchema,
+} from "../validators/user.validator.js";
 
 const router = Router();
 
-router.post("/register", register);
+router.post("/register", validateBody(userRegisterSchema), register);
 
 router.get("/all", getUsers);
 
 router.get("/single/:id", getUser);
 
-router.patch("/update/:id", updateUser);
+router.patch("/update/:id", validateBody(updatedUserSchema), updateUser);
 
 router.delete("/delete/:id", deleteUser);
 
