@@ -1,28 +1,26 @@
+import asyncHandler from "express-async-handler";
+import jwt from "jsonwebtoken";
 import UserModel from "../models/user.model.js";
 import ErrorResponse from "../utils/ErrorResponse.util.js";
 
-export const register = async (req, res, next) => {
-  try {
-    // console.log(resp);
-    // return res.status(200).json(resp);
+export const register = asyncHandler(async (req, res, next) => {
+  // console.log(resp);
+  // return res.status(200).json(resp);
 
-    const { name, age, email, isMarried, password } = req.body;
-    let newUser = await UserModel.create({
-      name,
-      age,
-      email,
-      isMarried,
-      password,
-    });
-    res.status(201).json({
-      success: true,
-      message: "User registered successfully",
-      data: newUser,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
+  const { name, age, email, isMarried, password } = req.body;
+  let newUser = await UserModel.create({
+    name,
+    age,
+    email,
+    isMarried,
+    password,
+  });
+  res.status(201).json({
+    success: true,
+    message: "User registered successfully",
+    data: newUser,
+  });
+});
 
 export const getUsers = async (req, res, next) => {
   try {
@@ -33,10 +31,10 @@ export const getUsers = async (req, res, next) => {
       //   success: false,
       //   message: "No users found",
       // });
-      // throw new Error("No users found!!!!", 404);
+      // throw new Error("No users found!!!!");
       // new ErrorResponse("msg", 404)
       throw new ErrorResponse("No users found", 404);
-      // {messahe: "No users found", statusCode: 404}
+      // {message: "No users found", statusCode: 404}
     }
 
     res.status(200).json({
@@ -113,34 +111,24 @@ export const deleteUser = async (req, res, next) => {
   });
 };
 
-// let error = {
-//   details: [
-//     {
-//       message: '"email" is required',
-//       path: ["email"],
-//       type: "any.required",
-//       context: {
-//         label: "email",
-//         key: "email",
-//       },
-//     },
-//     {
-//       message: '"password" is required',
-//       path: ["password"],
-//       type: "any.required",
-//       context: {
-//         label: "password",
-//         key: "password",
-//       },
-//     },
-//     {
-//       message: '"age" is required',
-//       path: ["age"],
-//       type: "any.required",
-//       context: {
-//         label: "age",
-//         key: "age",
-//       },
-//     },
-//   ],
-// };
+export const login = asyncHandler(async (req, res, next) => {
+  const { email, password } = req.body;
+
+  let existingUser = await UserModel.findOne({ email });
+  if (!existingUser) throw new ErrorResponse("Invalid Credentials", 404);
+
+  if (password !== existingUser.password)
+    // throw new ErrorResponse("Invalid Credentials", 404);
+    next(new ErrorResponse("Invalid Credentials", 404));
+
+  let token = jwt.sign({ payKey: existingUser.name }, "secret");
+  console.log(token);
+
+  res.status(200).json({
+    success: true,
+    message: "User logged in",
+    token,
+  });
+
+  //? sign(payload, secret_key, options)
+});

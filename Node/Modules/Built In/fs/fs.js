@@ -1,4 +1,4 @@
-//! fs --> file system. this module is used to interact with files and folders present in the OS
+//! fs --> file system. this module is used to interact with files and folders present in the OS, setting up the access levels (r, w, normal user admin)
 //~ interaction means --> CRUD (create, read, update, delete)
 // syntax --> const variable_name = require("node:module_name")
 // syntax --> import variable_name from "node:module_name"
@@ -43,7 +43,7 @@ console.log(content);
 /* // <Buffer 6c 65 74 20 75 73 65 72 6e 61
 3d 20 ... 60 more bytes> */ // --> buffer is like an array which stores data in binary form
 
-// let readableContent = content.toString(); // default encoding value of toString() is utf-8 (unicode transformation format)
+// let readableContent = content.toString("utf-8"); // default encoding value of toString() is utf-8 (unicode transformation format)
 // console.log(readableContent);
 
 // let res = fs.readFileSync("../modules.js", "utf-8");

@@ -9,6 +9,7 @@ import {
   deleteUser,
   getUser,
   getUsers,
+  login,
   register,
   updateUser,
 } from "../controllers/user.controller.js";
@@ -29,5 +30,7 @@ router.get("/single/:id", getUser);
 router.patch("/update/:id", validateBody(updatedUserSchema), updateUser);
 
 router.delete("/delete/:id", deleteUser);
+
+router.post("/login", login);
 
 export default router;

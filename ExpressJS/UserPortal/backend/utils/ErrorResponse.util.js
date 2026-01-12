@@ -1,7 +1,8 @@
 class ErrorResponse extends Error {
   constructor(message, statusCode) {
-    super();
-    this.message = message;
+    super(message);
+    // in derived class constructor function, the first statement should be super()
+    // this.message = message;
     this.statusCode = statusCode;
   }
 }

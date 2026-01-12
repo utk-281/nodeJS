@@ -18,7 +18,7 @@ let server = createServer((req, res) => {
   //   res.end();
   //   res.write("response after end"); //? this will give an error
   //~ -------------------------------------------------------------------
-  //   res.writeHead(202, { "content-type": "text/plain" });
+  //   res.writeHead(202, "msg" ,{ "content-type": "text/plain" });
   //   res.end("hi");
   //   //   res.end("hello");
   //~ using writeHead(statusCode, {content-type}) we set the statusCode and content-type of the response
@@ -41,3 +41,6 @@ server.listen(9000, (err) => {
 //? in terminal --> press ctrl + c
 
 //! after every modification, we have to restart the server to see the changes
+
+// res.send() --> express (headers)
+// res.end() --> http (manually pass the headers)
