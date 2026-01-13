@@ -13,6 +13,7 @@ import {
   register,
   updateUser,
 } from "../controllers/user.controller.js";
+import { authenticate } from "../middlewares/auth.middleware.js";
 import { validateBody } from "../middlewares/validate.middleware.js";
 import {
   updatedUserSchema,
@@ -23,7 +24,7 @@ const router = Router();
 
 router.post("/register", validateBody(userRegisterSchema), register);
 
-router.get("/all", getUsers);
+router.get("/all", authenticate, getUsers);
 
 router.get("/single/:id", getUser);
 

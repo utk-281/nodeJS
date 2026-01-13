@@ -1,19 +1,24 @@
 import asyncHandler from "express-async-handler";
-import jwt from "jsonwebtoken";
 import UserModel from "../models/user.model.js";
 import ErrorResponse from "../utils/ErrorResponse.util.js";
+import { generateJwtToken } from "../utils/jwt.util.js";
 
 export const register = asyncHandler(async (req, res, next) => {
   // console.log(resp);
   // return res.status(200).json(resp);
 
   const { name, age, email, isMarried, password } = req.body;
+
+  // let salt = await bcryptjs.genSalt(10);
+  // let hashedPassword = await bcryptjs.hash(password, salt);
+  // //? this is a one way hashing
+
   let newUser = await UserModel.create({
     name,
     age,
     email,
     isMarried,
-    password,
+    password /* : hashedPassword, */,
   });
   res.status(201).json({
     success: true,
@@ -117,12 +122,18 @@ export const login = asyncHandler(async (req, res, next) => {
   let existingUser = await UserModel.findOne({ email });
   if (!existingUser) throw new ErrorResponse("Invalid Credentials", 404);
 
-  if (password !== existingUser.password)
-    // throw new ErrorResponse("Invalid Credentials", 404);
-    next(new ErrorResponse("Invalid Credentials", 404));
+  // let isMatched = await bcryptjs.compare(password, existingUser.password);
+  let isMatched = await existingUser.comparePassword(password);
+  if (!isMatched) return next(new ErrorResponse("Invalid credentials", 400));
 
-  let token = jwt.sign({ payKey: existingUser.name }, "secret");
-  console.log(token);
+  let token = generateJwtToken(existingUser.name);
+  console.log("token: ", token);
+
+  res.cookie("token", token, {
+    maxAge: 10 * 60 * 1000, // 10 mins (in ms) , this sets an expiry for the token on the browser
+    secure: true, // if set to true, this cannot be accessed in the browser (using js)
+  });
+  //? res.cookie("tokenName", "value", {options}); this will send cookies to the client's browser
 
   res.status(200).json({
     success: true,

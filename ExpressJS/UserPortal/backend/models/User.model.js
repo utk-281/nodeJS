@@ -10,6 +10,7 @@
 //~ 3) create a model/collection using model() method
 //~ 4) export the model/collection
 
+import bcryptjs from "bcryptjs";
 import mongoose from "mongoose";
 
 let userSchema = new mongoose.Schema(
@@ -41,6 +42,19 @@ let userSchema = new mongoose.Schema(
     timestamps: true, // it adds createdAt and updatedAt fields
   }
 );
+
+//! password hashing --> pre hook (default) before creating any new resource, run this pre hook middleware which is provided by mongoose
+userSchema.pre("save", async function () {
+  let salt = await bcryptjs.genSalt(10);
+  let hashedPassword = await bcryptjs.hash(this.password, salt);
+  this.password = hashedPassword;
+});
+
+// userSchema.methods.methodName = function(){}
+
+userSchema.methods.comparePassword = async function (enteredPassword) {
+  return bcryptjs.compare(enteredPassword, this.password);
+};
 
 let UserModel = mongoose.model("User", userSchema);
 //? model("collectionName", "schema") takes two argument, collection-name and schema, it will convert the schema into mongodb collection

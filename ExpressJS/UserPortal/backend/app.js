@@ -1,6 +1,8 @@
 // console.log(process.env); // it is an object
 
+import cookieParser from "cookie-parser";
 import express from "express";
+
 import connectDB from "./config/database.config.js";
 
 import { PORT } from "./config/index.js";
@@ -13,6 +15,9 @@ const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser());
+
+// npm i cookie-parser
 
 //! api versioning --> version
 app.use("/api/v1/users", userRoutes);
