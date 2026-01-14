@@ -30,7 +30,6 @@ export const register = asyncHandler(async (req, res, next) => {
 export const getUsers = async (req, res, next) => {
   try {
     let allUsers = await UserModel.find();
-
     if (allUsers.length === 0) {
       // return res.status(404).json({
       //   success: false,
@@ -143,3 +142,37 @@ export const login = asyncHandler(async (req, res, next) => {
 
   //? sign(payload, secret_key, options)
 });
+
+export const logout = asyncHandler(async (req, res, next) => {
+  res.clearCookie("token", {
+    /* TODO:  
+    ! will be using while deploying --> options
+    */
+  });
+
+  res.status(200).json({
+    success: true,
+    message: "User logged out",
+  });
+});
+
+export const getProfile = asyncHandler(async (req, res, next) => {
+  res.status(200).json({
+    success: true,
+    message: "Profile fetched successfully",
+    data: req.myUser,
+  });
+});
+
+export const updateProfile = asyncHandler(async (req, res, next) => {
+  // req.myUser
+});
+
+export const deleteProfile = asyncHandler(async (req, res, next) => {
+  // req.myUser
+});
+
+// u1
+// u2 -> logged in
+// u3
+// u4

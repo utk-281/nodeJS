@@ -6,7 +6,10 @@ import express from "express";
 import connectDB from "./config/database.config.js";
 
 import { PORT } from "./config/index.js";
+
 import { errorHandler } from "./middlewares/errorHandler.middleware.js";
+
+import blogRoutes from "./routes/blog.route.js";
 import userRoutes from "./routes/user.route.js";
 
 connectDB();
@@ -21,9 +24,10 @@ app.use(cookieParser());
 
 //! api versioning --> version
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/blogs", blogRoutes);
 
 app.get("/", (req, res) => {
-  console.log(req);
+  res.send("working");
 });
 
 //! error middleware

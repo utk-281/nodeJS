@@ -19,4 +19,9 @@ export const updatedUserSchema = Joi.object({
   isMarried: Joi.boolean().optional(),
 });
 
+export const loginUserSchema = Joi.object({
+  email: Joi.string().email().required(),
+  password: Joi.string().required().min(3).max(50),
+});
+
 //! compare this layout with req.body

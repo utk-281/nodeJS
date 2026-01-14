@@ -48,7 +48,7 @@ userSchema.pre("save", async function () {
   let salt = await bcryptjs.genSalt(10);
   let hashedPassword = await bcryptjs.hash(this.password, salt);
   this.password = hashedPassword;
-});
+}); //! save() will internally call this pre-hook
 
 // userSchema.methods.methodName = function(){}
 
