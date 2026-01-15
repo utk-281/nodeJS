@@ -30,3 +30,6 @@
 // console.log(buf1);
 // console.log(buf1.toJSON());
 // console.log(buf1.toString());
+
+let number = Math.floor(Math.random() * 10000000000 + 1).toFixed(0);
+console.log(Math.random() * 10000000000 + 1);
