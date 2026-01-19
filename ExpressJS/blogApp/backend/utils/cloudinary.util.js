@@ -6,7 +6,7 @@ export const uploadImage = async (filePath) => {
   let result = await v2.uploader.upload(filePath, {
     folder: "blogApp",
     resource_type: "image",
-    //TODO: transformation
+    // transformation: { width: 360, height: 360, crop: "limit" },
   });
   if (result) {
     fs.unlinkSync(filePath);

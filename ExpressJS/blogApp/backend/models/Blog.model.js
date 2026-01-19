@@ -5,7 +5,6 @@ const blogSchema = new mongoose.Schema(
     title: {
       type: String,
       required: true,
-      unique: true,
       trim: true,
     },
     description: {
@@ -15,7 +14,7 @@ const blogSchema = new mongoose.Schema(
     },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,
-      //   required: true,
+      required: true,
       ref: "User", //?lookup
     },
     image: {
@@ -54,7 +53,7 @@ const blogSchema = new mongoose.Schema(
       },
     ],
   },
-  { timestamps: true, versionKey: false }
+  { timestamps: true, versionKey: false },
 );
 
 const BlogModel = mongoose.model("Blog", blogSchema);

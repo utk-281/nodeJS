@@ -36,11 +36,24 @@ let userSchema = new mongoose.Schema(
     isMarried: {
       type: Boolean,
     },
+    totalBlogs: {
+      type: Number,
+      default: 0,
+    },
+    blogs: [
+      {
+        blogId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Blog",
+        },
+        _id: false,
+      },
+    ],
   },
   {
     versionKey: false, //! to remove __v field
     timestamps: true, // it adds createdAt and updatedAt fields
-  }
+  },
 );
 
 //! password hashing --> pre hook (default) before creating any new resource, run this pre hook middleware which is provided by mongoose
@@ -63,3 +76,13 @@ let UserModel = mongoose.model("User", userSchema);
 export default UserModel;
 
 //! all the validations are happening at database level
+
+let user = {
+  name: "",
+  email: "",
+  password: "",
+  age: 0,
+  isMarried: false,
+  totalBlogs: 2,
+  blogs: [{ blogId: "ref" }, { blogId: "ref2" }],
+};
