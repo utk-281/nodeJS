@@ -13,7 +13,6 @@ export const userRegisterSchema = Joi.object({
 
 export const updatedUserSchema = Joi.object({
   name: Joi.string().min(3).max(49).optional(),
-  email: Joi.string().email().optional(),
   password: Joi.string().optional().min(3).max(50),
   age: Joi.number().optional().min(1).max(90),
   isMarried: Joi.boolean().optional(),

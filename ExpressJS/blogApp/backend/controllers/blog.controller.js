@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler";
 import BlogModel from "../models/Blog.model.js";
 import UserModel from "../models/user.model.js";
-import { uploadImage } from "../utils/cloudinary.util.js";
+import { deleteImage, uploadImage } from "../utils/cloudinary.util.js";
 import ErrorResponse from "../utils/ErrorResponse.util.js";
 
 // export const addImage = asyncHandler(async (req, res, next) => {
@@ -12,9 +12,12 @@ export const addBlog = asyncHandler(async (req, res, next) => {
   const { title, description, category, tags } = req.body;
   const userId = req.myUser._id;
   let secure_url = "";
+  let public_id = "";
   if (req.file) {
     let resp = await uploadImage(req?.file?.path);
+    console.log("resp: ", resp);
     secure_url = resp?.secure_url;
+    public_id = resp?.public_id;
   }
 
   let newBlog = await BlogModel.create({
@@ -22,7 +25,7 @@ export const addBlog = asyncHandler(async (req, res, next) => {
     description,
     category,
     tags,
-    image: secure_url || "",
+    image: { secure_url, public_id },
     createdBy: userId,
   });
 
@@ -85,4 +88,67 @@ export const getBlogs = asyncHandler(async (req, res, next) => {
   });
 });
 
-export const getBlog = asyncHandler(async (req, res, next) => {});
+export const getBlog = asyncHandler(async (req, res, next) => {
+  const blogId = req.params.id;
+
+  const blog = await BlogModel.findById(blogId).populate({
+    path: "createdBy",
+    select: "email name -_id", //? "name -_id"
+  });
+  // const blog = await BlogModel.findById(blogId).populate("createdBy");
+
+  if (!blog) return next(new ErrorResponse("Blog not found", 404));
+
+  res.status(200).json({
+    success: true,
+    message: "Blog fetched successfully",
+    payload: blog,
+  });
+});
+
+export const updateBlogDetails = asyncHandler(async (req, res, next) => {
+  let userId = req.myUser._id;
+  let blogId = req.params.id;
+
+  let blog = await BlogModel.findOneAndUpdate(
+    { _id: blogId, createdBy: userId }, // filter
+    req.body, // updation value
+    {
+      new: true,
+      runValidators: true, // options
+    },
+  );
+
+  if (!blog) return next(new ErrorResponse("Blog not found", 404));
+
+  res.status(200).json({
+    success: true,
+    message: "Blog updated successfully",
+    payload: blog,
+  });
+});
+
+export const updateImage = asyncHandler(async (req, res, next) => {
+  let blogId = req.params.id;
+  let userId = req.myUser._id;
+
+  let blog = await BlogModel.findOne({ _id: blogId, createdBy: userId }); // filter
+
+  let oldPublicId = blog?.image?.public_id;
+
+  if (!blog) return next(new ErrorResponse("Blog not found", 404));
+
+  //! new image ---> upload
+  let path = req?.file?.path;
+  let { secure_url, public_id } = await uploadImage(path);
+
+  blog.image.secure_url = secure_url;
+  blog.image.public_id = public_id;
+
+  await blog.save();
+  console.log("after uploading");
+  let result = await deleteImage(oldPublicId);
+  console.log("result: ", result);
+
+  res.status(200).json({});
+});

@@ -13,7 +13,7 @@ export const errorHandler = (err, req, res, next) => {
     err.statusCode = 409;
     err.message = `${key} already exists`;
   } else if (err.name === "CastError") {
-    err.statusCode = 404;
+    err.statusCode = 400;
     err.message = `Invalid ${err.path}: ${err.value}`;
   } else if (err.name === "MulterError") {
     if (err.code === "LIMIT_UNEXPECTED_FILE") {

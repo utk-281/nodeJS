@@ -1,9 +1,18 @@
 import { Router } from "express";
-import { addBlog, getBlog, getBlogs } from "../controllers/blog.controller.js";
+import {
+  addBlog,
+  getBlog,
+  getBlogs,
+  updateBlogDetails,
+  updateImage,
+} from "../controllers/blog.controller.js";
 import { authenticate } from "../middlewares/auth.middleware.js";
 import upload from "../middlewares/multer.middleware.js";
 import { validateBody } from "../middlewares/validate.middleware.js";
-import { addBlogSchema } from "../validators/blog.validator.js";
+import {
+  addBlogSchema,
+  updateBlogSchema,
+} from "../validators/blog.validator.js";
 
 const router = Router();
 
@@ -15,6 +24,21 @@ router.post(
   addBlog,
 );
 router.get("/all", getBlogs);
+
+router.patch(
+  "/edit-blog/:id",
+  authenticate,
+  validateBody(updateBlogSchema),
+  updateBlogDetails,
+);
+
+router.patch(
+  "/edit-image/:id",
+  authenticate,
+  upload.single("image"),
+  updateImage,
+);
+
 router.get("/:id", getBlog);
 
 export default router;

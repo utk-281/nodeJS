@@ -18,7 +18,13 @@ const blogSchema = new mongoose.Schema(
       ref: "User", //?lookup
     },
     image: {
-      type: String,
+      secure_url: {
+        type: String,
+      },
+      public_id: {
+        type: String,
+      },
+      default: {},
     }, //? data buckets --> url(string) imageKit, aws, (cloudinary) req.file
     category: {
       type: String,
