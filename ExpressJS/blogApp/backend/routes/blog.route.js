@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   addBlog,
+  deleteBlogImage,
   getBlog,
   getBlogs,
   updateBlogDetails,
@@ -29,6 +30,7 @@ router.patch(
   "/edit-blog/:id",
   authenticate,
   validateBody(updateBlogSchema),
+  upload.none(),
   updateBlogDetails,
 );
 
@@ -38,6 +40,8 @@ router.patch(
   upload.single("image"),
   updateImage,
 );
+
+router.patch("/delete-image/:id", authenticate, deleteBlogImage);
 
 router.get("/:id", getBlog);
 

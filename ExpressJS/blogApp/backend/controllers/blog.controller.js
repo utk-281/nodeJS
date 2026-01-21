@@ -150,5 +150,35 @@ export const updateImage = asyncHandler(async (req, res, next) => {
   let result = await deleteImage(oldPublicId);
   console.log("result: ", result);
 
-  res.status(200).json({});
+  res.status(200).json({
+    success: true,
+    message: "Image updated Successfully",
+  });
 });
+
+export const deleteBlogImage = asyncHandler(async (req, res, next) => {
+  const blogId = req.params.id;
+  const userId = req.myUser._id;
+
+  let blog = await BlogModel.findOne({ _id: blogId, createdBy: userId });
+  if (!blog) return next(new ErrorResponse("Blog Not Found!!!", 404));
+
+  let imageId = blog.image.public_id;
+
+  let resp = await deleteImage(imageId);
+  if (resp.result == "ok") {
+    res.status(200).json({
+      success: true,
+      message: "Image deleted successfully",
+    });
+  } else {
+    res.status(200).json({
+      success: false,
+      message: "Image not deleted",
+    });
+  }
+});
+
+// https://github.com/Wolfgang281/TypeIT-BlogApp
+
+// https://excalidraw.com/#json=1cGWSYHIvaQP37vyUe1ym,GidcqZK0SYxklH-MZhU1mA

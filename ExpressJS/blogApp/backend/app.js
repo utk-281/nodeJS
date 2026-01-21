@@ -62,3 +62,5 @@ app.listen(PORT, (err) => {
 //? 1) stateless : the server does not store any data, each req is independent of each other
 //? 2) api's are resource based URL (/register, /all, /login)
 //? 3) api's are built using HTTP methods
+
+// https://excalidraw.com/#json=1cGWSYHIvaQP37vyUe1ym,GidcqZK0SYxklH-MZhU1mA
