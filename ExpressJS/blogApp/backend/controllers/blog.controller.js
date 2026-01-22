@@ -3,22 +3,40 @@ import BlogModel from "../models/Blog.model.js";
 import UserModel from "../models/user.model.js";
 import { deleteImage, uploadImage } from "../utils/cloudinary.util.js";
 import ErrorResponse from "../utils/ErrorResponse.util.js";
+import { generateBlogDescription } from "../utils/gemini.util.js";
 
 // export const addImage = asyncHandler(async (req, res, next) => {
 //   return { secure_url };
 // });
 
+const getDataURL = (bufferValue, mimetype) => {
+  const b64 = bufferValue.toString("base64");
+  return `data:${mimetype};base64,${b64}`;
+};
+
 export const addBlog = asyncHandler(async (req, res, next) => {
   const { title, description, category, tags } = req.body;
   const userId = req.myUser._id;
+
   let secure_url = "";
   let public_id = "";
+
   if (req.file) {
-    let resp = await uploadImage(req?.file?.path);
-    console.log("resp: ", resp);
-    secure_url = resp?.secure_url;
-    public_id = resp?.public_id;
+    let dataURL = getDataURL(req.file.buffer, req.file.mimetype);
+
+    let uploadedImage = await uploadImage(dataURL);
+    if (uploadedImage) {
+      secure_url = uploadedImage.secure_url;
+      public_id = uploadedImage.public_id;
+    }
   }
+
+  // if (req.file) {
+  //   let resp = await uploadImage(req?.file?.path);
+  //
+  //   secure_url = resp?.secure_url;
+  //   public_id = resp?.public_id;
+  // }
 
   let newBlog = await BlogModel.create({
     title,
@@ -43,7 +61,7 @@ export const addBlog = asyncHandler(async (req, res, next) => {
 
   //   let newBlog = new BlogModel({ title, description, category, tags });
   //   let savedBlog = await newBlog.save();
-  //   console.log("savedBlog: ", savedBlog);
+  //
 
   res.status(201).json({
     success: true,
@@ -133,22 +151,35 @@ export const updateImage = asyncHandler(async (req, res, next) => {
   let userId = req.myUser._id;
 
   let blog = await BlogModel.findOne({ _id: blogId, createdBy: userId }); // filter
+  if (!blog) return next(new ErrorResponse("Blog not found", 404));
 
   let oldPublicId = blog?.image?.public_id;
 
-  if (!blog) return next(new ErrorResponse("Blog not found", 404));
-
   //! new image ---> upload
-  let path = req?.file?.path;
-  let { secure_url, public_id } = await uploadImage(path);
+  // let path = req?.file?.path;
+  // let { secure_url, public_id } = await uploadImage(path);
+
+  let secure_url = "";
+  let public_id = "";
+
+  if (req.file) {
+    let dataURL = getDataURL(req.file.buffer, req.file.mimetype);
+
+    let uploadedImage = await uploadImage(dataURL);
+    if (uploadedImage) {
+      secure_url = uploadedImage.secure_url;
+      public_id = uploadedImage.public_id;
+    }
+  }
 
   blog.image.secure_url = secure_url;
   blog.image.public_id = public_id;
 
   await blog.save();
-  console.log("after uploading");
-  let result = await deleteImage(oldPublicId);
-  console.log("result: ", result);
+  console.log("blog: ", blog);
+
+  console.log("oldPublicId: ", oldPublicId);
+  await deleteImage(oldPublicId);
 
   res.status(200).json({
     success: true,
@@ -182,3 +213,18 @@ export const deleteBlogImage = asyncHandler(async (req, res, next) => {
 // https://github.com/Wolfgang281/TypeIT-BlogApp
 
 // https://excalidraw.com/#json=1cGWSYHIvaQP37vyUe1ym,GidcqZK0SYxklH-MZhU1mA
+
+//! google ai studio >> get an api key >> create api key >> create a variable in .env and paste the api key
+// ? then install npm install @google/genai
+
+export const generateDescription = asyncHandler(async (req, res, next) => {
+  const { title } = req.body;
+
+  const description = await generateBlogDescription(title);
+
+  res.json({
+    success: true,
+    message: "Description generated successfully",
+    description,
+  });
+});

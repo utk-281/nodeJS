@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   addBlog,
   deleteBlogImage,
+  generateDescription,
   getBlog,
   getBlogs,
   updateBlogDetails,
@@ -24,6 +25,9 @@ router.post(
   upload.single("image"),
   addBlog,
 );
+
+router.post("/generate-description", generateDescription);
+
 router.get("/all", getBlogs);
 
 router.patch(

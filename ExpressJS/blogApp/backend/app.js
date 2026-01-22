@@ -56,7 +56,7 @@ app.listen(PORT, (err) => {
 //? protocol://domainName:portNumber/apiVersion/endpoint
 
 //! API --> application programming interface.
-//? it is an interface that allows to software to communicate with each other.
+//? it is an interface that allows to software to communicate with each other.cd ba
 
 //~ RESTFUL Api's --> any api is an restful api if it follows rest architecture (REPRESENTATIONAL STATE TRANSFER)
 //? 1) stateless : the server does not store any data, each req is independent of each other
