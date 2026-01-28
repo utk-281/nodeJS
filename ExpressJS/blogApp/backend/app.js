@@ -1,20 +1,39 @@
 // console.log(process.env); // it is an object
 
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import express from "express";
 
 import connectDB from "./config/database.config.js";
+
+import { seedAdmin } from "./seed/admin.seed.js";
 
 import { PORT } from "./config/index.js";
 
 import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 
+import { authenticate, authorize } from "./middlewares/auth.middleware.js";
+import adminRoutes from "./routes/admin.route.js";
 import blogRoutes from "./routes/blog.route.js";
 import userRoutes from "./routes/user.route.js";
 
 connectDB();
 
 const app = express();
+
+//? data seeding
+if (process.argv[2] === "seedAdmin") {
+  seedAdmin();
+}
+
+app.use(
+  cors({
+    // origin: ["http://localhost:5173", "deployed-url-fe"],,
+    origin: "http://localhost:5173",
+    credentials: true, //? for cookies
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+  }),
+);
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -25,6 +44,7 @@ app.use(cookieParser());
 //! api versioning --> version
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/blogs", blogRoutes);
+app.use("/api/v1/admin", authenticate, authorize, adminRoutes);
 
 app.get("/", (req, res) => {
   res.send("working");
@@ -64,3 +84,7 @@ app.listen(PORT, (err) => {
 //? 3) api's are built using HTTP methods
 
 // https://excalidraw.com/#json=1cGWSYHIvaQP37vyUe1ym,GidcqZK0SYxklH-MZhU1mA
+
+//! steps to deploy on render
+//? log in to render.com using github
+//? create a project >> web service (backend) and static site (frontend)

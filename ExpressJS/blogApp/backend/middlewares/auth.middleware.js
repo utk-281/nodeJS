@@ -19,3 +19,8 @@ export const authenticate = async (req, res, next) => {
 };
 
 //! encryption, encoding, signing(data integrity)
+
+export const authorize = async (req, res, next) => {
+  if (req.myUser.role === "admin") next();
+  else return next(new ErrorResponse("Unauthorized", 403));
+}; //? forbidden;

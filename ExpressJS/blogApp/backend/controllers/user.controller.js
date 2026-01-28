@@ -27,36 +27,14 @@ export const register = asyncHandler(async (req, res, next) => {
   });
 });
 
-export const getUsers = async (req, res, next) => {
-  try {
-    let allUsers = await UserModel.find();
-    if (allUsers.length === 0) {
-      // return res.status(404).json({
-      //   success: false,
-      //   message: "No users found",
-      // });
-      // throw new Error("No users found!!!!");
-      // new ErrorResponse("msg", 404)
-      throw new ErrorResponse("No users found", 404);
-      // {message: "No users found", statusCode: 404}
-    }
-
-    res.status(200).json({
-      success: true,
-      message: "Users fetched successfully",
-      count: allUsers.length,
-      data: allUsers,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
 export const getUser = async (req, res, next) => {
   try {
     let userId = req.params.id;
     // let user = await UserModel.findOne({ _id: userId });
-    let user = await UserModel.findById(userId);
+    let user = await UserModel.findById(userId).populate({
+      path: "blogs.blogId",
+      select: "title description createdAt -_id",
+    });
 
     if (!user)
       return res.status(404).json({
@@ -64,55 +42,22 @@ export const getUser = async (req, res, next) => {
         message: "User not found",
       });
 
+    // let formattedResp = user.blogs.map((blog) => {
+    //   return {
+    //     title: blog.blogId.title,
+    //     description: blog.blogId.description,
+    //     createdAt: blog.blogId.createdAt,
+    //   };
+    // });
+
     res.status(200).json({
       success: true,
       message: "User fetched successfully",
-      data: user,
+      payload: user,
     });
   } catch (error) {
     next(error);
   }
-};
-
-export const updateUser = async (req, res, next) => {
-  try {
-    let userId = req.params.id;
-    let updatedUser = await UserModel.findByIdAndUpdate(userId, req.body, {
-      new: true, // display the updated document
-      runValidators: true, // to validate the updated data
-    });
-
-    if (!updatedUser)
-      return res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
-
-    res.status(200).json({
-      success: true,
-      message: "User updated successfully",
-      data: updatedUser,
-    });
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const deleteUser = async (req, res, next) => {
-  let userId = req.params.id;
-  let deletedUser = await UserModel.findByIdAndDelete(userId);
-
-  if (!deletedUser)
-    return res.status(404).json({
-      success: false,
-      message: "No user found",
-    });
-
-  res.status(200).json({
-    success: true,
-    message: "User deleted successfully",
-    data: deletedUser,
-  });
 };
 
 export const login = asyncHandler(async (req, res, next) => {
@@ -131,6 +76,9 @@ export const login = asyncHandler(async (req, res, next) => {
   res.cookie("token", token, {
     maxAge: 10 * 60 * 1000, // 10 mins (in ms) , this sets an expiry for the token on the browser
     secure: true, // if set to true, this cannot be accessed in the browser (using js)
+    httpOnly: true,
+    sameSite: "none",
+    path: "/",
   });
   //? res.cookie("tokenName", "value", {options}); this will send cookies to the client's browser
 
@@ -145,9 +93,10 @@ export const login = asyncHandler(async (req, res, next) => {
 
 export const logout = asyncHandler(async (req, res, next) => {
   res.clearCookie("token", {
-    /* TODO:  
-    ! will be using while deploying --> options
-    */
+    maxAge: 1,
+    httpOnly: true,
+    sameSite: "none",
+    path: "/",
   });
 
   res.status(200).json({
@@ -172,7 +121,8 @@ export const deleteProfile = asyncHandler(async (req, res, next) => {
   // req.myUser
 });
 
-// u1
-// u2 -> logged in
-// u3
-// u4
+//! http://localhost:9000
+//! http://localhost:5173
+
+// /api.av1/usrs/get
+// /api.av1/blogs/get

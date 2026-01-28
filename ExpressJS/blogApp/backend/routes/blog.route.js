@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   addBlog,
+  deleteBlog,
   deleteBlogImage,
   generateDescription,
   getBlog,
@@ -13,6 +14,7 @@ import upload from "../middlewares/multer.middleware.js";
 import { validateBody } from "../middlewares/validate.middleware.js";
 import {
   addBlogSchema,
+  generateDescriptionSchema,
   updateBlogSchema,
 } from "../validators/blog.validator.js";
 
@@ -26,9 +28,15 @@ router.post(
   addBlog,
 );
 
-router.post("/generate-description", generateDescription);
+router.post(
+  "/generate-description",
+  authenticate,
+  validateBody(generateDescriptionSchema),
+  generateDescription,
+);
 
 router.get("/all", getBlogs);
+router.get("/:id", getBlog);
 
 router.patch(
   "/edit-blog/:id",
@@ -47,6 +55,6 @@ router.patch(
 
 router.patch("/delete-image/:id", authenticate, deleteBlogImage);
 
-router.get("/:id", getBlog);
+router.delete("/delete-blog/:id", authenticate, deleteBlog);
 
 export default router;

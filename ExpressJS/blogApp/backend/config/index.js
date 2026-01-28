@@ -12,3 +12,7 @@ export const CLOUDINARY_API_KEY = process.env.CLOUDINARY_API_KEY;
 export const CLOUDINARY_API_SECRET = process.env.CLOUDINARY_API_SECRET;
 
 export const GEMINI_API_KEY = process.env.GEMINI_API_KEY;
+
+export const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+export const ADMIN_NAME = process.env.ADMIN_NAME;

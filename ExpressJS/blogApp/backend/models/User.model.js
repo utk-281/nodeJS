@@ -49,6 +49,11 @@ let userSchema = new mongoose.Schema(
         _id: false,
       },
     ],
+    role: {
+      type: String,
+      default: "user",
+      required: true,
+    },
   },
   {
     versionKey: false, //! to remove __v field

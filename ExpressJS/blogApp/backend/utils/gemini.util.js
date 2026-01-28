@@ -11,13 +11,7 @@ export const generateBlogDescription = expressAsyncHandler(
           text: inputTitle,
         },
       ],
-      // config: {
-      //   maxOutputTokens: 200,
-      //   temperature: 0.8,
-      // },
     });
-
-    console.log("response: ", response);
     return response;
   },
 );

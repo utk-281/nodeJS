@@ -23,6 +23,9 @@ export const errorHandler = (err, req, res, next) => {
       err.statusCode = 400;
       err.message = "File size should be less than 1MB";
     }
+  } else if (err.name === "JsonWebTokenError") {
+    err.statusCode = 401;
+    err.message = "Invalid token, Please login again!";
   }
 
   res.status(err.statusCode).json({
@@ -39,27 +42,3 @@ export const errorHandler = (err, req, res, next) => {
 
 //? use trycatch block to handle errors, in catch block, call next(error)
 //? next(error) ==> this will call the errorHandler middleware by passing the error object to the middleware where we can handle the error gracefully
-
-let errObject = {
-  errorResponse: {
-    index: 0,
-    code: 11000,
-    errmsg:
-      'E11000 duplicate key error collection: user-portal.blogs index: title_1 dup key: { title: "1982u9038u1aefad123124" }',
-    keyPattern: {
-      title: 1,
-    },
-    keyValue: {
-      title: "1982u9038u1aefad123124",
-    },
-  },
-  index: 0,
-  code: 11000,
-  keyPattern: {
-    title: 1,
-  },
-  keyValue: {
-    title: "1982u9038u1aefad123124",
-  },
-  statusCode: 409,
-};

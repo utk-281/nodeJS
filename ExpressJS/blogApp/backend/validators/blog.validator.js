@@ -40,3 +40,7 @@ export const updateBlogSchema = Joi.object({
     }),
   tags: Joi.string().optional(),
 }).min(1);
+
+export const generateDescriptionSchema = Joi.object({
+  title: Joi.string().required().trim(),
+});

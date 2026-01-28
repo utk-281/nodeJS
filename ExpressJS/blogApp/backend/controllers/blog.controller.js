@@ -14,36 +14,30 @@ const getDataURL = (bufferValue, mimetype) => {
   return `data:${mimetype};base64,${b64}`;
 };
 
-export const addBlog = asyncHandler(async (req, res, next) => {
+export const addBlog = asyncHandler(async (req, res) => {
   const { title, description, category, tags } = req.body;
   const userId = req.myUser._id;
 
-  let secure_url = "";
-  let public_id = "";
+  let image = { secure_url: "", public_id: "" };
 
   if (req.file) {
-    let dataURL = getDataURL(req.file.buffer, req.file.mimetype);
+    const dataURL = getDataURL(req.file.buffer, req.file.mimetype);
+    const uploadedImage = await uploadImage(dataURL);
 
-    let uploadedImage = await uploadImage(dataURL);
     if (uploadedImage) {
-      secure_url = uploadedImage.secure_url;
-      public_id = uploadedImage.public_id;
+      image = {
+        secure_url: uploadedImage.secure_url,
+        public_id: uploadedImage.public_id,
+      };
     }
   }
 
-  // if (req.file) {
-  //   let resp = await uploadImage(req?.file?.path);
-  //
-  //   secure_url = resp?.secure_url;
-  //   public_id = resp?.public_id;
-  // }
-
-  let newBlog = await BlogModel.create({
+  const newBlog = await BlogModel.create({
     title,
     description,
     category,
     tags,
-    image: { secure_url, public_id },
+    image,
     createdBy: userId,
   });
 
@@ -51,17 +45,9 @@ export const addBlog = asyncHandler(async (req, res, next) => {
     { _id: userId },
     {
       $inc: { totalBlogs: 1 },
+      $push: { blogs: { blogId: newBlog._id } },
     },
   );
-
-  await UserModel.updateOne(
-    { _id: userId },
-    { $push: { blogs: { blogId: newBlog._id } } },
-  );
-
-  //   let newBlog = new BlogModel({ title, description, category, tags });
-  //   let savedBlog = await newBlog.save();
-  //
 
   res.status(201).json({
     success: true,
@@ -210,21 +196,53 @@ export const deleteBlogImage = asyncHandler(async (req, res, next) => {
   }
 });
 
+export const generateDescription = asyncHandler(async (req, res, next) => {
+  const { title } = req.body;
+
+  const description = await generateBlogDescription(title);
+  console.log("description: ", description);
+
+  let contents = description.candidates[0].content.parts[0].text;
+
+  res.json({
+    success: true,
+    message: "Description generated successfully",
+    contents,
+  });
+});
+
+export const deleteBlog = asyncHandler(async (req, res, next) => {
+  const userId = req.myUser._id;
+  const blogId = req.params.id;
+
+  const blog = await BlogModel.findOneAndDelete({
+    _id: blogId,
+    createdBy: userId,
+  });
+
+  if (!blog) return next(new ErrorResponse("Blog not found", 404));
+
+  await UserModel.updateOne(
+    { _id: userId },
+    {
+      $inc: { totalBlogs: -1 },
+      $pull: { blogs: { blogId } },
+    },
+  );
+
+  if (blog?.image?.public_id) {
+    await deleteImage(blog.image.public_id);
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Blog deleted successfully",
+  });
+});
+
 // https://github.com/Wolfgang281/TypeIT-BlogApp
 
 // https://excalidraw.com/#json=1cGWSYHIvaQP37vyUe1ym,GidcqZK0SYxklH-MZhU1mA
 
 //! google ai studio >> get an api key >> create api key >> create a variable in .env and paste the api key
 // ? then install npm install @google/genai
-
-export const generateDescription = asyncHandler(async (req, res, next) => {
-  const { title } = req.body;
-
-  const description = await generateBlogDescription(title);
-
-  res.json({
-    success: true,
-    message: "Description generated successfully",
-    description,
-  });
-});
