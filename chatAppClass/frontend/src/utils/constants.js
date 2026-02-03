@@ -4,4 +4,6 @@ export const BACKEND_URL =
 export const AUTH_ROUTES = {
   REGISTER: `${BACKEND_URL}/auth/register`,
   LOGIN: `${BACKEND_URL}/auth/login`,
+  LOGOUT: `${BACKEND_URL}/auth/logout`,
+  CURRENT_USER: `${BACKEND_URL}/auth/get-current`,
 };
