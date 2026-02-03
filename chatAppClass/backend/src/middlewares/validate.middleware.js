@@ -4,8 +4,9 @@ export const validateBody = (schema) => {
   return (req, res, next) => {
     let { error, value } = schema.validate(req.body, { abortEarly: false });
     if (error) {
-      let errorsMessage = error.details.map((detail) => detail.message);
-      return next(new ErrorResponse(errorsMessage, 400));
+      let errorMessages = error.details.map((detail) => detail.message);
+      console.log("errorsMessage: ", errorMessages.join(", "));
+      return next(new ErrorResponse(errorMessages.join(", "), 400));
     }
 
     req.body = value;
